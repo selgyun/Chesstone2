@@ -16,7 +16,7 @@ public class MouseEventHandler implements MouseListener {
 		this.board = board;
 		this.gFrame = gameFrame;
 	}
-
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		JPanel curSquare = (JPanel) e.getSource();
