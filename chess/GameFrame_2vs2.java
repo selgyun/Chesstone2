@@ -36,6 +36,15 @@ public class GameFrame_2vs2 {
 				square[i][j] = new JPanel();
 				square[i][j].putClientProperty("column", i);
 				square[i][j].putClientProperty("row", j);
+
+				if ((0 <= i && i < 3) && (0 <= j && j < 3) || (11 <= i && i < 14) && (0 <= j && j < 3)) {
+					square[i][j].setBackground(Color.GRAY);
+				}
+
+				if ((0 <= i && i < 3) && (11 <= j && j < 14) || (11 <= i && i < 14) && (11 <= j && j < 14)) {
+					square[i][j].setBackground(Color.GRAY);
+				}
+
 				if (painter) {
 					square[i][j].setBackground(Color.ORANGE);
 					painter = false;
