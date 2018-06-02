@@ -4,10 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import pieces.Position;
 
 public class GameFrame_1vs1 {
 	/**
@@ -34,6 +36,7 @@ public class GameFrame_1vs1 {
 
 		board = new Board_1();
 
+		//drawBoard();
 		boolean painter = false;
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
@@ -52,7 +55,7 @@ public class GameFrame_1vs1 {
 			}
 			painter = painter ? false : true;
 		}
-
+		
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				try {
@@ -69,7 +72,42 @@ public class GameFrame_1vs1 {
 		gameFrame.add(chessBoard, BorderLayout.CENTER);
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameFrame.setVisible(true);
-
 	}
 
+	public void Change()
+    {
+        boolean painter = false;
+        chessBoard.removeAll();
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                square[i][j] = new JPanel();
+                if (painter) {
+                    square[i][j].setBackground(Color.ORANGE);
+                    painter = false;
+                } else {
+                    square[i][j].setBackground(Color.YELLOW);
+                    painter = true;
+                }
+                chessBoard.add(square[i][j]);
+            }
+
+            painter = painter ? false : true;
+        }
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if(board.getPiece(i, j) != null)
+                {
+                    System.out.println(i +" " +j);
+                    imgPan[i][j] = new ImagePanel();
+                    imgPan[i][j].setImage(board.getPiece(i, j).getImg());
+                    imgPan[i][j].setPreferredSize(new Dimension(80, 80));
+                    square[i][j].add(imgPan[i][j]);
+                }
+            }
+        }
+
+        gameFrame.setVisible(false);
+        gameFrame.setVisible(true);
+    }
 }

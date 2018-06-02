@@ -16,11 +16,11 @@ public class MouseEventHandler implements MouseListener {
 		this.board = board;
 		this.gFrame = gameFrame;
 	}
-	
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		JPanel curSquare = (JPanel) e.getSource();
-		ArrayList<Position> moveable;
+		ArrayList<Position> moveable; 
 		int curX = (int) curSquare.getClientProperty("column");
 		int curY = (int) curSquare.getClientProperty("row");
 		Position curPos = new Position(curX, curY);
@@ -36,9 +36,10 @@ public class MouseEventHandler implements MouseListener {
 		} else {
 			board.curPiece.getMovement(board, board.curPiecePos);
 			moveable = board.curPiece.getMovement(board, board.curPiecePos);
-			System.out.println(moveable);
+			System.out.println(moveable.contains(curPos));
 			if (moveable.contains(curPos)) {
 				board.Move(board.curPiecePos, curPos);
+				gFrame.Change();
 				System.out.println("Moved");
 			} else {
 				board.curPiece = null;
