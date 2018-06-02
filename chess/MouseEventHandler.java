@@ -10,32 +10,41 @@ import pieces.Position;
 
 public class MouseEventHandler implements MouseListener {
 	Board_1 board;
-	GameFrame_1vs1 gameFrame1;
+	GameFrame_1vs1 gFrame;
 
 	public MouseEventHandler(Board_1 board, GameFrame_1vs1 gameFrame) {
 		this.board = board;
-		this.gameFrame1 = gameFrame;
+		this.gFrame = gameFrame;
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		JPanel curSquare = (JPanel) e.getSource();
-		int curY = (int) curSquare.getClientProperty("column");
-		int curX = (int) curSquare.getClientProperty("row");
+		ArrayList<Position> moveable;
+		int curX = (int) curSquare.getClientProperty("column");
+		int curY = (int) curSquare.getClientProperty("row");
 		Position curPos = new Position(curX, curY);
-		System.out.println(curX+" "+curY+"Clicked");
+		System.out.println(curX + " " + curY);
 		if (board.curPiece == null) {
-			if (board.getPiece(curX, curY).getColor() == board.turn) {
-				board.curPiece = board.getPiece(curX, curY);
-				board.curPiecePos = curPos;
+			if (board.getPiece(curX, curY) != null) {
+				if (board.getPiece(curX, curY).getColor() == board.turn) {
+					board.curPiece = board.getPiece(curX, curY);
+					board.curPiecePos = curPos;
+					System.out.println("Selected");
+				}
 			}
 		} else {
-			ArrayList<Position> moveable = board.getPiece(curX, curY).getMovement(board, board.curPiecePos);
+			board.curPiece.getMovement(board, board.curPiecePos);
+			moveable = board.curPiece.getMovement(board, board.curPiecePos);
+			System.out.println(moveable);
 			if (moveable.contains(curPos)) {
 				board.Move(board.curPiecePos, curPos);
+				System.out.println("Moved");
 			} else {
 				board.curPiece = null;
+				System.out.println("Canceled");
 			}
+
 		}
 	}
 
