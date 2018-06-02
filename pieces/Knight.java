@@ -12,8 +12,13 @@ public class Knight extends Piece{
 		color = col;
 		name = KNIGHT;
 		
-		if(color == BLACK || color == WHITE) 	team = 1;
-		else 									team = 2;
+		if(players == 1) team = color;
+		
+		else {
+			if(color == BLACK || color == WHITE) 	team = 1;
+			else 									team = 2;
+		}
+		
 		switch(color)
 		{
 		case(BLACK):
@@ -35,21 +40,19 @@ public class Knight extends Piece{
 		int x = now.getX();
 		int y = now.getY();
 		
-		//different in 4 people
-		final int MAX = 8;
-		
 		ArrayList<Position> go = new ArrayList<Position>();
 		
 		go.add(new Position(x + 1, y + 2));
 		go.add(new Position(x + 1, y - 2));
 		go.add(new Position(x - 1, y + 2));
 		go.add(new Position(x - 1, y - 2));
-		go.add(new Position(x + 1, y + 2));
 		
 		go.add(new Position(x + 2, y + 1));
 		go.add(new Position(x + 2, y - 1));
 		go.add(new Position(x - 2, y + 1));
 		go.add(new Position(x - 2, y - 1));
+		
+	
 		
 		for(int i = 0; i < go.size(); i++)
 		{
@@ -57,15 +60,20 @@ public class Knight extends Piece{
 			goX = go.get(i).getX();
 			goY = go.get(i).getY();
 			
-			if(goX < 0 || goX >= MAX || goY < 0 || goY >= MAX)
+			if(!Position.inRange(goX, goY))
+			{
 				go.remove(i);
+				i--;
+				continue;
+			}
 			
 			if(board_1.getPiece(goX, goY).team == this.team)
+			{
 				go.remove(i);
+				i--;
+			}
 		}
-				
+		
 		return go;
 	}
-
-
 }

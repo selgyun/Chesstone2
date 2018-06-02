@@ -12,8 +12,12 @@ public class Queen extends Piece {
 		color = col;
 		name = QUEEN;
 
-		if (color == BLACK || color == WHITE)	team = 1;
-		else									team = 2;
+		if(players == 1) team = color;
+		
+		else {
+			if(color == BLACK || color == WHITE) 	team = 1;
+			else 									team = 2;
+		}
 
 		switch (color) {
 		case (BLACK):
@@ -34,120 +38,134 @@ public class Queen extends Piece {
 	public ArrayList<Position> getMovement(Board_1 board_1, Position now) {
 		int x = now.getX();
 		int y = now.getY();
-
-		// different in 4 people
-		final int MAX = 8;
-
+		
 		ArrayList<Position> go = new ArrayList<Position>();
 
-		for (int i = 1; x + i < MAX; i++) {
-			int goX = x + i;
+		for(int i = 1; Position.inRange(x + i, 1); i++)
+		{
+			int goX = x + i;		
 			int goY = y;
-
-			if (board_1.getPiece(goX, goY) == null)
+			
+			if(board_1.getPiece(goX, goY).name == 0)
 				go.add(new Position(goX, goY));
-
-			else {
-				if (board_1.getPiece(goX, goY).team != team)
+			
+			else
+			{
+				if(board_1.getPiece(goX, goY).team != team)
 					go.add(new Position(goX, goY));
 				break;
 			}
 		}
-
-		for (int i = 1; x - i >= 0; i++) {
-			int goX = x - i;
+		
+		for(int i = 1; Position.inRange(x - i, 1); i++)
+		{
+			int goX = x - i;		
 			int goY = y;
-
-			if (board_1.getPiece(goX, goY) == null)
+			
+			if(board_1.getPiece(goX, goY).name == 0)
 				go.add(new Position(goX, goY));
-
-			else {
-				if (board_1.getPiece(goX, goY).team != team)
-					go.add(new Position(goX, goY));
+			
+			else
+			{
+				if(board_1.getPiece(goX, goY).team != team)
+					go.add(new Position(goX, goY));			
 				break;
 			}
 		}
-
-		for (int i = 1; y + i < MAX; i++) {
-			int goX = x;
+		
+		for(int i = 1; Position.inRange(1, y + i); i++)
+		{
+			int goX = x;		
 			int goY = y + i;
-
-			if (board_1.getPiece(goX, goY) == null)
+			
+			if(board_1.getPiece(goX, goY).name == 0)
 				go.add(new Position(goX, goY));
-
-			else {
-				if (board_1.getPiece(goX, goY).team != team)
-					go.add(new Position(goX, goY));
+			
+			else
+			{
+				if(board_1.getPiece(goX, goY).team != team)
+					go.add(new Position(goX, goY));			
 				break;
 			}
 		}
-
-		for (int i = 1; y - i >= 0; i++) {
-			int goX = x;
+		
+		for(int i = 1; Position.inRange(1, y - i); i++)
+		{
+			int goX = x;		
 			int goY = y - i;
-
-			if (board_1.getPiece(goX, goY) == null)
+			
+			
+			if(board_1.getPiece(goX, goY).name == 0)
 				go.add(new Position(goX, goY));
-
-			else {
-				if (board_1.getPiece(goX, goY).team != team)
-					go.add(new Position(goX, goY));
+			
+			else
+			{
+				if(board_1.getPiece(goX, goY).team != team)
+					go.add(new Position(goX, goY));			
 				break;
 			}
 		}
-
-		for (int i = 1, j = 1; i < MAX && j < MAX; i++, j++) {
+		
+		for(int i = 1, j = 1; Position.inRange(x + i, y + j); i++, j++)
+		{
 			int goX = x + i;
 			int goY = y + j;
-
-			if (board_1.getPiece(goX, goY) == null)
+			
+			if(board_1.getPiece(goX, goY).name == 0)
 				go.add(new Position(goX, goY));
-
-			else {
-				if (board_1.getPiece(goX, goY).team != team)
-					go.add(new Position(goX, goY));
+			
+			else
+			{
+				if(board_1.getPiece(goX, goY).team != team)
+					go.add(new Position(goX, goY));			
 				break;
 			}
 		}
-
-		for (int i = 1, j = 1; i < MAX && j >= 0; i++, j--) {
+		
+		for(int i = 1, j = -1; Position.inRange(x + i, y + j); i++, j--)
+		{
 			int goX = x + i;
-			int goY = y - j;
-
-			if (board_1.getPiece(goX, goY) == null)
-				go.add(new Position(goX, goY));
-
-			else {
-				if (board_1.getPiece(goX, goY).team != team)
-					go.add(new Position(goX, goY));
-				break;
-			}
-		}
-
-		for (int i = 1, j = 1; i >= 0 && j < MAX; i--, j++) {
-			int goX = x - i;
 			int goY = y + j;
-
-			if (board_1.getPiece(goX, goY) == null)
+			
+			if(board_1.getPiece(goX, goY).name == 0)
 				go.add(new Position(goX, goY));
-
-			else {
-				if (board_1.getPiece(goX, goY).team != team)
-					go.add(new Position(goX, goY));
+			
+			else
+			{
+				if(board_1.getPiece(goX, goY).team != team)
+					go.add(new Position(goX, goY));			
 				break;
 			}
 		}
-
-		for (int i = 1, j = 1; i >= 0 && j >= 0; i--, j--) {
-			int goX = x - i;
-			int goY = y - j;
-
-			if (board_1.getPiece(goX, goY) == null)
+		
+		for(int i = -1, j = 1; Position.inRange(x + i, y + j); i--, j++)
+		{
+			int goX = x + i;
+			int goY = y + j;
+			
+			if(board_1.getPiece(goX, goY).name == 0)
 				go.add(new Position(goX, goY));
-
-			else {
-				if (board_1.getPiece(goX, goY).team != team)
-					go.add(new Position(goX, goY));
+			
+			else
+			{
+				if(board_1.getPiece(goX, goY).team != team)
+					go.add(new Position(goX, goY));			
+				break;
+			}
+		}
+		
+		for(int i = -1, j = -1; Position.inRange(x + i, y + j); i--, j--)
+		{
+			int goX = x + i;
+			int goY = y + j;
+			
+			if(board_1.getPiece(goX, goY).name == 0)
+				go.add(new Position(goX, goY));
+			
+			else
+			{
+				if(board_1.getPiece(goX, goY).team != team)
+					go.add(new Position(goX, goY));			
 				break;
 			}
 		}

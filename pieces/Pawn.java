@@ -14,8 +14,13 @@ public class Pawn extends Piece{
 		name = PAWN;
 		isMoved = false;
 		
-		if(color == BLACK || color == WHITE) 	team = 1;
-		else 									team = 2;
+		if(players == 1) team = color;
+		
+		else {
+			if(color == BLACK || color == WHITE) 	team = 1;
+			else 									team = 2;
+		}
+		
 		switch(color)
 		{
 		case(BLACK):
@@ -42,44 +47,47 @@ public class Pawn extends Piece{
 		int y = now.getY();
 		int dir = 0;
 		
-		//different in 4 people
-		final int MAX = 8;
-		
-		if(color == BLACK)      dir = -1;
-		else if(color == WHITE) dir = +1;
+		if(color == BLACK)      dir = +1;
+		else if(color == WHITE) dir = -1;
 		
 		ArrayList<Position> go = new ArrayList<Position>();
 		
-		if(board_1.getPiece(x + dir, y + 1)!= null)	
-			go.add(new Position(x + 1, y + dir));
-		
-		if(board_1.getPiece(x + dir, y - 1) != null)
-			go.add(new Position(x - 1, y + dir));
+		if (Position.inRange(x + dir, y + 1) && board_1.getPiece(x + dir, y + 1).name != 0) {
+			if (board_1.getPiece(x + dir, y + 1).team != this.team)
+				go.add(new Position(x + dir, y + 1));
+		}
+
+		if (Position.inRange(x + dir, y - 1) && board_1.getPiece(x + dir, y - 1).name != 0) {
+			if (board_1.getPiece(x + dir, y - 1).team != this.team)
+				go.add(new Position(x + dir, y - 1));
+		}
 		
 		for(int i = 0; i < 2; i++)
 		{
-			if(board_1.getPiece(x + dir,  y) == null)
+			if(board_1.getPiece(x + dir,  y).name == 0)
+			{
 				go.add(new Position(x+ dir, y));
+			}
 			
 			if(isMoved == true) break;
 			dir *= 2;
 		}
-		
+
 		for(int i = 0; i < go.size(); i++)
 		{
 			int goX, goY;
 			goX = go.get(i).getX();
 			goY = go.get(i).getY();
-			
-			if(goX < 0 || goX >= MAX || goY < 0 || goY >= MAX)
+
+			if(!Position.inRange(goX, goY))
+			{
 				go.remove(i);
-			
-			if(board_1.getPiece(goX, goY).team == this.team)
-				go.remove(i);
+				i--;
+			}
+
 		}
         
 		return go;
 	}
-
 
 }

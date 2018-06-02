@@ -8,25 +8,31 @@ import chess.ChessPieceSprite.ChessPieceSpriteType;
 
 public class Rook extends Piece {
 
-	public Rook(int col){
+	public Rook(int col) {
 		color = col;
 		name = ROOK;
-		
-		if(color == BLACK || color == WHITE) 	team = 1;
-		else 									team = 2;
-		
-		switch(color)
-		{
-		case(BLACK):
+
+		if (players == 1)
+			team = color;
+
+		else {
+			if (color == BLACK || color == WHITE)
+				team = 1;
+			else
+				team = 2;
+		}
+
+		switch (color) {
+		case (BLACK):
 			img = ChessPieceSprite.getInstace().getChessPiece(ChessPieceSpriteType.BLACK_LOOK);
 			break;
-		case(RED):
+		case (RED):
 			img = ChessPieceSprite.getInstace().getChessPiece(ChessPieceSpriteType.RED_LOOK);
 			break;
-		case(GREEN):
+		case (GREEN):
 			img = ChessPieceSprite.getInstace().getChessPiece(ChessPieceSpriteType.GREEN_LOOK);
 			break;
-		case(WHITE):
+		case (WHITE):
 			img = ChessPieceSprite.getInstace().getChessPiece(ChessPieceSpriteType.WHITE_LOOK);
 			break;
 		}
@@ -35,76 +41,65 @@ public class Rook extends Piece {
 	public ArrayList<Position> getMovement(Board_1 board_1, Position now) {
 		int x = now.getX();
 		int y = now.getY();
-			
-		//different in 4 people
-		final int MAX = 8;
-		
+
 		ArrayList<Position> go = new ArrayList<Position>();
-		
-		for(int i = 1; x + i < MAX; i++)
-		{
-			int goX = x + i;		
+
+		for (int i = 1; Position.inRange(x + i, 1); i++) {
+			int goX = x + i;
 			int goY = y;
-			
-			if(board_1.getPiece(goX, goY) == null)
+
+			if (board_1.getPiece(goX, goY).name == 0)
 				go.add(new Position(goX, goY));
-			
-			else
-			{
-				if(board_1.getPiece(goX, goY).team != team)
-					go.add(new Position(goX, goY));			
+
+			else {
+				if (board_1.getPiece(goX, goY).team != team)
+					go.add(new Position(goX, goY));
 				break;
 			}
 		}
-		
-		for(int i = 1; x - i >= 0; i++)
-		{
-			int goX = x - i;		
+
+		for (int i = 1; Position.inRange(x - i, 1); i++) {
+			int goX = x - i;
 			int goY = y;
-			
-			if(board_1.getPiece(goX, goY) == null)
+
+			if (board_1.getPiece(goX, goY).name == 0)
 				go.add(new Position(goX, goY));
-			
-			else
-			{
-				if(board_1.getPiece(goX, goY).team != team)
-					go.add(new Position(goX, goY));			
+
+			else {
+				if (board_1.getPiece(goX, goY).team != team)
+					go.add(new Position(goX, goY));
 				break;
 			}
 		}
-		
-		for(int i = 1; y + i < MAX; i++)
-		{
-			int goX = x;		
+
+		for (int i = 1; Position.inRange(1, y + i); i++) {
+			int goX = x;
 			int goY = y + i;
-			
-			if(board_1.getPiece(goX, goY) == null)
+
+			if (board_1.getPiece(goX, goY).name == 0)
 				go.add(new Position(goX, goY));
-			
-			else
-			{
-				if(board_1.getPiece(goX, goY).team != team)
-					go.add(new Position(goX, goY));			
+
+			else {
+				if (board_1.getPiece(goX, goY).team != team)
+					go.add(new Position(goX, goY));
 				break;
 			}
 		}
-		
-		for(int i = 1; y - i >= 0; i++)
-		{
-			int goX = x;		
+
+		for (int i = 1; Position.inRange(1, y - i); i++) {
+			int goX = x;
 			int goY = y - i;
-			
-			if(board_1.getPiece(goX, goY) == null)
+
+			if (board_1.getPiece(goX, goY).name == 0)
 				go.add(new Position(goX, goY));
-			
-			else
-			{
-				if(board_1.getPiece(goX, goY).team != team)
-					go.add(new Position(goX, goY));			
+
+			else {
+				if (board_1.getPiece(goX, goY).team != team)
+					go.add(new Position(goX, goY));
 				break;
 			}
 		}
-		
+
 		return go;
 	}
 

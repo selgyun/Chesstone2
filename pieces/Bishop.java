@@ -12,8 +12,12 @@ public class Bishop extends Piece {
 		color = col;
 		name = BISHOP;
 		
-		if(color == BLACK || color == WHITE) 	team = 1;
-		else 									team = 2;
+		if(players == 1) team = color;
+		
+		else {
+			if(color == BLACK || color == WHITE) 	team = 1;
+			else 									team = 2;
+		}
 		
 		switch(color)
 		{
@@ -34,18 +38,18 @@ public class Bishop extends Piece {
 	
 	public ArrayList<Position> getMovement(Board_1 board_1, Position now) {
 		
+		
 		int x = now.getX();
 		int y = now.getY();
-		final int MAX = 8;
 		
 		ArrayList<Position> go = new ArrayList<Position>();
 		
-		for(int i = 1, j = 1; i < MAX && j < MAX; i++, j++)
+		for(int i = 1, j = 1; Position.inRange(x + i, y + j); i++, j++)
 		{
 			int goX = x + i;
 			int goY = y + j;
 			
-			if(board_1.getPiece(goX, goY) == null)
+			if(board_1.getPiece(goX, goY).name == 0)
 				go.add(new Position(goX, goY));
 			
 			else
@@ -56,28 +60,12 @@ public class Bishop extends Piece {
 			}
 		}
 		
-		for(int i = 1, j = 1; i < MAX && j >= 0; i++, j--)
+		for(int i = 1, j = -1; Position.inRange(x + i, y + j); i++, j--)
 		{
 			int goX = x + i;
-			int goY = y - j;
-			
-			if(board_1.getPiece(goX, goY) == null)
-				go.add(new Position(goX, goY));
-			
-			else
-			{
-				if(board_1.getPiece(goX, goY).team != team)
-					go.add(new Position(goX, goY));			
-				break;
-			}
-		}
-		
-		for(int i = 1, j = 1; i >= 0 && j < MAX; i--, j++)
-		{
-			int goX = x - i;
 			int goY = y + j;
 			
-			if(board_1.getPiece(goX, goY) == null)
+			if(board_1.getPiece(goX, goY).name == 0)
 				go.add(new Position(goX, goY));
 			
 			else
@@ -88,12 +76,12 @@ public class Bishop extends Piece {
 			}
 		}
 		
-		for(int i = 1, j = 1; i >= 0 && j >= 0; i--, j--)
+		for(int i = -1, j = 1; Position.inRange(x + i, y + j); i--, j++)
 		{
-			int goX = x - i;
-			int goY = y - j;
+			int goX = x + i;
+			int goY = y + j;
 			
-			if(board_1.getPiece(goX, goY) == null)
+			if(board_1.getPiece(goX, goY).name == 0)
 				go.add(new Position(goX, goY));
 			
 			else
@@ -104,6 +92,22 @@ public class Bishop extends Piece {
 			}
 		}
 		
+		for(int i = -1, j = -1; Position.inRange(x + i, y + j); i--, j--)
+		{
+			int goX = x + i;
+			int goY = y + j;
+			
+			if(board_1.getPiece(goX, goY).name == 0)
+				go.add(new Position(goX, goY));
+			
+			else
+			{
+				if(board_1.getPiece(goX, goY).team != team)
+					go.add(new Position(goX, goY));			
+				break;
+			}
+		}
+
 		return go;
 	}
 

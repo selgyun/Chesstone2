@@ -1,13 +1,7 @@
 package chess;
 
-import pieces.Bishop;
-import pieces.King;
-import pieces.Knight;
-import pieces.Pawn;
-import pieces.Piece;
-import pieces.Position;
-import pieces.Queen;
-import pieces.Rook;
+import pieces.*;
+
 
 public class Board_1 implements ConstDef {
 
@@ -18,8 +12,10 @@ public class Board_1 implements ConstDef {
 	final Piece[][] initialBoard = {
 			{ new Rook(BLACK), new Knight(BLACK), new Bishop(BLACK), new Queen(BLACK), new King(BLACK), new Bishop(BLACK), new Knight(BLACK), new Rook(BLACK) },
 			{ new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK) },
-			{ null, null, null, null, null, null, null, null }, { null, null, null, null, null, null, null, null },
-			{ null, null, null, null, null, null, null, null }, { null, null, null, null, null, null, null, null },
+			{ new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT() }, 
+			{ new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT() },
+			{ new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT() }, 
+			{ new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT() },
 			{ new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE) },
 			{ new Rook(WHITE), new Knight(WHITE), new Bishop(WHITE), new Queen(WHITE), new King(WHITE), new Bishop(WHITE), new Knight(WHITE), new Rook(WHITE) },
 			};
@@ -41,8 +37,16 @@ public class Board_1 implements ConstDef {
 
 	}
 
+	//return null if (x, y) is out of range
+	//if there is "i" players
 	public Piece getPiece(int PieceX, int PieceY) {
+		if(Piece.players == 1)
+		{
+			if(!Position.inRange(PieceX, PieceY)) return null;
+		}
 		return board[PieceX][PieceY];
 	}
-
 }
+	
+
+

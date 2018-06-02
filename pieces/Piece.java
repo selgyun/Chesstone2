@@ -10,6 +10,7 @@ public abstract class Piece implements ConstDef{
 	protected int team; //TEAM 1 : Black, White || TEAM 2 : Red, Green
 	protected int name;
 	protected BufferedImage img = null;
+	public static int players = 1;
 	
 	public int getColor() { return color; }
 	public int getName() { return name; }

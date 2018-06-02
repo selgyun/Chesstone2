@@ -12,8 +12,12 @@ public class King extends Piece {
 		color = col;
 		name = KING;
 		
-		if(color == BLACK || color == WHITE) 	team = 1;
-		else 									team = 2;
+		if(players == 1) team = color;
+		
+		else {
+			if(color == BLACK || color == WHITE) 	team = 1;
+			else 									team = 2;
+		}
 		
 		switch(color)
 		{
@@ -36,9 +40,6 @@ public class King extends Piece {
 		int x = now.getX();
 		int y = now.getY();
 		
-		//different in 4 people
-		final int MAX = 8;
-		
 		ArrayList<Position> go = new ArrayList<Position>();
 		
 		go.add(new Position(x + 1, y + 1));
@@ -58,11 +59,18 @@ public class King extends Piece {
 			goX = go.get(i).getX();
 			goY = go.get(i).getY();
 			
-			if(goX < 0 || goX >= MAX || goY < 0 || goY >= MAX)
+			if(!Position.inRange(goX, goY))
+			{
 				go.remove(i);
+				i--;
+				continue;
+			}
 			
 			if(board_1.getPiece(goX, goY).team == this.team)
+			{
 				go.remove(i);
+				i--;
+			}
 		}
 		
 		return go;
