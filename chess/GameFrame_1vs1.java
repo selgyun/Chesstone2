@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -21,8 +22,7 @@ public class GameFrame_1vs1 {
 	JPanel[][] square = new JPanel[8][8];
 	JPanel chessBoard;
 	ImagePanel[][] imgPan = new ImagePanel[8][8];
-	
-	
+
 	public GameFrame_1vs1() {
 		gameFrame = new JFrame("Chess - 1vs1");
 		gameFrame.setSize(width, height);
@@ -38,6 +38,8 @@ public class GameFrame_1vs1 {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				square[i][j] = new JPanel();
+				square[i][j].putClientProperty("column", i);
+				square[i][j].putClientProperty("row", j);
 				if (painter) {
 					square[i][j].setBackground(Color.ORANGE);
 					painter = false;
@@ -50,7 +52,7 @@ public class GameFrame_1vs1 {
 			}
 			painter = painter ? false : true;
 		}
-		
+
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				try {
@@ -58,14 +60,16 @@ public class GameFrame_1vs1 {
 					imgPan[i][j].setImage(board.getPiece(i, j).getImg());
 					imgPan[i][j].setPreferredSize(new Dimension(80, 80));
 					square[i][j].add(imgPan[i][j]);
+
 				} catch (NullPointerException err) {
 				}
 			}
 		}
-		
+
 		gameFrame.add(chessBoard, BorderLayout.CENTER);
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameFrame.setVisible(true);
+
 	}
-	
+
 }

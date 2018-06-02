@@ -13,22 +13,28 @@ public class Board_1 implements ConstDef{
 
 	// 20180531 RedJen Initialized
 
-	public Piece[][] board = new Piece[8][8];
+	private Piece[][] board;
+
+	final Piece[][] initialBoard = {
+			{ new Rook(WHITE), new Knight(WHITE), new Bishop(WHITE), new Queen(WHITE), new King(WHITE), new Bishop(WHITE), new Knight(WHITE), new Rook(WHITE) },
+			{ new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE) },
+			{ null, null, null, null, null, null, null, null },
+			{ null, null, null, null, null, null, null, null },
+			{ null, null, null, null, null, null, null, null },
+			{ null, null, null, null, null, null, null, null },
+			{ new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK) },
+			{ new Rook(BLACK), new Knight(BLACK), new Bishop(BLACK), new Queen(BLACK), new King(BLACK), new Bishop(BLACK), new Knight(BLACK), new Rook(BLACK) }
+	};
+	
 	public int turn;
+	public Piece curPiece;
+	public Position curPiecePos;
 	public boolean p1_catchable[][] = new boolean[8][8];
 	public boolean p2_catchable[][] = new boolean[8][8];
 
-	Board_1() {
-		Piece[][] board = {
-				{ new Rook(WHITE), new Knight(WHITE), new Bishop(WHITE), new Queen(WHITE), new King(WHITE), new Bishop(WHITE), new Knight(WHITE), new Rook(WHITE) },
-				{ new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE) },
-				{ null, null, null, null, null, null, null, null },
-				{ null, null, null, null, null, null, null, null },
-				{ null, null, null, null, null, null, null, null },
-				{ null, null, null, null, null, null, null, null },
-				{ new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK) },
-				{ new Rook(BLACK), new Knight(BLACK), new Bishop(BLACK), new Queen(BLACK), new King(BLACK), new Bishop(BLACK), new Knight(BLACK), new Rook(BLACK) }
-		};
+	public Board_1() {
+		this.board = initialBoard;
+		curPiece = null;
 	}
 	
 	void Move(Position PiecePosition, Position dest) {
@@ -39,4 +45,5 @@ public class Board_1 implements ConstDef{
 	public Piece getPiece(int PieceX, int PieceY) {
 		return board[PieceX][PieceY];
 	}
+	
 }
