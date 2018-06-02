@@ -50,15 +50,16 @@ public class Pawn extends Piece{
 		
 		ArrayList<Position> go = new ArrayList<Position>();
 		
-		if(board_1.getPiece(x + 1, y + dir)!= null)	
+		if(board_1.getPiece(x + dir, y + 1)!= null)	
 			go.add(new Position(x + 1, y + dir));
-		if(board_1.getPiece(x - 1, y + dir) != null)
+		
+		if(board_1.getPiece(x + dir, y - 1) != null)
 			go.add(new Position(x - 1, y + dir));
 		
 		for(int i = 0; i < 2; i++)
 		{
-			if(board_1.getPiece(x,  y + dir) == null)
-				go.add(new Position(x, y + dir));
+			if(board_1.getPiece(x + dir,  y) == null)
+				go.add(new Position(x+ dir, y));
 			
 			if(isMoved == true) break;
 			dir *= 2;
@@ -76,7 +77,7 @@ public class Pawn extends Piece{
 			if(board_1.getPiece(goX, goY).team == this.team)
 				go.remove(i);
 		}
-		
+        
 		return go;
 	}
 
