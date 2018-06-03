@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
 import pieces.Position;
 
@@ -15,7 +16,7 @@ public class GameFrame_1vs1 {
 	/**
 	 * 
 	 */
-	
+
 	final int width = 640;
 	final int height = 640;
 	JFrame gameFrame;
@@ -23,7 +24,7 @@ public class GameFrame_1vs1 {
 	JPanel[][] square = new JPanel[8][8];
 	JPanel chessBoard;
 	ImagePanel[][] imgPan = new ImagePanel[8][8];
-	
+
 	public GameFrame_1vs1() {
 		gameFrame = new JFrame("Chess - 1vs1");
 		gameFrame.setSize(width, height);
@@ -35,7 +36,7 @@ public class GameFrame_1vs1 {
 
 		board = new Board_1();
 
-		//drawBoard();
+		// drawBoard();
 		boolean painter = false;
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
@@ -54,15 +55,14 @@ public class GameFrame_1vs1 {
 			}
 			painter = painter ? false : true;
 		}
-		
+
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				try {
 					imgPan[i][j] = new ImagePanel();
 					imgPan[i][j].setImage(board.getPiece(i, j).getImg());
 					imgPan[i][j].setPreferredSize(new Dimension(80, 80));
-					square[i][j].add(imgPan[i][j]);
-
+					square[i][j].add(imgPan[i][j], BorderLayout.CENTER);
 				} catch (NullPointerException err) {
 				}
 			}
@@ -71,38 +71,33 @@ public class GameFrame_1vs1 {
 		gameFrame.add(chessBoard, BorderLayout.CENTER);
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameFrame.setVisible(true);
-		
+
 	}
 
-	public void change()
-    {
-        boolean painter = false;
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (painter) {
-                    square[i][j].setBackground(Color.ORANGE);
-                    painter = false;
-                } else {
-                    square[i][j].setBackground(Color.YELLOW);
-                    painter = true;
-                }
-            }
-            painter = painter ? false : true;
-        }
+	public void change() {
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (board.curPiece != null) {
+					if (board.curPiece.getMovement(board, board.curPiecePos).contains(new Position(i, j))) {
+						square[i][j].setBorder(new LineBorder(Color.GREEN, 5));
+					}
+				} else {
+					square[i][j].setBorder(null);
+				}
+			}
+		}
 
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if(board.getPiece(i, j) != null)
-                {
-                	BufferedImage temp = board.getPiece(i, j).getImg();
-                    imgPan[i][j].setImage(temp);
-                }
-                else {
-                	imgPan[i][j].setImage(null);
-                }
-                imgPan[i][j].repaint();
-            }
-        }
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (board.getPiece(i, j) != null) {
+					BufferedImage temp = board.getPiece(i, j).getImg();
+					imgPan[i][j].setImage(temp);
+				} else {
+					imgPan[i][j].setImage(null);
+				}
+				imgPan[i][j].repaint();
+			}
+		}
 
-    }
+	}
 }

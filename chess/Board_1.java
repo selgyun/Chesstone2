@@ -59,6 +59,8 @@ public class Board_1 implements ConstDef {
 		}
 		board[dest.getX()][dest.getY()] = board[PiecePosition.getX()][PiecePosition.getY()];
 		board[PiecePosition.getX()][PiecePosition.getY()] = new MT();
+		curPiece = null;
+		nextTurn();
 		System.out.println(board[PiecePosition.getX()][PiecePosition.getY()] + " , " +board[dest.getX()][dest.getY()]);
 	}
 	

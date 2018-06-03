@@ -21,7 +21,6 @@ public class MouseEventHandler implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		JPanel curSquare = (JPanel) e.getSource();
-		ArrayList<Position> moveable;
 		int curX = (int) curSquare.getClientProperty("column");
 		int curY = (int) curSquare.getClientProperty("row");
 		Position curPos = new Position(curX, curY);
@@ -31,22 +30,21 @@ public class MouseEventHandler implements MouseListener {
 				if (board.getPiece(curPos).getColor() == board.turn) {
 					board.curPiece = board.getPiece(curX, curY);
 					board.curPiecePos = curPos;
+					gFrame.change();
 					System.out.println("Selected");
 				}
 			} catch (NullPointerException err) {
 			}
 
 		} else {
-			moveable = board.curPiece.getMovement(board, board.curPiecePos);
 			//System.out.println(moveable.contains(curPos));
-			if (moveable.contains(curPos)) {
+			if (board.curPiece.getMovement(board, board.curPiecePos).contains(curPos)) {
 				board.Move(board.curPiecePos, curPos);
-				board.curPiece = null;
-				board.nextTurn();
 				gFrame.change();
 				System.out.println("Moved");
 			} else {
 				board.curPiece = null;
+				gFrame.change();
 				System.out.println("Canceled");
 			}
 
