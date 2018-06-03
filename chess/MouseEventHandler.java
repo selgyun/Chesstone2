@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import pieces.MT;
 import pieces.Position;
 
 public class MouseEventHandler implements MouseListener {
@@ -20,32 +21,29 @@ public class MouseEventHandler implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		JPanel curSquare = (JPanel) e.getSource();
-		ArrayList<Position> moveable; 
+		ArrayList<Position> moveable;
 		int curX = (int) curSquare.getClientProperty("column");
 		int curY = (int) curSquare.getClientProperty("row");
 		Position curPos = new Position(curX, curY);
 		System.out.println(curX + " " + curY);
 		if (board.curPiece == null) {
-			if (board.getPiece(curX, curY) != null) {
-				if (board.getPiece(curX, curY).getColor() == board.turn) {
+			try {
+				if (board.getPiece(curPos).getColor() == board.turn) {
 					board.curPiece = board.getPiece(curX, curY);
 					board.curPiecePos = curPos;
 					System.out.println("Selected");
 				}
+			} catch (NullPointerException err) {
 			}
+
 		} else {
-			board.curPiece.getMovement(board, board.curPiecePos);
 			moveable = board.curPiece.getMovement(board, board.curPiecePos);
-			System.out.println(moveable.contains(curPos));
+			//System.out.println(moveable.contains(curPos));
 			if (moveable.contains(curPos)) {
 				board.Move(board.curPiecePos, curPos);
-<<<<<<< HEAD
 				board.curPiece = null;
 				board.nextTurn();
 				gFrame.change();
-=======
-				gFrame.Change();
->>>>>>> parent of 5c7237c... Imperfect Success
 				System.out.println("Moved");
 			} else {
 				board.curPiece = null;
