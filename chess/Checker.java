@@ -12,6 +12,7 @@ public class Checker implements ConstDef {
 	// kindkiz ¿€º∫
 
 	final int BOARD1MAX = 8;
+	final int BOARD2MAX = 14;
 
 	public boolean isChecked(Board_1 board, int turn) {
 		// find king position
@@ -37,7 +38,25 @@ public class Checker implements ConstDef {
 
 	public boolean isChecked(Board_2 board, int turn) {
 		// find king position
-
+		int KingX = 0, KingY = 0;
+		 
+		for (int X = 0; X < BOARD2MAX; X++) {
+			for (int Y = 0; Y < BOARD2MAX; Y++) {
+				if(board.getPiece(X, Y).getName() == KING && board.getPiece(X, Y).getColor() == turn)
+				{
+					KingX = X;
+					KingY = Y;
+				}
+			}
+		}
+		// done
+		if((turn == WHITE || turn == BLACK) && board.p2_catchable[KingX][KingY])
+		{
+			return true;
+		}
+		else if (board.p1_catchable[KingX][KingY]) {
+			return true;
+		}
 		return false;
 	}
 
