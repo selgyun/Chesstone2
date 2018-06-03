@@ -2,7 +2,7 @@ package chess;
 
 import pieces.*;
 
-public class Board_2 implements ConstDef {
+public class Board_2 extends Board_Master implements ConstDef {
 	// 20180531 RedJen Initialized
 
 	private Piece[][] board;
@@ -43,5 +43,11 @@ public class Board_2 implements ConstDef {
 
 	Piece getPiece(int PieceX, int PieceY) {
 		return board[PieceX][PieceY];
+	}
+	
+	void nextTurn() {
+		turn += 1;
+		if (turn > 4)
+			turn = 1;
 	}
 }

@@ -68,6 +68,7 @@ public class Pawn extends Piece{
 			{
 				go.add(new Position(x+ dir, y));
 			}
+			else break;
 			
 			if(isMoved == true) break;
 			dir *= 2;
