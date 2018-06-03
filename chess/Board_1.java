@@ -42,14 +42,30 @@ public class Board_1 implements ConstDef {
 		return board[PieceX][PieceY];
 	}
 	
+
+	public Piece getPiece(Position pos) {
+		int x = pos.getX();
+		int y = pos.getY();
+		if(Piece.players == 1)
+		{
+			if(!Position.inRange(x, y)) return null;
+		}
+		return board[x][y];
+	}
+	
 	void Move(Position PiecePosition, Position dest) {
+		if(getPiece(PiecePosition) instanceof Pawn) {
+			((Pawn) getPiece(PiecePosition)).moved();
+		}
 		board[dest.getX()][dest.getY()] = board[PiecePosition.getX()][PiecePosition.getY()];
-		board[PiecePosition.getX()][PiecePosition.getY()] = null;
+		board[PiecePosition.getX()][PiecePosition.getY()] = new MT();
 		System.out.println(board[PiecePosition.getX()][PiecePosition.getY()] + " , " +board[dest.getX()][dest.getY()]);
 	}
 	
-	public Piece getPiece(Position pos) {
-		return board[pos.getX()][pos.getY()];
+	void nextTurn() {
+		turn+=2;
+		if(turn > 4)
+			turn = 1;
 	}
 }
 	

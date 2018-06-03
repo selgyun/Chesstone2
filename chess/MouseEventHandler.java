@@ -41,8 +41,9 @@ public class MouseEventHandler implements MouseListener {
 			//System.out.println(moveable.contains(curPos));
 			if (moveable.contains(curPos)) {
 				board.Move(board.curPiecePos, curPos);
-				gFrame.change();
 				board.curPiece = null;
+				board.nextTurn();
+				gFrame.change();
 				System.out.println("Moved");
 			} else {
 				board.curPiece = null;

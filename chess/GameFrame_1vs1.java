@@ -71,6 +71,7 @@ public class GameFrame_1vs1 {
 		gameFrame.add(chessBoard, BorderLayout.CENTER);
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameFrame.setVisible(true);
+		
 	}
 
 	public void change()
