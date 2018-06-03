@@ -29,7 +29,12 @@ public class Board_1 implements ConstDef {
 	public Board_1() {
 		this.board = initialBoard;
 		curPiece = null;
-		turn = WHITE;
+	}
+
+	void Move(Position PiecePosition, Position dest) {
+		board[dest.getX()][dest.getY()] = board[PiecePosition.getX()][PiecePosition.getY()];
+		board[PiecePosition.getX()][PiecePosition.getY()] = null;
+
 	}
 
 	//return null if (x, y) is out of range
@@ -41,6 +46,7 @@ public class Board_1 implements ConstDef {
 		}
 		return board[PieceX][PieceY];
 	}
+<<<<<<< HEAD
 	
 
 	public Piece getPiece(Position pos) {
@@ -67,6 +73,8 @@ public class Board_1 implements ConstDef {
 		if(turn > 4)
 			turn = 1;
 	}
+=======
+>>>>>>> parent of 5c7237c... Imperfect Success
 }
 	
 

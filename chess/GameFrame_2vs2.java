@@ -52,7 +52,7 @@ public class GameFrame_2vs2 {
 					square[i][j].setBackground(Color.YELLOW);
 					painter = true;
 				}
-				//square[i][j].addMouseListener(new MouseEventHandler(board, this));
+				square[i][j].addMouseListener(new MouseEventHandler(board, this));
 				chessBoard.add(square[i][j]);
 			}
 			painter = painter ? false : true;
