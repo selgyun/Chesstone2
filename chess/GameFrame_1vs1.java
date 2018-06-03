@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.util.ArrayList;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,8 +15,7 @@ public class GameFrame_1vs1 {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-
+	
 	final int width = 640;
 	final int height = 640;
 	JFrame gameFrame;
@@ -24,7 +23,7 @@ public class GameFrame_1vs1 {
 	JPanel[][] square = new JPanel[8][8];
 	JPanel chessBoard;
 	ImagePanel[][] imgPan = new ImagePanel[8][8];
-
+	
 	public GameFrame_1vs1() {
 		gameFrame = new JFrame("Chess - 1vs1");
 		gameFrame.setSize(width, height);
@@ -74,13 +73,11 @@ public class GameFrame_1vs1 {
 		gameFrame.setVisible(true);
 	}
 
-	public void Change()
+	public void change()
     {
         boolean painter = false;
-        chessBoard.removeAll();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                square[i][j] = new JPanel();
                 if (painter) {
                     square[i][j].setBackground(Color.ORANGE);
                     painter = false;
@@ -88,9 +85,7 @@ public class GameFrame_1vs1 {
                     square[i][j].setBackground(Color.YELLOW);
                     painter = true;
                 }
-                chessBoard.add(square[i][j]);
             }
-
             painter = painter ? false : true;
         }
 
@@ -98,16 +93,15 @@ public class GameFrame_1vs1 {
             for (int j = 0; j < 8; j++) {
                 if(board.getPiece(i, j) != null)
                 {
-                    System.out.println(i +" " +j);
-                    imgPan[i][j] = new ImagePanel();
-                    imgPan[i][j].setImage(board.getPiece(i, j).getImg());
-                    imgPan[i][j].setPreferredSize(new Dimension(80, 80));
-                    square[i][j].add(imgPan[i][j]);
+                	BufferedImage temp = board.getPiece(i, j).getImg();
+                    imgPan[i][j].setImage(temp);
                 }
+                else {
+                	imgPan[i][j].setImage(null);
+                }
+                imgPan[i][j].repaint();
             }
         }
 
-        gameFrame.setVisible(false);
-        gameFrame.setVisible(true);
     }
 }

@@ -29,12 +29,7 @@ public class Board_1 implements ConstDef {
 	public Board_1() {
 		this.board = initialBoard;
 		curPiece = null;
-	}
-
-	void Move(Position PiecePosition, Position dest) {
-		board[dest.getX()][dest.getY()] = board[PiecePosition.getX()][PiecePosition.getY()];
-		board[PiecePosition.getX()][PiecePosition.getY()] = null;
-
+		turn = WHITE;
 	}
 
 	//return null if (x, y) is out of range
@@ -45,6 +40,16 @@ public class Board_1 implements ConstDef {
 			if(!Position.inRange(PieceX, PieceY)) return null;
 		}
 		return board[PieceX][PieceY];
+	}
+	
+	void Move(Position PiecePosition, Position dest) {
+		board[dest.getX()][dest.getY()] = board[PiecePosition.getX()][PiecePosition.getY()];
+		board[PiecePosition.getX()][PiecePosition.getY()] = null;
+		System.out.println(board[PiecePosition.getX()][PiecePosition.getY()] + " , " +board[dest.getX()][dest.getY()]);
+	}
+	
+	public Piece getPiece(Position pos) {
+		return board[pos.getX()][pos.getY()];
 	}
 }
 	
