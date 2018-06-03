@@ -37,6 +37,14 @@ public class GameFrame_2vs2 {
 				square[i][j].putClientProperty("column", i);
 				square[i][j].putClientProperty("row", j);
 
+				if (painter) {
+					square[i][j].setBackground(Color.ORANGE);
+					painter = false;
+				} else {
+					square[i][j].setBackground(Color.YELLOW);
+					painter = true;
+				}
+				
 				if ((0 <= i && i < 3) && (0 <= j && j < 3) || (11 <= i && i < 14) && (0 <= j && j < 3)) {
 					square[i][j].setBackground(Color.GRAY);
 				}
@@ -45,13 +53,6 @@ public class GameFrame_2vs2 {
 					square[i][j].setBackground(Color.GRAY);
 				}
 
-				if (painter) {
-					square[i][j].setBackground(Color.ORANGE);
-					painter = false;
-				} else {
-					square[i][j].setBackground(Color.YELLOW);
-					painter = true;
-				}
 				//square[i][j].addMouseListener(new MouseEventHandler(board, this));
 				chessBoard.add(square[i][j]);
 			}

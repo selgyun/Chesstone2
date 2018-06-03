@@ -6,16 +6,12 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.LineBorder;
 
 import pieces.Position;
 
 public class GameFrame_1vs1 {
-	/**
-	 * 
-	 */
 
 	final int width = 640;
 	final int height = 640;
@@ -30,7 +26,19 @@ public class GameFrame_1vs1 {
 		gameFrame.setSize(width, height);
 		gameFrame.setLocationRelativeTo(null);
 		gameFrame.setLayout(new BorderLayout());
-
+		
+		JPanel playSpectator = new JPanel();
+		playSpectator.setLayout(new GridLayout(1,2));
+		
+		JTextArea logTextScreen = new JTextArea(20,10);
+		JScrollPane scrollPane = new JScrollPane(logTextScreen);
+		logTextScreen.setEditable(false); //사용자 편집 불가능
+		logTextScreen.setVisible(true);
+		playSpectator.add(scrollPane);
+		
+		gameFrame.add(playSpectator, BorderLayout.EAST);
+		playSpectator.setVisible(true);
+		
 		JPanel chessBoard = new JPanel();
 		chessBoard.setLayout(new GridLayout(8, 8));
 
@@ -73,7 +81,7 @@ public class GameFrame_1vs1 {
 		gameFrame.setVisible(true);
 
 	}
-
+	
 	public void change() {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
