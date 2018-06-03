@@ -87,7 +87,7 @@ public class Checker implements ConstDef {
 				{
 					if (((0 <= KingX + i) && (KingX + i < BOARD1MAX)) && ((0 <= KingY + i) && KingY + i < BOARD1MAX))
 					{
-						if ((board.getPiece(KingX + i, KingY + j) == null && (turn == WHITE) ? (!board.p2_catchable[KingX + i][KingY + j]) : (!board.p1_catchable[KingX + i][KingY + j]))
+						if ((board.getPiece(KingX + i, KingY + j) == null && (turn == WHITE) ? (!board.p2_catchable[KingX + i][KingY + j]) : (!board.p1_catchable[KingX + i][KingY + j])))
 						{
 							// 공격 불가능한 지역이 있으면
 							return false;
