@@ -164,7 +164,12 @@ public class Checker implements ConstDef {
 		if (isChecked(board, turn)) {
 			return false;
 		}
-
-		return false;
+		for (int X = 0; X < BOARD2MAX; X++) {
+			for (int Y = 0; Y < BOARD2MAX; Y++) {
+				if ((turn == WHITE || turn == BLACK) ? board.p1_catchable[X][Y] : board.p2_catchable[X][Y])
+					return false;
+			}
+		}
+		return true;
 	}
 }
