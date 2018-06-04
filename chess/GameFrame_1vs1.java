@@ -52,10 +52,12 @@ public class GameFrame_1vs1 {
 				square[i][j].putClientProperty("column", i);
 				square[i][j].putClientProperty("row", j);
 				if (painter) {
-					square[i][j].setBackground(Color.ORANGE);
+					square[i][j].setBackground(new Color(180, 120, 50));
+					square[i][j].setBorder(new LineBorder(new Color(180, 120, 50),5));
 					painter = false;
 				} else {
-					square[i][j].setBackground(Color.YELLOW);
+					square[i][j].setBackground(new Color(240, 220, 200));
+					square[i][j].setBorder(new LineBorder(new Color(240, 220, 200),5));
 					painter = true;
 				}
 				square[i][j].addMouseListener(new MouseEventHandler(board, this));
@@ -82,21 +84,39 @@ public class GameFrame_1vs1 {
 	}
 
 	public void change() {
+		boolean painter = false;
 		if (board.curPiece != null) {
 			for (int i = 0; i < 8; i++) {
 				for (int j = 0; j < 8; j++) {
-					if (board.curPiece.getMovement(board, board.curPiecePos).contains(new Position(i, j))) {
-						square[i][j].setBorder(new LineBorder(Color.GREEN, 5));
+					if (painter) {
+						square[i][j].setBackground(new Color(180, 120, 50));
+						square[i][j].setBorder(new LineBorder(new Color(180, 120, 50), 5));
 					} else {
-						square[i][j].setBorder(null);
+						square[i][j].setBackground(new Color(240, 220, 200));
+						square[i][j].setBorder(new LineBorder(new Color(240, 220, 200), 5));
 					}
+					if (board.curPiece.getMovement(board, board.curPiecePos).contains(new Position(i, j))) {
+						square[i][j].setBackground(new Color(255, 140, 30));
+					}
+					painter = painter ? false : true;
 				}
+				painter = painter ? false : true;
 			}
-		} else {
+			square[board.curPiecePos.getX()][board.curPiecePos.getY()].setBorder(new LineBorder(new Color(255, 140, 30), 5));
+		} 
+		else {
 			for (int i = 0; i < 8; i++) {
 				for (int j = 0; j < 8; j++) {
-					square[i][j].setBorder(null);
+					if (painter) {
+						square[i][j].setBackground(new Color(180, 120, 50));
+						square[i][j].setBorder(new LineBorder(new Color(180, 120, 50), 5));
+					} else {
+						square[i][j].setBackground(new Color(240, 220, 200));
+						square[i][j].setBorder(new LineBorder(new Color(240, 220, 200), 5));
+					}
+					painter = painter ? false : true;
 				}
+				painter = painter ? false : true;
 			}
 		}
 
@@ -113,9 +133,13 @@ public class GameFrame_1vs1 {
 		}
 
 	}
+
 	/*
-	public void setLog(String log) {
-		gameFrame.append(log + "\n"); // 로그 내용을 JTextArea에 append
-		logTextScreen.setCaretPosition(logTextScreen.getDocument().getLength()); 
-	}*/
+	 * public void setLog(String log) { gameFrame.append(log + "\n"); // 로그 내용을
+	 * JTextArea에 append
+	 * logTextScreen.setCaretPosition(logTextScreen.getDocument().getLength()); }
+	 */
+	public void showPopUp(String msg) {
+		JOptionPane.showMessageDialog(null, msg, "System", JOptionPane.INFORMATION_MESSAGE);
+	}
 }

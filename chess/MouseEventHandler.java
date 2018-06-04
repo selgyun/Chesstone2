@@ -37,7 +37,6 @@ public class MouseEventHandler implements MouseListener {
 					}
 				}
 			}
-
 		} else {
 			if (board.curPiece.getMovement((Board_1) board, board.curPiecePos).contains(curPos)) {
 				if (((Board_1) board).isIllegalMove(board.curPiecePos, curPos)) {
@@ -46,8 +45,21 @@ public class MouseEventHandler implements MouseListener {
 					((Board_1) board).Move(board.curPiecePos, curPos);
 					gFrame.change();
 					System.out.println("Moved");
+
+					Checker checker = new Checker();
+					if (checker.isChecked((Board_1) board, board.getTurn())) {
+						System.out.println("Check");
+						if (checker.isCheckMate((Board_1) board, board.getTurn())) {
+							gFrame.showPopUp("CheckMate");
+							System.out.println("Checkmate");
+						}
+					} else if (checker.isStaleMate((Board_1) board, board.getTurn())) {
+						gFrame.showPopUp("StaleMate");
+						System.out.println("StaleMate");
+					}
 				}
-			} else if (board.getPiece(curPos).getColor() == board.getTurn()) {
+			} else if (board.getPiece(curPos).getColor() == board.getTurn()
+					&& !board.getPiece(curPos).equals(board.curPiece)) {
 				board.curPiece = board.getPiece(curPos);
 				board.curPiecePos = curPos;
 				gFrame.change();

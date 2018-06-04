@@ -62,32 +62,21 @@ public class Board_1 extends Board_Master implements ConstDef {
 		curPiece = null;
 		nextTurn();
 		System.out.println(board[PiecePosition.getX()][PiecePosition.getY()] + " , " + board[dest.getX()][dest.getY()]);
-
-		Checker checker = new Checker();
-		if (checker.isChecked(this, turn)) {
-			System.out.println("Check");
-			if (checker.isCheckMate(this, turn)) {
-				System.out.println("Checkmate");
-			}
-
-		} else if (checker.isStaleMate(this, turn)) {
-			System.out.println("StaleMate");
-		}
-
 	}
 
 	boolean isIllegalMove(Position PiecePosition, Position dest) {
+		Piece temp = board[dest.getX()][dest.getY()];
 		board[dest.getX()][dest.getY()] = board[PiecePosition.getX()][PiecePosition.getY()];
 		board[PiecePosition.getX()][PiecePosition.getY()] = new MT();
 		Checker checker = new Checker();
 		if (checker.isChecked(this, turn)) {
 			board[PiecePosition.getX()][PiecePosition.getY()] = board[dest.getX()][dest.getY()];
-			board[dest.getX()][dest.getY()] = new MT();
+			board[dest.getX()][dest.getY()] = temp;
 			return true;
 		}
 		else {
 			board[PiecePosition.getX()][PiecePosition.getY()] = board[dest.getX()][dest.getY()];
-			board[dest.getX()][dest.getY()] = new MT();
+			board[dest.getX()][dest.getY()] = temp;
 			return false;
 		}
 	}
