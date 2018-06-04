@@ -3,9 +3,10 @@ package chess;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import pieces.Bishop;
 import pieces.Knight;
 import pieces.Position;
-import pieces.Queen;
+import pieces.Rook;
 
 public class Checker implements ConstDef {
 
@@ -26,10 +27,11 @@ public class Checker implements ConstDef {
 				}
 			}
 		}
+
 		// done
-		if (turn == WHITE && board.p2_catchable[KingX][KingY]) {
+		if (turn == WHITE && board.getCatchable(BLACK)[KingX][KingY]) {
 			return true;
-		} else if (board.p1_catchable[KingX][KingY]) {
+		} else if (board.getCatchable(WHITE)[KingX][KingY]) {
 			return true;
 		}
 
@@ -87,9 +89,9 @@ public class Checker implements ConstDef {
 				{
 					if (((0 <= KingX + i) && (KingX + i < BOARD1MAX)) && ((0 <= KingY + i) && KingY + i < BOARD1MAX))
 					{
-						if ((board.getPiece(KingX + i, KingY + j) == null && (turn == WHITE) ? (!board.p2_catchable[KingX + i][KingY + j]) : (!board.p1_catchable[KingX + i][KingY + j])))
+						if ((board.getPiece(KingX + i, KingY + j) == null && (turn == WHITE) ? (!board.getCatchable(BLACK)[KingX + i][KingY + j]) : (!board.getCatchable(WHITE)[KingX + i][KingY + j])))
 						{
-							// 공격 불가능한 지역이 있으면
+							// 상대가 공격 불가능한 지역이 있으면
 							return false;
 						}
 						else if (board.getPiece(KingX + i, KingY + j).getColor() != turn) {
@@ -104,32 +106,54 @@ public class Checker implements ConstDef {
 		int count = 0; //왕을 공격할 수 있는 기물이 2개가 되는 순간 checkMate!
 		//isChecked가 true 였기 때문에 암살자는 무조건 한명나옴. 
 		int assassinX = 0,assassinY = 0;
-		ArrayList <Position> toTheKing = new ArrayList<>();
-		Knight kingCloneKn = new Knight(10);
-		Queen kingCloneQu = new Queen(10);
-				
-		kingCloneKn.getMovement(board, new Position(KingX,KingY)).removeAll(kingCloneQu.getMovement(board, new Position(KingX,KingY)));
-		kingCloneKn.getMovement(board, new Position(KingX,KingY)).addAll(kingCloneQu.getMovement(board, new Position(KingX,KingY)));
-		toTheKing = kingCloneKn.getMovement(board, new Position(KingX,KingY));
-		Iterator<Position> itr = toTheKing.iterator();
-		for(;itr.hasNext();)
-		{
-			if(board.getPiece(itr.next().getX(),itr.next().getY()) != null && board.getPiece(itr.next().getX(),itr.next().getY()).getColor() != turn)
- 			{
- 				count++;
- 				assassinX = itr.next().getX();	
-				assassinY = itr.next().getY();
- 			}
-		}
 		
+		Knight kingCloneKn = new Knight(10);
+		Rook kingCloneRo = new Rook(10);
+		Bishop kingCloneBi = new Bishop(10);
+		//공격당할 수 있는 위치에 공격할 수 있는 기물이 있나 체크 만약 두개 이상이면 바로 return true.
+		Iterator<Position> knitr = kingCloneKn.getMovement(board, new Position(KingX,KingY)).iterator();
+		for(;knitr.hasNext();)
+		{
+			if(board.getPiece(knitr.next().getX(), knitr.next().getY()) != null && (board.getPiece(knitr.next().getX(), knitr.next().getY()).getColor() != turn && board.getPiece(knitr.next().getX(), knitr.next().getY()).getName() == KNIGHT))
+			{
+				count++;
+				assassinX = knitr.next().getX();
+				assassinY = knitr.next().getY();
+			}
+		}
 		if(count >= 2)
 			return true;
+		Iterator<Position> Roitr = kingCloneRo.getMovement(board, new Position(KingX,KingY)).iterator();
+		for(;Roitr.hasNext();)
+		{
+			if(board.getPiece(Roitr.next().getX(), Roitr.next().getY()) != null && (board.getPiece(Roitr.next().getX(), Roitr.next().getY()).getColor() != turn && (board.getPiece(Roitr.next().getX(), Roitr.next().getY()).getName() == ROOK || board.getPiece(Roitr.next().getX(), Roitr.next().getY()).getName() == QUEEN)))
+			{
+				count++;
+				assassinX = Roitr.next().getX();
+				assassinY = Roitr.next().getY();
+			}
+		}
+		if(count >= 2)
+			return true;
+		Iterator<Position> Biitr = kingCloneBi.getMovement(board, new Position(KingX,KingY)).iterator();
+		for(;Biitr.hasNext();)
+		{
+			if(board.getPiece(Biitr.next().getX(), Biitr.next().getY()) != null && (board.getPiece(Biitr.next().getX(), Biitr.next().getY()).getColor() != turn && (board.getPiece(Biitr.next().getX(), Biitr.next().getY()).getName() == BISHOP || board.getPiece(Biitr.next().getX(), Biitr.next().getY()).getName() == QUEEN)))
+			{
+				count++;
+				assassinX = Biitr.next().getX();
+				assassinY = Biitr.next().getY();
+			}
+		}
+		if(count >= 2)
+			return true;
+		
 		//공격 방어가 가능한지 체크
-		if(turn == WHITE && board.p1_catchable[assassinX][assassinY])
+		if(turn == WHITE && board.getCatchable(WHITE)[assassinX][assassinY])
 		{
 			return false;
 		}
-		else if (board.p2_catchable[assassinX][assassinY])
+		else if (board.getCatchable(BLACK)[assassinX][assassinY])
 		{
 			return false;
 		}
@@ -153,7 +177,7 @@ public class Checker implements ConstDef {
 		}
 		for (int X = 0; X < BOARD1MAX; X++) {
 			for (int Y = 0; Y < BOARD1MAX; Y++) {
-				if ((turn == WHITE) ? board.p1_catchable[X][Y] : board.p2_catchable[X][Y])
+				if ((turn == WHITE) ? board.getCatchable(WHITE)[X][Y] : board.getCatchable(BLACK)[X][Y])
 					return false;
 			}
 		}
