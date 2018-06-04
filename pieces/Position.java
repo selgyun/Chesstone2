@@ -21,8 +21,12 @@ public class Position {
 	public static boolean inRange(int x, int y) {
 		if (Piece.players == 1)
 		{
-			if (x < 0 || y < 0 || x > 7 || y > 7)
-				return false;
+			if (x < 0 || y < 0 || x > 7 || y > 7) 	return false;
+		}
+		else if (Piece.players == 2)
+		{
+			if (x < 0 || x > 13 || y < 0 || y > 13)	return false;
+			if ((x < 3 || x > 10) && (y < 3 || y > 10))	return false;			
 		}
 		return true;
 	}
@@ -32,6 +36,11 @@ public class Position {
 		{
 			if (x < 0 || y < 0 || x > 7 || y > 7)
 				return false;
+		}
+		else if (Piece.players == 2)
+		{
+			if (x < 0 || x > 13 || y < 0 || y > 13)	return false;
+			if ((x < 3 || x > 10) && (y < 3 || y > 10))	return false;			
 		}
 		return true;
 	}

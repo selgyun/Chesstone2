@@ -2,7 +2,7 @@ package pieces;
 
 import java.util.ArrayList;
 
-import chess.Board_1;
+import chess.Board_Master;
 import chess.ChessPieceSprite;
 import chess.ChessPieceSprite.ChessPieceSpriteType;
 
@@ -35,7 +35,7 @@ public class Queen extends Piece {
 		}
 	}
 
-	public ArrayList<Position> getMovement(Board_1 board_1, Position now) {
+	public ArrayList<Position> getMovement(Board_Master board, Position now) {
 		int x = now.getX();
 		int y = now.getY();
 		
@@ -46,12 +46,12 @@ public class Queen extends Piece {
 			int goX = x + i;		
 			int goY = y;
 			
-			if(board_1.getPiece(goX, goY).name == 0)
+			if(board.getPiece(goX, goY).name == 0)
 				go.add(new Position(goX, goY));
 			
 			else
 			{
-				if(board_1.getPiece(goX, goY).team != team)
+				if(board.getPiece(goX, goY).team != team)
 					go.add(new Position(goX, goY));
 				break;
 			}
@@ -62,12 +62,12 @@ public class Queen extends Piece {
 			int goX = x - i;		
 			int goY = y;
 			
-			if(board_1.getPiece(goX, goY).name == 0)
+			if(board.getPiece(goX, goY).name == 0)
 				go.add(new Position(goX, goY));
 			
 			else
 			{
-				if(board_1.getPiece(goX, goY).team != team)
+				if(board.getPiece(goX, goY).team != team)
 					go.add(new Position(goX, goY));			
 				break;
 			}
@@ -78,12 +78,12 @@ public class Queen extends Piece {
 			int goX = x;		
 			int goY = y + i;
 			
-			if(board_1.getPiece(goX, goY).name == 0)
+			if(board.getPiece(goX, goY).name == 0)
 				go.add(new Position(goX, goY));
 			
 			else
 			{
-				if(board_1.getPiece(goX, goY).team != team)
+				if(board.getPiece(goX, goY).team != team)
 					go.add(new Position(goX, goY));			
 				break;
 			}
@@ -95,12 +95,12 @@ public class Queen extends Piece {
 			int goY = y - i;
 			
 			
-			if(board_1.getPiece(goX, goY).name == 0)
+			if(board.getPiece(goX, goY).name == 0)
 				go.add(new Position(goX, goY));
 			
 			else
 			{
-				if(board_1.getPiece(goX, goY).team != team)
+				if(board.getPiece(goX, goY).team != team)
 					go.add(new Position(goX, goY));			
 				break;
 			}
@@ -111,12 +111,12 @@ public class Queen extends Piece {
 			int goX = x + i;
 			int goY = y + j;
 			
-			if(board_1.getPiece(goX, goY).name == 0)
+			if(board.getPiece(goX, goY).name == 0)
 				go.add(new Position(goX, goY));
 			
 			else
 			{
-				if(board_1.getPiece(goX, goY).team != team)
+				if(board.getPiece(goX, goY).team != team)
 					go.add(new Position(goX, goY));			
 				break;
 			}
@@ -127,12 +127,12 @@ public class Queen extends Piece {
 			int goX = x + i;
 			int goY = y + j;
 			
-			if(board_1.getPiece(goX, goY).name == 0)
+			if(board.getPiece(goX, goY).name == 0)
 				go.add(new Position(goX, goY));
 			
 			else
 			{
-				if(board_1.getPiece(goX, goY).team != team)
+				if(board.getPiece(goX, goY).team != team)
 					go.add(new Position(goX, goY));			
 				break;
 			}
@@ -143,12 +143,12 @@ public class Queen extends Piece {
 			int goX = x + i;
 			int goY = y + j;
 			
-			if(board_1.getPiece(goX, goY).name == 0)
+			if(board.getPiece(goX, goY).name == 0)
 				go.add(new Position(goX, goY));
 			
 			else
 			{
-				if(board_1.getPiece(goX, goY).team != team)
+				if(board.getPiece(goX, goY).team != team)
 					go.add(new Position(goX, goY));			
 				break;
 			}
@@ -159,15 +159,33 @@ public class Queen extends Piece {
 			int goX = x + i;
 			int goY = y + j;
 			
-			if(board_1.getPiece(goX, goY).name == 0)
+			if(board.getPiece(goX, goY).name == 0)
 				go.add(new Position(goX, goY));
 			
 			else
 			{
-				if(board_1.getPiece(goX, goY).team != team)
+				if(board.getPiece(goX, goY).team != team)
 					go.add(new Position(goX, goY));			
 				break;
 			}
+		}
+		
+		if(!checking)
+		{
+			checking = true;
+			for(int i = 0; i < go.size(); i++)
+			{
+				int goX, goY;
+				goX = go.get(i).getX();
+				goY = go.get(i).getY();
+
+				if(board.isIllegalMove(new Position(x, y), new Position(goX, goY)))
+				{
+					go.remove(i);
+					i--;
+				}
+			}
+			checking = false;
 		}
 
 		return go;

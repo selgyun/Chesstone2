@@ -2,7 +2,7 @@ package pieces;
 
 import java.util.ArrayList;
 
-import chess.Board_1;
+import chess.Board_Master;
 import chess.ChessPieceSprite;
 import chess.ChessPieceSprite.ChessPieceSpriteType;
 
@@ -36,7 +36,7 @@ public class Knight extends Piece{
 		}    
 	}
 
-	public ArrayList<Position> getMovement(Board_1 board_1, Position now) {
+	public ArrayList<Position> getMovement(Board_Master board, Position now) {
 		int x = now.getX();
 		int y = now.getY();
 		
@@ -67,13 +67,31 @@ public class Knight extends Piece{
 				continue;
 			}
 			
-			if(board_1.getPiece(goX, goY).team == this.team)
+			if(board.getPiece(goX, goY).team == this.team)
 			{
 				go.remove(i);
 				i--;
 			}
 		}
 		
+		if(!checking)
+		{
+			checking = true;
+			for(int i = 0; i < go.size(); i++)
+			{
+				int goX, goY;
+				goX = go.get(i).getX();
+				goY = go.get(i).getY();
+
+				if(board.isIllegalMove(new Position(x, y), new Position(goX, goY)))
+				{
+					go.remove(i);
+					i--;
+				}
+			}
+			checking = false;
+		}
+
 		return go;
 	}
 }

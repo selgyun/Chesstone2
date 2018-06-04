@@ -52,7 +52,7 @@ public class Board_Master implements ConstDef {
 		System.out.println(board[PiecePosition.getX()][PiecePosition.getY()] + " , " + board[dest.getX()][dest.getY()]);
 	}
 
-	boolean isIllegalMove(Position PiecePosition, Position dest) {
+	public boolean isIllegalMove(Position PiecePosition, Position dest) {
 		Piece temp = board[dest.getX()][dest.getY()];
 		board[dest.getX()][dest.getY()] = board[PiecePosition.getX()][PiecePosition.getY()];
 		board[PiecePosition.getX()][PiecePosition.getY()] = new MT();

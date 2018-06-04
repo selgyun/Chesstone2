@@ -2,7 +2,7 @@ package pieces;
 
 import java.util.ArrayList;
 
-import chess.Board_1;
+import chess.*;
 
 public class MT extends Piece {
 	public MT(){
@@ -11,7 +11,7 @@ public class MT extends Piece {
 		name = 0;
 		img = null;
 	}
-	public ArrayList<Position> getMovement(Board_1 board_1, Position now){
+	public ArrayList<Position> getMovement(Board_Master board, Position now){
 		return null;
 	}
 }
