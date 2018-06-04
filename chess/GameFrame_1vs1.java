@@ -53,11 +53,11 @@ public class GameFrame_1vs1 {
 				square[i][j].putClientProperty("row", j);
 				if (painter) {
 					square[i][j].setBackground(new Color(180, 120, 50));
-					square[i][j].setBorder(new LineBorder(new Color(180, 120, 50),5));
+					square[i][j].setBorder(new LineBorder(new Color(180, 120, 50), 5));
 					painter = false;
 				} else {
 					square[i][j].setBackground(new Color(240, 220, 200));
-					square[i][j].setBorder(new LineBorder(new Color(240, 220, 200),5));
+					square[i][j].setBorder(new LineBorder(new Color(240, 220, 200), 5));
 					painter = true;
 				}
 				square[i][j].addMouseListener(new MouseEventHandler(board, this));
@@ -102,9 +102,9 @@ public class GameFrame_1vs1 {
 				}
 				painter = painter ? false : true;
 			}
-			square[board.curPiecePos.getX()][board.curPiecePos.getY()].setBorder(new LineBorder(new Color(255, 140, 30), 5));
-		} 
-		else {
+			square[board.curPiecePos.getX()][board.curPiecePos.getY()]
+					.setBorder(new LineBorder(new Color(255, 140, 30), 5));
+		} else {
 			for (int i = 0; i < 8; i++) {
 				for (int j = 0; j < 8; j++) {
 					if (painter) {
@@ -134,11 +134,15 @@ public class GameFrame_1vs1 {
 
 	}
 
-	/*
-	 * public void setLog(String log) { gameFrame.append(log + "\n"); // 로그 내용을
-	 * JTextArea에 append
-	 * logTextScreen.setCaretPosition(logTextScreen.getDocument().getLength()); }
-	 */
+	public class textPanel extends JTextArea{
+
+		public void addLog(JTextArea area, String log)
+		{
+			area.append(log + "\n");
+			area.setCaretPosition(area.getDocument().getLength()); 
+		}
+	}
+	
 	public void showPopUp(String msg) {
 		JOptionPane.showMessageDialog(null, msg, "System", JOptionPane.INFORMATION_MESSAGE);
 	}
