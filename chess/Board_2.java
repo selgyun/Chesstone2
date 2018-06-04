@@ -20,10 +20,7 @@ public class Board_2 extends Board_Master implements ConstDef {
 		{ new MT(), new MT() ,new MT(), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new MT(), new MT(), new MT()},
 		{ new MT(), new MT(), new MT(), new Rook(WHITE), new Knight(WHITE), new Bishop(WHITE), new Queen(WHITE), new King(WHITE), new Bishop(WHITE), new Knight(WHITE), new Rook(WHITE), new MT(), new MT(), new MT()}
 		};
-	
-	boolean[][] p1_catchable = new boolean[14][14];
-	boolean[][] p2_catchable = new boolean[14][14];
-	
+
 	public Board_2() {
 		Piece.players = 2;
 		skipTurn = 1;

@@ -30,10 +30,8 @@ public class GameFrame_1vs1 {
 		JPanel playSpectator = new JPanel();
 		playSpectator.setLayout(new GridLayout(1, 2));
 
-		JTextArea logTextScreen = new JTextArea(20, 10);
+		textPanel logTextScreen = new textPanel(20, 10);
 		JScrollPane scrollPane = new JScrollPane(logTextScreen);
-		logTextScreen.setEditable(false); // 사용자 편집 불가능
-		logTextScreen.setVisible(true);
 		playSpectator.add(scrollPane);
 
 		gameFrame.add(playSpectator, BorderLayout.EAST);
@@ -133,16 +131,22 @@ public class GameFrame_1vs1 {
 		}
 
 	}
+	
+	public class textPanel extends JTextArea {
+		private static final long serialVersionUID = 1L;
 
-	public class textPanel extends JTextArea{
+		textPanel(int width, int height) {
+			JTextArea newTextArea = new JTextArea(width, height);
+			newTextArea.setVisible(true);
+			newTextArea.setEditable(false);
+		}
 
-		public void addLog(JTextArea area, String log)
-		{
+		public void addMoveLog(textPanel area, String log) {
 			area.append(log + "\n");
-			area.setCaretPosition(area.getDocument().getLength()); 
+			area.setCaretPosition(area.getDocument().getLength());
 		}
 	}
-	
+
 	public void showPopUp(String msg) {
 		JOptionPane.showMessageDialog(null, msg, "System", JOptionPane.INFORMATION_MESSAGE);
 	}
