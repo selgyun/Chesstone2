@@ -25,12 +25,14 @@ public class MouseEventHandler implements MouseListener {
 		int curX = (int) curSquare.getClientProperty("column");
 		int curY = (int) curSquare.getClientProperty("row");
 		Position curPos = new Position(curX, curY);
+		gFrame.addMovelog(gFrame.logTextScreen, curX + " " + curY);
 		System.out.println(curX + " " + curY);
 		if (board.curPiece == null) {
 			if (board.getPiece(curPos).getColor() == board.turn) {
 				board.curPiece = board.getPiece(curPos);
 				board.curPiecePos = curPos;
 				gFrame.change();
+				gFrame.addMovelog(gFrame.logTextScreen, "Selected");
 				System.out.println("Selected");
 				for (int i = 0; i < 8; i++, System.out.println()) {
 					for (int j = 0; j < 8; j++) {
@@ -45,16 +47,20 @@ public class MouseEventHandler implements MouseListener {
 				} else {
 					board.Move(board.curPiecePos, curPos);
 					gFrame.change();
+					gFrame.addMovelog(gFrame.logTextScreen, "Moved");
 					System.out.println("Moved");
 
 					Checker checker = new Checker();
 					if (checker.isChecked((Board_1) board, board.getTurn())) {
+						gFrame.addMovelog(gFrame.logTextScreen, "Check");
 						System.out.println("Check");
 						if (checker.isCheckMate((Board_1) board, board.getTurn())) {
+							gFrame.addMovelog(gFrame.logTextScreen, "CheckMate");
 							gFrame.showPopUp("CheckMate");
 							System.out.println("Checkmate");
 						}
 					} else if (checker.isStaleMate((Board_1) board, board.getTurn())) {
+						gFrame.addMovelog(gFrame.logTextScreen, "StaleMate");
 						gFrame.showPopUp("StaleMate");
 						System.out.println("StaleMate");
 					}
@@ -64,10 +70,12 @@ public class MouseEventHandler implements MouseListener {
 				board.curPiece = board.getPiece(curPos);
 				board.curPiecePos = curPos;
 				gFrame.change();
+				gFrame.addMovelog(gFrame.logTextScreen, "Selected");
 				System.out.println("Selected");
 			} else {
 				board.curPiece = null;
 				gFrame.change();
+				gFrame.addMovelog(gFrame.logTextScreen, "Canceled");
 				System.out.println("Canceled");
 			}
 

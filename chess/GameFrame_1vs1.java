@@ -20,19 +20,26 @@ public class GameFrame_1vs1 {
 	JPanel[][] square = new JPanel[8][8];
 	JPanel chessBoard;
 	ImagePanel[][] imgPan = new ImagePanel[8][8];
+	JPanel playSpectator;
+	JTextArea logTextScreen;
 
+	public void addMovelog(JTextArea area, String log){
+		area.append(log + "\n");
+		area.setCaretPosition(area.getDocument().getLength());
+	}
+	
 	public GameFrame_1vs1() {
 		gameFrame = new JFrame("Chess - 1vs1");
 		gameFrame.setSize(width, height);
 		gameFrame.setLocationRelativeTo(null);
 		gameFrame.setLayout(new BorderLayout());
 
-		JPanel playSpectator = new JPanel();
+		playSpectator = new JPanel();
 		playSpectator.setLayout(new GridLayout(1, 2));
-
-		textPanel logTextScreen = new textPanel(20, 10);
-		JScrollPane scrollPane = new JScrollPane(logTextScreen);
-		playSpectator.add(scrollPane);
+		
+		logTextScreen = new JTextArea(5, 10);
+		JScrollPane textScrollPane = new JScrollPane(logTextScreen);
+		playSpectator.add(textScrollPane);
 
 		gameFrame.add(playSpectator, BorderLayout.EAST);
 		playSpectator.setVisible(true);
@@ -130,21 +137,6 @@ public class GameFrame_1vs1 {
 			}
 		}
 
-	}
-	
-	public class textPanel extends JTextArea {
-		private static final long serialVersionUID = 1L;
-
-		textPanel(int width, int height) {
-			JTextArea newTextArea = new JTextArea(width, height);
-			newTextArea.setVisible(true);
-			newTextArea.setEditable(false);
-		}
-
-		public void addMoveLog(textPanel area, String log) {
-			area.append(log + "\n");
-			area.setCaretPosition(area.getDocument().getLength());
-		}
 	}
 
 	public void showPopUp(String msg) {
