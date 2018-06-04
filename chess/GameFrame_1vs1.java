@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
+import java.awt.Font;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -23,6 +24,7 @@ public class GameFrame_1vs1 {
 	JPanel playSpectator;
 	JTextArea logTextScreen;
 
+	Font myfont = new Font("NanumGothic", Font.BOLD, 12);
 	public void addMovelog(JTextArea area, String log){
 		area.append(log + "\n");
 		area.setCaretPosition(area.getDocument().getLength());
@@ -38,6 +40,7 @@ public class GameFrame_1vs1 {
 		playSpectator.setLayout(new GridLayout(1, 2));
 		
 		logTextScreen = new JTextArea(5, 10);
+		logTextScreen.setFont(myfont);
 		JScrollPane textScrollPane = new JScrollPane(logTextScreen);
 		playSpectator.add(textScrollPane);
 
