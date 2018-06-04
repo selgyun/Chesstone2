@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import pieces.MT;
 import pieces.Position;
 
+/* by jung */
+
 public class MouseEventHandler implements MouseListener {
 	Board_1 board;
 	GameFrame_1vs1 gFrame;
