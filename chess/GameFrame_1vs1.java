@@ -13,7 +13,7 @@ import pieces.Position;
 
 public class GameFrame_1vs1 {
 
-	final int width = 640;
+	final int width = 740;
 	final int height = 640;
 	JFrame gameFrame;
 	Board_1 board;
@@ -82,13 +82,19 @@ public class GameFrame_1vs1 {
 	}
 
 	public void change() {
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				if (board.curPiece != null) {
+		if (board.curPiece != null) {
+			for (int i = 0; i < 8; i++) {
+				for (int j = 0; j < 8; j++) {
 					if (board.curPiece.getMovement(board, board.curPiecePos).contains(new Position(i, j))) {
 						square[i][j].setBorder(new LineBorder(Color.GREEN, 5));
+					} else {
+						square[i][j].setBorder(null);
 					}
-				} else {
+				}
+			}
+		} else {
+			for (int i = 0; i < 8; i++) {
+				for (int j = 0; j < 8; j++) {
 					square[i][j].setBorder(null);
 				}
 			}

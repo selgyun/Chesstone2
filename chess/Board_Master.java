@@ -5,8 +5,8 @@ import pieces.Position;
 
 public class Board_Master implements ConstDef {
 	protected int turn;
-	protected int player;
-
+	protected int skipTurn;
+	
 	protected Piece[][] board;
 	public Piece curPiece;
 	public Position curPiecePos;
@@ -16,19 +16,27 @@ public class Board_Master implements ConstDef {
 	}
 
 	public void nextTurn() {
-		turn += player;
+		turn += skipTurn;
 		if (turn > 4)
 			turn = WHITE;
+		System.out.println(turn + " turn");
 	}
 	
-
-	void Move(Position PiecePosition, Position dest) {
-		board[dest.getX()][dest.getY()] = board[PiecePosition.getX()][PiecePosition.getY()];
-		board[PiecePosition.getX()][PiecePosition.getY()] = null;
+	public Piece getPiece(int PieceX, int PieceY) {
+		if (Piece.players == 1 && !Position.inRange(PieceX, PieceY)) {
+			return null;
+		}
+		return board[PieceX][PieceY];
 	}
 
-	Piece getPiece(int PieceX, int PieceY) {
-		return board[PieceX][PieceY];
+	public Piece getPiece(Position pos) {
+		int x = pos.getX();
+		int y = pos.getY();
+		if (Piece.players == 1) {
+			if (!Position.inRange(x, y))
+				return null;
+		}
+		return board[x][y];
 	}
 	
 }

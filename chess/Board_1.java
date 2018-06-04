@@ -1,6 +1,17 @@
 package chess;
 
-import pieces.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import pieces.Bishop;
+import pieces.King;
+import pieces.Knight;
+import pieces.MT;
+import pieces.Pawn;
+import pieces.Piece;
+import pieces.Position;
+import pieces.Queen;
+import pieces.Rook;
 
 public class Board_1 extends Board_Master implements ConstDef {
 
@@ -25,13 +36,9 @@ public class Board_1 extends Board_Master implements ConstDef {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				if (getPiece(i, j).getColor() == color) {
-					for (int ii = 8; ii < 8; ii++) {
-						for (int jj = 8; jj < 8; jj++) {
-							if (getPiece(i, j).getMovement(this, new Position(i, j)).contains(new Position(ii, jj)))
-								catchable[ii][jj] = true;
-							else
-								catchable[ii][jj] = false;
-						}
+					ArrayList<Position> moveable = getPiece(i, j).getMovement(this, new Position(i, j));
+					for (int k = 0; k < moveable.size(); k++) {
+						catchable[moveable.get(k).getX()][moveable.get(k).getY()] = true;
 					}
 				}
 			}
@@ -42,27 +49,8 @@ public class Board_1 extends Board_Master implements ConstDef {
 	public Board_1() {
 		this.board = initialBoard;
 		curPiece = null;
-		player = 1;
+		skipTurn = 2;
 		turn = WHITE;
-	}
-
-	// return null if (x, y) is out of range
-	// if there is "i" players
-	public Piece getPiece(int PieceX, int PieceY) {
-		if (Piece.players == 1 && !Position.inRange(PieceX, PieceY)) {
-			return null;
-		}
-		return board[PieceX][PieceY];
-	}
-
-	public Piece getPiece(Position pos) {
-		int x = pos.getX();
-		int y = pos.getY();
-		if (Piece.players == 1) {
-			if (!Position.inRange(x, y))
-				return null;
-		}
-		return board[x][y];
 	}
 
 	void Move(Position PiecePosition, Position dest) {
@@ -74,6 +62,21 @@ public class Board_1 extends Board_Master implements ConstDef {
 		curPiece = null;
 		nextTurn();
 		System.out.println(board[PiecePosition.getX()][PiecePosition.getY()] + " , " + board[dest.getX()][dest.getY()]);
+
+		Checker checker = new Checker();
+		if (checker.isChecked(this, turn)) {
+			System.out.println("Check");
+			if (checker.isCheckMate(this, turn)) {
+				System.out.println("Checkmate");
+			}
+
+		} else if (checker.isStaleMate(this, turn)) {
+			System.out.println("StaleMate");
+		}
+
 	}
+
+	// return null if (x, y) is out of range
+	// if there is "i" players
 
 }
