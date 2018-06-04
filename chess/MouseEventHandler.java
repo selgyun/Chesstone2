@@ -2,20 +2,18 @@ package chess;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import pieces.MT;
 import pieces.Position;
 
 /* by jung */
 
 public class MouseEventHandler implements MouseListener {
-	Board_1 board;
+	Board_Master board;
 	GameFrame_1vs1 gFrame;
 
-	public MouseEventHandler(Board_1 board, GameFrame_1vs1 gameFrame) {
+	public MouseEventHandler(Board_Master board, GameFrame_1vs1 gameFrame) {
 		this.board = board;
 		this.gFrame = gameFrame;
 	}
@@ -28,22 +26,28 @@ public class MouseEventHandler implements MouseListener {
 		Position curPos = new Position(curX, curY);
 		System.out.println(curX + " " + curY);
 		if (board.curPiece == null) {
-			try {
-				if (board.getPiece(curPos).getColor() == board.turn) {
-					board.curPiece = board.getPiece(curX, curY);
-					board.curPiecePos = curPos;
-					gFrame.change();
-					System.out.println("Selected");
+			if (board.getPiece(curPos).getColor() == board.turn) {
+				board.curPiece = board.getPiece(curPos);
+				board.curPiecePos = curPos;
+				gFrame.change();
+				System.out.println("Selected");
+				for (int i = 0; i < 8; i++, System.out.println()) {
+					for (int j = 0; j < 8; j++) {
+						System.out.print(((Board_1) board).getCatchable(board.turn)[i][j]+" ");
+					}
 				}
-			} catch (NullPointerException err) {
 			}
 
 		} else {
-			//System.out.println(moveable.contains(curPos));
-			if (board.curPiece.getMovement(board, board.curPiecePos).contains(curPos)) {
-				board.Move(board.curPiecePos, curPos);
+			if (board.curPiece.getMovement((Board_1) board, board.curPiecePos).contains(curPos)) {
+				((Board_1) board).Move(board.curPiecePos, curPos);
 				gFrame.change();
 				System.out.println("Moved");
+			} else if (board.getPiece(curPos).getColor() == board.turn) {
+				board.curPiece = board.getPiece(curPos);
+				board.curPiecePos = curPos;
+				gFrame.change();
+				System.out.println("Selected");
 			} else {
 				board.curPiece = null;
 				gFrame.change();
