@@ -76,6 +76,22 @@ public class Board_1 extends Board_Master implements ConstDef {
 
 	}
 
+	boolean isIllegalMove(Position PiecePosition, Position dest) {
+		board[dest.getX()][dest.getY()] = board[PiecePosition.getX()][PiecePosition.getY()];
+		board[PiecePosition.getX()][PiecePosition.getY()] = new MT();
+		Checker checker = new Checker();
+		if (checker.isChecked(this, turn)) {
+			board[PiecePosition.getX()][PiecePosition.getY()] = board[dest.getX()][dest.getY()];
+			board[dest.getX()][dest.getY()] = new MT();
+			return true;
+		}
+		else {
+			board[PiecePosition.getX()][PiecePosition.getY()] = board[dest.getX()][dest.getY()];
+			board[dest.getX()][dest.getY()] = new MT();
+			return false;
+		}
+	}
+
 	// return null if (x, y) is out of range
 	// if there is "i" players
 

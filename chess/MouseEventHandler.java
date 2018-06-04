@@ -33,17 +33,21 @@ public class MouseEventHandler implements MouseListener {
 				System.out.println("Selected");
 				for (int i = 0; i < 8; i++, System.out.println()) {
 					for (int j = 0; j < 8; j++) {
-						System.out.print(((Board_1) board).getCatchable(board.turn)[i][j]+" ");
+						System.out.print(((Board_1) board).getCatchable(board.turn)[i][j] + " ");
 					}
 				}
 			}
 
 		} else {
 			if (board.curPiece.getMovement((Board_1) board, board.curPiecePos).contains(curPos)) {
-				((Board_1) board).Move(board.curPiecePos, curPos);
-				gFrame.change();
-				System.out.println("Moved");
-			} else if (board.getPiece(curPos).getColor() == board.turn) {
+				if (((Board_1) board).isIllegalMove(board.curPiecePos, curPos)) {
+					System.out.println("Illegal Move");
+				} else {
+					((Board_1) board).Move(board.curPiecePos, curPos);
+					gFrame.change();
+					System.out.println("Moved");
+				}
+			} else if (board.getPiece(curPos).getColor() == board.getTurn()) {
 				board.curPiece = board.getPiece(curPos);
 				board.curPiecePos = curPos;
 				gFrame.change();
