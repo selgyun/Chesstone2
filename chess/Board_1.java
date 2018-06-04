@@ -17,6 +17,7 @@ public class Board_1 extends Board_Master implements ConstDef {
 
 	// 20180531 RedJen Initialized
 
+	
 	final Piece[][] initialBoard = {
 			{ new Rook(BLACK), new Knight(BLACK), new Bishop(BLACK), new Queen(BLACK), new King(BLACK),
 					new Bishop(BLACK), new Knight(BLACK), new Rook(BLACK) },
