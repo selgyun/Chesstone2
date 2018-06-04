@@ -39,10 +39,10 @@ public class MouseEventHandler implements MouseListener {
 			}
 		} else {
 			if (board.curPiece.getMovement((Board_1) board, board.curPiecePos).contains(curPos)) {
-				if (((Board_1) board).isIllegalMove(board.curPiecePos, curPos)) {
+				if (board.isIllegalMove(board.curPiecePos, curPos)) {
 					System.out.println("Illegal Move");
 				} else {
-					((Board_1) board).Move(board.curPiecePos, curPos);
+					board.Move(board.curPiecePos, curPos);
 					gFrame.change();
 					System.out.println("Moved");
 

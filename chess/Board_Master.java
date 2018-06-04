@@ -1,5 +1,7 @@
 package chess;
 
+import pieces.MT;
+import pieces.Pawn;
 import pieces.Piece;
 import pieces.Position;
 
@@ -37,6 +39,34 @@ public class Board_Master implements ConstDef {
 				return null;
 		}
 		return board[x][y];
+	}
+	
+	void Move(Position PiecePosition, Position dest) {
+		if (getPiece(PiecePosition) instanceof Pawn) {
+			((Pawn) getPiece(PiecePosition)).moved();
+		}
+		board[dest.getX()][dest.getY()] = board[PiecePosition.getX()][PiecePosition.getY()];
+		board[PiecePosition.getX()][PiecePosition.getY()] = new MT();
+		curPiece = null;
+		nextTurn();
+		System.out.println(board[PiecePosition.getX()][PiecePosition.getY()] + " , " + board[dest.getX()][dest.getY()]);
+	}
+
+	boolean isIllegalMove(Position PiecePosition, Position dest) {
+		Piece temp = board[dest.getX()][dest.getY()];
+		board[dest.getX()][dest.getY()] = board[PiecePosition.getX()][PiecePosition.getY()];
+		board[PiecePosition.getX()][PiecePosition.getY()] = new MT();
+		Checker checker = new Checker();
+		if (checker.isChecked((Board_1) this, turn)) {
+			board[PiecePosition.getX()][PiecePosition.getY()] = board[dest.getX()][dest.getY()];
+			board[dest.getX()][dest.getY()] = temp;
+			return true;
+		}
+		else {
+			board[PiecePosition.getX()][PiecePosition.getY()] = board[dest.getX()][dest.getY()];
+			board[dest.getX()][dest.getY()] = temp;
+			return false;
+		}
 	}
 	
 }
