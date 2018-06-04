@@ -26,7 +26,6 @@ public class Board_2 extends Board_Master implements ConstDef {
 	
 	public Board_2() {
 		Piece.players = 2;
-		skipTurn = 1;
 		board = initialBoard;
 		curPiece = null;
 	}
