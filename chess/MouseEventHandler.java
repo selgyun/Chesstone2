@@ -1,5 +1,6 @@
 package chess;
 
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -91,20 +92,21 @@ public class MouseEventHandler implements MouseListener {
 
 	@Override
 	public void mouseExited(MouseEvent e) {
- 		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
 		JPanel curSquare = (JPanel) e.getSource();
 		int curX = (int) curSquare.getClientProperty("column");
-	int curY = (int) curSquare.getClientProperty("row");
-	if ((curX + curY) % 2 == 1) {
+		int curY = (int) curSquare.getClientProperty("row");
+		
+		if ((curX + curY) % 2 == 1) {
 			curSquare.setBackground(new Color(180, 120, 50));
 			curSquare.setBorder(new LineBorder(new Color(180, 120, 50), 5));
- 
+
 		} else {
 			curSquare.setBackground(new Color(240, 220, 200));
 			curSquare.setBorder(new LineBorder(new Color(240, 220, 200), 5));
 		}
- 	}
-
+	}
+	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
