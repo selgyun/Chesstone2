@@ -1,10 +1,11 @@
 package chess;
 
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
-import chess.GameFrame_1vs1;
+import javax.swing.border.LineBorder;
 
 import pieces.Position;
 
@@ -81,13 +82,24 @@ public class MouseEventHandler implements MouseListener {
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-
+		JPanel curSquare = (JPanel) e.getSource();
+		curSquare.setBackground(new Color(0,254,0));
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
+		JPanel curSquare = (JPanel) e.getSource();
+		int curX = (int) curSquare.getClientProperty("column");
+		int curY = (int) curSquare.getClientProperty("row");
+		if ((curX + curY) % 2 == 0) {
+			curSquare.setBackground(new Color(180, 120, 50));
+			curSquare.setBorder(new LineBorder(new Color(180, 120, 50), 5));
 
+		} else {
+			curSquare.setBackground(new Color(240, 220, 200));
+			curSquare.setBorder(new LineBorder(new Color(240, 220, 200), 5));
+		}
 	}
 
 	@Override
