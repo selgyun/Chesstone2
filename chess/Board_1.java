@@ -31,12 +31,26 @@ public class Board_1 extends Board_Master implements ConstDef {
 			{ new Rook(WHITE), new Knight(WHITE), new Bishop(WHITE), new Queen(WHITE), new King(WHITE),
 					new Bishop(WHITE), new Knight(WHITE), new Rook(WHITE) }, };
 
+	boolean[][] getCatchable(int color) {
+		boolean[][] catchable = new boolean[8][8];
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (getPiece(i, j).getColor() == color) {
+					ArrayList<Position> moveable = getPiece(i, j).getMovement(this, new Position(i, j));
+					for (int k = 0; k < moveable.size(); k++) {
+						catchable[moveable.get(k).getX()][moveable.get(k).getY()] = true;
+					}
+				}
+			}
+		}
+		return catchable;
+	}
+
 	public Board_1() {
 		this.board = initialBoard;
 		curPiece = null;
 		skipTurn = 2;
 		turn = WHITE;
-		boardSize= 8;
 	}
 
 	// return null if (x, y) is out of range
