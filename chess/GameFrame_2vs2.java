@@ -30,30 +30,31 @@ public class GameFrame_2vs2 {
 
 		board = new Board_2();
 
-		boolean painter = false;
+		boolean painter = true;
 		for (int i = 0; i < 14; i++) {
 			for (int j = 0; j < 14; j++) {
 				square[i][j] = new JPanel();
 				square[i][j].putClientProperty("column", i);
 				square[i][j].putClientProperty("row", j);
 
-				if (painter) {
-					square[i][j].setBackground(Color.ORANGE);
-					painter = false;
-				} else {
-					square[i][j].setBackground(Color.YELLOW);
-					painter = true;
-				}
+				if ((0 <= i && i < 3) && (0 <= j && j < 3) || (11 <= i && i < 14) && (0 <= j && j < 3) || (0 <= i && i < 3) && (11 <= j && j < 14) || (11 <= i && i < 14) && (11 <= j && j < 14)) {
+					square[i][j].putClientProperty("OutOfBound", true);
+				} else
+					square[i][j].putClientProperty("OutOfBound", false);
 				
-				if ((0 <= i && i < 3) && (0 <= j && j < 3) || (11 <= i && i < 14) && (0 <= j && j < 3)) {
-					square[i][j].setBackground(Color.GRAY);
-				}
 
-				if ((0 <= i && i < 3) && (11 <= j && j < 14) || (11 <= i && i < 14) && (11 <= j && j < 14)) {
+				if ((boolean) square[i][j].getClientProperty("OutOfBound") == true)
 					square[i][j].setBackground(Color.GRAY);
+				else {
+					if (painter) {
+						square[i][j].setBackground(Color.ORANGE);
+						painter = false;
+					} else {
+						square[i][j].setBackground(Color.YELLOW);
+						painter = true;
+					}
+					//square[i][j].addMouseListener(new MouseEventHandler(board,this));
 				}
-
-				//square[i][j].addMouseListener(new MouseEventHandler(board, this));
 				chessBoard.add(square[i][j]);
 			}
 			painter = painter ? false : true;

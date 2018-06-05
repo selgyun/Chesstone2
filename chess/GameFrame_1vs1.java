@@ -47,7 +47,7 @@ public class GameFrame_1vs1 {
 		logTextScreen.setFont(myfont);
 		JScrollPane textScrollPane = new JScrollPane(logTextScreen);
 		textScrollPane.setPreferredSize(new Dimension(150,400));
-		logTextScreen.append("게임 시작!!"); //초기 서순
+		logTextScreen.append("게임 시작!!\n"); //초기 서순
 		playSpectator.add(textScrollPane);
 
 		doc = (StyledDocument) new DefaultStyledDocument();
