@@ -34,11 +34,6 @@ public class MouseEventHandler implements MouseListener {
 				gFrame.change();
 				gFrame.addMovelog(gFrame.logTextScreen, "Selected\n");
 				System.out.println("Selected");
-				for (int i = 0; i < 8; i++, System.out.println()) {
-					for (int j = 0; j < 8; j++) {
-						System.out.print(((Board_1) board).getCatchable(board.turn)[i][j] + " ");
-					}
-				}
 			}
 		} else {
 			if (board.curPiece.getMovement((Board_1) board, board.curPiecePos).contains(curPos)) {
@@ -52,15 +47,15 @@ public class MouseEventHandler implements MouseListener {
 					System.out.println("Moved");
 
 					Checker checker = new Checker();
-					if (checker.isChecked((Board_1) board, board.getTurn())) {
+					if (checker.isChecked((Board_1) board)) {
 						gFrame.addMovelog(gFrame.logTextScreen, "Check!");
 						System.out.println("Check");
-						if (checker.isCheckMate((Board_1) board, board.getTurn())) {
+						if (checker.isCheckMate((Board_1) board)) {
 							gFrame.addMovelog(gFrame.logTextScreen, "CheckMate!");
 							gFrame.showPopUp("CheckMate");
 							System.out.println("Checkmate");
 						}
-					} else if (checker.isStaleMate((Board_1) board, board.getTurn())) {
+					} else if (checker.isStaleMate((Board_1) board)) {
 						gFrame.addMovelog(gFrame.logTextScreen, "StaleMate!");
 						gFrame.showPopUp("StaleMate");
 						System.out.println("StaleMate");
