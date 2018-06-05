@@ -26,5 +26,6 @@ public class Board_2 extends Board_Master implements ConstDef {
 		skipTurn = 1;
 		board = initialBoard;
 		curPiece = null;
+		boardSize = 14;
 	}
 }

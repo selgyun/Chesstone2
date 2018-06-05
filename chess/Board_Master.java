@@ -1,5 +1,7 @@
 package chess;
 
+import java.util.ArrayList;
+
 import pieces.MT;
 import pieces.Pawn;
 import pieces.Piece;
@@ -8,11 +10,11 @@ import pieces.Position;
 public class Board_Master implements ConstDef {
 	protected int turn;
 	protected int skipTurn;
-	
+
 	protected Piece[][] board;
 	public Piece curPiece;
 	public Position curPiecePos;
-	
+
 	public int getTurn() {
 		return turn;
 	}
@@ -23,7 +25,7 @@ public class Board_Master implements ConstDef {
 			turn = WHITE;
 		System.out.println(turn + " turn");
 	}
-	
+
 	public Piece getPiece(int PieceX, int PieceY) {
 		if (Piece.players == 1 && !Position.inRange(PieceX, PieceY)) {
 			return null;
@@ -40,7 +42,18 @@ public class Board_Master implements ConstDef {
 		}
 		return board[x][y];
 	}
-	
+
+	boolean getCatchable(int color, int x, int y) {
+		boolean catchable = false;
+		if (getPiece(x, y).getColor() == color) {
+			ArrayList<Position> moveable = getPiece(x, y).getMovement(this, new Position(x, y));
+			for (int k = 0; k < moveable.size(); k++) {
+				catchable = true;
+			}
+		}
+		return catchable;
+	}
+
 	void Move(Position PiecePosition, Position dest) {
 		if (getPiece(PiecePosition) instanceof Pawn) {
 			((Pawn) getPiece(PiecePosition)).moved();
@@ -61,12 +74,11 @@ public class Board_Master implements ConstDef {
 			board[PiecePosition.getX()][PiecePosition.getY()] = board[dest.getX()][dest.getY()];
 			board[dest.getX()][dest.getY()] = temp;
 			return true;
-		}
-		else {
+		} else {
 			board[PiecePosition.getX()][PiecePosition.getY()] = board[dest.getX()][dest.getY()];
 			board[dest.getX()][dest.getY()] = temp;
 			return false;
 		}
 	}
-	
+
 }
