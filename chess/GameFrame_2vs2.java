@@ -3,10 +3,18 @@ package chess;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextPane;
+import javax.swing.text.DefaultStyledDocument;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 public class GameFrame_2vs2 {
 	private static final long serialVersionUID = 1L;
@@ -17,14 +25,42 @@ public class GameFrame_2vs2 {
 	Board_2 board;
 	JPanel[][] square = new JPanel[14][14];
 	JPanel chessBoard;
+	JPanel playSpectator;
+	JTextArea logTextScreen;
+	JTextPane turnScreen;
+	StyledDocument doc;
 	ImagePanel[][] imgPan = new ImagePanel[14][14];
 
+	Font myfont = new Font("NanumGothic", Font.BOLD, 12);
+	
 	public GameFrame_2vs2() {
 		gameFrame = new JFrame("Chess - 2vs2");
 		gameFrame.setSize(width, height);
 		gameFrame.setLocationRelativeTo(null);
 		gameFrame.setLayout(new BorderLayout());
 
+		playSpectator = new JPanel();
+		playSpectator.setLayout(new BoxLayout(playSpectator, BoxLayout.Y_AXIS));
+		
+		logTextScreen = new JTextArea(5, 10);
+		logTextScreen.setFont(myfont);
+		JScrollPane textScrollPane = new JScrollPane(logTextScreen);
+		textScrollPane.setPreferredSize(new Dimension(150,500));
+		logTextScreen.append("게임 시작!!\n"); //초기 서순
+		playSpectator.add(textScrollPane);
+
+		doc = (StyledDocument) new DefaultStyledDocument();
+		turnScreen = new JTextPane(doc);
+		javax.swing.text.Style textStyle = turnScreen.addStyle("Red", null);
+		StyleConstants.setForeground(textStyle, Color.RED);
+		turnScreen.setEditable(false);
+		turnScreen.setPreferredSize(new Dimension(150,50));
+		turnScreen.setText("WHITE Team의 차례!");
+		
+		playSpectator.add(turnScreen);
+		gameFrame.add(playSpectator, BorderLayout.EAST);
+		playSpectator.setVisible(true);
+		
 		JPanel chessBoard = new JPanel();
 		chessBoard.setLayout(new GridLayout(14, 14));
 
