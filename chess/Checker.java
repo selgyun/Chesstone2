@@ -1,12 +1,6 @@
 package chess;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import pieces.Bishop;
-import pieces.Knight;
 import pieces.Position;
-import pieces.Rook;
 
 public class Checker implements ConstDef {
 
