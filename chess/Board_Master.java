@@ -12,7 +12,7 @@ public class Board_Master implements ConstDef {
 	protected Piece[][] board;
 	public Piece curPiece;
 	public Position curPiecePos;
-	
+	public int boardSize;
 	public int getTurn() {
 		return turn;
 	}

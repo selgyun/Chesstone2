@@ -12,15 +12,12 @@ public class Checker implements ConstDef {
 
 	// kindkiz ¿€º∫
 
-	final int BOARD1MAX = 8;
-	final int BOARD2MAX = 14;
-
 	public boolean isChecked(Board_1 board, int turn) {
 		// find king position
 		int KingX = 0, KingY = 0;
 
-		for (int X = 0; X < BOARD1MAX; X++) {
-			for (int Y = 0; Y < BOARD1MAX; Y++) {
+		for (int X = 0; X < board.boardSize; X++) {
+			for (int Y = 0; Y < board.boardSize; Y++) {
 				if (board.getPiece(X, Y).getName() == KING && board.getPiece(X, Y).getColor() == turn) {
 					KingX = X;
 					KingY = Y;
@@ -43,8 +40,8 @@ public class Checker implements ConstDef {
 		// find king position
 		int KingX = 0, KingY = 0;
 		 
-		for (int X = 0; X < BOARD2MAX; X++) {
-			for (int Y = 0; Y < BOARD2MAX; Y++) {
+		for (int X = 0; X < board.boardSize; X++) {
+			for (int Y = 0; Y < board.boardSize; Y++) {
 				if(board.getPiece(X, Y).getName() == KING && board.getPiece(X, Y).getColor() == turn)
 				{
 					KingX = X;
@@ -70,8 +67,8 @@ public class Checker implements ConstDef {
 		// find king position
 		int KingX = 0, KingY = 0;
 
-		for (int X = 0; X < BOARD1MAX; X++) {
-			for (int Y = 0; Y < BOARD1MAX; Y++) {
+		for (int X = 0; X < board.boardSize; X++) {
+			for (int Y = 0; Y < board.boardSize; Y++) {
 				if(board.getPiece(X, Y).getName() == KING && board.getPiece(X, Y).getColor() == turn)
 				{
 					KingX = X;
@@ -84,8 +81,8 @@ public class Checker implements ConstDef {
 		{
 			return false;
 		}
-		for (int X = 0; X < BOARD1MAX; X++) {
-			for (int Y = 0; Y < BOARD1MAX; Y++) {
+		for (int X = 0; X < board.boardSize; X++) {
+			for (int Y = 0; Y < board.boardSize; Y++) {
 				if ((turn == WHITE) ? board.getCatchable(WHITE)[X][Y] : board.getCatchable(BLACK)[X][Y])
 					return false;
 			}
@@ -107,8 +104,8 @@ public class Checker implements ConstDef {
 		if (isChecked(board, turn)) {
 			return false;
 		}
-		for (int X = 0; X < BOARD1MAX; X++) {
-			for (int Y = 0; Y < BOARD1MAX; Y++) {
+		for (int X = 0; X < board.boardSize; X++) {
+			for (int Y = 0; Y < board.boardSize; Y++) {
 				if ((turn == WHITE) ? board.getCatchable(WHITE)[X][Y] : board.getCatchable(BLACK)[X][Y])
 					return false;
 			}
@@ -121,8 +118,8 @@ public class Checker implements ConstDef {
 		if (isChecked(board, turn)) {
 			return false;
 		}
-		for (int X = 0; X < BOARD2MAX; X++) {
-			for (int Y = 0; Y < BOARD2MAX; Y++) {
+		for (int X = 0; X < board.boardSize; X++) {
+			for (int Y = 0; Y < board.boardSize; Y++) {
 				if ((turn == WHITE || turn == BLACK) ? board.p1_catchable[X][Y] : board.p2_catchable[X][Y])
 					return false;
 			}
