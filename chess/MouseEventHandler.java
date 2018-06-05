@@ -45,7 +45,7 @@ public class MouseEventHandler implements MouseListener {
 					System.out.println("Illegal Move");
 				} else {
 					board.Move(board.curPiecePos, curPos);
-					gFrame.addMovelog(gFrame.logTextScreen, board.getStringTurn());
+					gFrame.turnScreen.setText(board.getStringTurn());
 
 					gFrame.change();
 					gFrame.addMovelog(gFrame.logTextScreen, "Move Success!\n");

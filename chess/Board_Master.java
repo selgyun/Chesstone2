@@ -54,8 +54,6 @@ public class Board_Master implements ConstDef {
 		return board[PieceX][PieceY];
 	}
 	
-	
-
 	public Piece getPiece(Position pos) {
 		int x = pos.getX();
 		int y = pos.getY();

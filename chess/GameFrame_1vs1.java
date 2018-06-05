@@ -1,6 +1,7 @@
 package chess;
 
 import java.awt.BorderLayout;
+import javax.swing.text.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -23,8 +24,11 @@ public class GameFrame_1vs1 {
 	ImagePanel[][] imgPan = new ImagePanel[8][8];
 	JPanel playSpectator;
 	JTextArea logTextScreen;
+	JTextPane turnScreen;
+	StyledDocument doc;
 
 	Font myfont = new Font("NanumGothic", Font.BOLD, 12);
+	
 	public void addMovelog(JTextArea area, String log){
 		area.append(log + "\n");
 		area.setCaretPosition(area.getDocument().getLength());
@@ -37,17 +41,27 @@ public class GameFrame_1vs1 {
 		gameFrame.setLayout(new BorderLayout());
 
 		playSpectator = new JPanel();
-		playSpectator.setLayout(new GridLayout(1, 2));
+		playSpectator.setLayout(new BoxLayout(playSpectator, BoxLayout.Y_AXIS));
 		
 		logTextScreen = new JTextArea(5, 10);
 		logTextScreen.setFont(myfont);
 		JScrollPane textScrollPane = new JScrollPane(logTextScreen);
-		logTextScreen.append("WHITE Team의 차례!"); //초기 서순
+		textScrollPane.setPreferredSize(new Dimension(150,400));
+		logTextScreen.append("게임 시작!!"); //초기 서순
 		playSpectator.add(textScrollPane);
 
+		doc = (StyledDocument) new DefaultStyledDocument();
+		turnScreen = new JTextPane(doc);
+		javax.swing.text.Style textStyle = turnScreen.addStyle("Red", null);
+		StyleConstants.setForeground(textStyle, Color.RED);
+		turnScreen.setEditable(false);
+		turnScreen.setPreferredSize(new Dimension(150,50));
+		turnScreen.setText("WHITE Team의 차례!");
+		
+		playSpectator.add(turnScreen);
 		gameFrame.add(playSpectator, BorderLayout.EAST);
 		playSpectator.setVisible(true);
-
+		
 		JPanel chessBoard = new JPanel();
 		chessBoard.setLayout(new GridLayout(8, 8));
 
