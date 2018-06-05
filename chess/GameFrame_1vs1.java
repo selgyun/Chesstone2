@@ -42,6 +42,7 @@ public class GameFrame_1vs1 {
 		logTextScreen = new JTextArea(5, 10);
 		logTextScreen.setFont(myfont);
 		JScrollPane textScrollPane = new JScrollPane(logTextScreen);
+		logTextScreen.append("WHITE Team의 차례!"); //초기 서순
 		playSpectator.add(textScrollPane);
 
 		gameFrame.add(playSpectator, BorderLayout.EAST);

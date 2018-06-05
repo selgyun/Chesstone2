@@ -5,6 +5,8 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 import chess.GameFrame_1vs1;
+import java.awt.Color;
+import javax.swing.border.LineBorder;
 
 import pieces.Position;
 
@@ -42,8 +44,10 @@ public class MouseEventHandler implements MouseListener {
 					System.out.println("Illegal Move");
 				} else {
 					board.Move(board.curPiecePos, curPos);
+					gFrame.addMovelog(gFrame.logTextScreen, board.getStringTurn());
+
 					gFrame.change();
-					gFrame.addMovelog(gFrame.logTextScreen, "Moved\n");
+					gFrame.addMovelog(gFrame.logTextScreen, "Move Success!\n");
 					System.out.println("Moved");
 
 					Checker checker = new Checker();
@@ -81,14 +85,25 @@ public class MouseEventHandler implements MouseListener {
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-
+		JPanel curSquare = (JPanel) e.getSource();
+		curSquare.setBackground(new Color(255,178,245));
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
+ 		// TODO Auto-generated method stub
+		JPanel curSquare = (JPanel) e.getSource();
+		int curX = (int) curSquare.getClientProperty("column");
+	int curY = (int) curSquare.getClientProperty("row");
+	if ((curX + curY) % 2 == 1) {
+			curSquare.setBackground(new Color(180, 120, 50));
+			curSquare.setBorder(new LineBorder(new Color(180, 120, 50), 5));
+ 
+		} else {
+			curSquare.setBackground(new Color(240, 220, 200));
+			curSquare.setBorder(new LineBorder(new Color(240, 220, 200), 5));
+		}
+ 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {

@@ -39,12 +39,22 @@ public class Board_Master implements ConstDef {
 			System.out.println("BLACK turn");
 	}
 
+	public String getStringTurn()
+	{
+		if(this.turn == 1) return "WHITE TeamÀÇ Â÷·Ê!";
+		else if(this.turn == 2) return "RED TeamÀÇ Â÷·Ê!";
+		else if(this.turn == 3) return "BLACK TeamÀÇ Â÷·Ê!";
+		else return "GREEN TeamÀÇ Â÷·Ê!";
+	}
+	
 	public Piece getPiece(int PieceX, int PieceY) {
 		if (Piece.players == 1 && !Position.inRange(PieceX, PieceY)) {
 			return null;
 		}
 		return board[PieceX][PieceY];
 	}
+	
+	
 
 	public Piece getPiece(Position pos) {
 		int x = pos.getX();
