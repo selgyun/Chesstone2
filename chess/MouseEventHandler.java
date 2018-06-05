@@ -83,7 +83,7 @@ public class MouseEventHandler implements MouseListener {
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
 		JPanel curSquare = (JPanel) e.getSource();
-		curSquare.setBackground(new Color(0,254,0));
+		curSquare.setBackground(new Color(255,178,245));
 	}
 
 	@Override
@@ -92,7 +92,8 @@ public class MouseEventHandler implements MouseListener {
 		JPanel curSquare = (JPanel) e.getSource();
 		int curX = (int) curSquare.getClientProperty("column");
 		int curY = (int) curSquare.getClientProperty("row");
-		if ((curX + curY) % 2 == 0) {
+		
+		if ((curX + curY) % 2 == 1) {
 			curSquare.setBackground(new Color(180, 120, 50));
 			curSquare.setBorder(new LineBorder(new Color(180, 120, 50), 5));
 
