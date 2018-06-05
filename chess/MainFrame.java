@@ -1,25 +1,29 @@
 package chess;
 
-import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+
 public class MainFrame{
-	final int width = 600;
-	final int height = 600;
+	final int width = 1280;
+	final int height = 720;
 	JFrame frame;
 	
 	public MainFrame() {
 		frame = new JFrame("Chess");
 		frame.setSize(width, height);
 		frame.setLocationRelativeTo(null);
-		
+
+
 		//frame.setLayout(new BorderLayout(10, 20));
 		
 		JButton StartBut_1vs1 = new JButton("1vs1");
