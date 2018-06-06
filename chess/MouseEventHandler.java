@@ -46,13 +46,13 @@ public class MouseEventHandler implements MouseListener {
 			} else {
 				if (board.curPiece.getMovement((Board_1) board, board.curPiecePos).contains(curPos)) {
 					if (board.isIllegalMove(board.curPiecePos, curPos)) {
-						gFrame.addMovelog(gFrame.logTextScreen, "It is illegal Move!\n");
+						gFrame.addMovelog(gFrame.logTextScreen, "\nIt is illegal Move!");
 					} else {
-						gFrame.addMovelog(gFrame.logTextScreen, board.getStringTurn() + " " + board.curPiece.getNameS()
+						gFrame.addMovelog(gFrame.logTextScreen, "\n"+board.getStringTurn() + " " + board.curPiece.getNameS()
 								+ " Moved " + board.getRealPos(board.curPiecePos) + " -> " + board.getRealPos(curPos));
 						if (board.getPiece(curPos).getColor() == board.getNextTurn()
 								|| board.getPiece(curPos).getColor() == board.getPrevTurn()) {
-							gFrame.addMovelog(gFrame.logTextScreen, "It took " + board.getPiece(curPos).getColor() + " "
+							gFrame.addMovelog(gFrame.logTextScreen, "It took " + board.getPiece(curPos).getColorS() + " "
 									+ board.getPiece(curPos).getNameS());
 						}
 						board.Move(board.curPiecePos, curPos);
@@ -100,10 +100,10 @@ public class MouseEventHandler implements MouseListener {
 			} else {
 				if (board.curPiece.getMovement(board, board.curPiecePos).contains(curPos)) {
 					if (board.isIllegalMove(board.curPiecePos, curPos)) {
-						gFrame2.addMovelog(gFrame2.logTextScreen, "It is illegal Move!\n");
+						gFrame2.addMovelog(gFrame2.logTextScreen, "\nIt is illegal Move!");
 					} else {
 						gFrame2.addMovelog(gFrame2.logTextScreen,
-								board.getStringTurn() + " " + board.curPiece.getNameS() + " Moved "
+								"\n"+board.getStringTurn() + " " + board.curPiece.getNameS() + " Moved "
 										+ board.getRealPos(board.curPiecePos) + " -> " + board.getRealPos(curPos));
 						board.Move(board.curPiecePos, curPos);
 						gFrame2.turnScreen.setText(board.getStringTurn() + " Turn");
