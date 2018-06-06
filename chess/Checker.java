@@ -28,11 +28,7 @@ public class Checker implements ConstDef {
 		}
 
 		// is king underAttecked?
-		if (board.getCatchable(board.getNextTurn(), KingX, KingY)) {
-			return true;
-		}
-
-		return false;
+		return board.getCatchable(board.getNextTurn(), KingX, KingY) || board.getCatchable(board.getPrevTurn(), KingX, KingY);
 	}
 
 	public boolean isCheckMate() {

@@ -17,20 +17,6 @@ public class Board_1 extends Board_Master implements ConstDef {
 
 	// 20180531 RedJen Initialized
 
-	final Piece[][] initialBoard = {
-			{ new Rook(BLACK), new Knight(BLACK), new Bishop(BLACK), new Queen(BLACK), new King(BLACK),
-					new Bishop(BLACK), new Knight(BLACK), new Rook(BLACK) },
-			{ new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK),
-					new Pawn(BLACK), new Pawn(BLACK) },
-			{ new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT() },
-			{ new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT() },
-			{ new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT() },
-			{ new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT() },
-			{ new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE),
-					new Pawn(WHITE), new Pawn(WHITE) },
-			{ new Rook(WHITE), new Knight(WHITE), new Bishop(WHITE), new Queen(WHITE), new King(WHITE),
-					new Bishop(WHITE), new Knight(WHITE), new Rook(WHITE) }, };
-
 	boolean[][] getCatchable(int color) {
 		boolean[][] catchable = new boolean[8][8];
 		for (int i = 0; i < 8; i++) {
@@ -48,6 +34,21 @@ public class Board_1 extends Board_Master implements ConstDef {
 
 	public Board_1() {
 		Piece.players = 1;
+
+		final Piece[][] initialBoard = {
+				{ new Rook(BLACK), new Knight(BLACK), new Bishop(BLACK), new Queen(BLACK), new King(BLACK),
+						new Bishop(BLACK), new Knight(BLACK), new Rook(BLACK) },
+				{ new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK),
+						new Pawn(BLACK), new Pawn(BLACK) },
+				{ new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT() },
+				{ new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT() },
+				{ new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT() },
+				{ new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT() },
+				{ new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE), new Pawn(WHITE),
+						new Pawn(WHITE), new Pawn(WHITE) },
+				{ new Rook(WHITE), new Knight(WHITE), new Bishop(WHITE), new Queen(WHITE), new King(WHITE),
+						new Bishop(WHITE), new Knight(WHITE), new Rook(WHITE) }};
+
 		this.board = initialBoard;
 		boardSize = 8;
 		curPiece = null;

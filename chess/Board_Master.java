@@ -18,7 +18,7 @@ public class Board_Master implements ConstDef {
 	public Position curPiecePos;
 
 	public ArrayList<Piece> deadPieces;
-	
+
 	public boolean inDanger_1 = false;
 	public boolean inDanger_2 = false;
 
@@ -27,7 +27,7 @@ public class Board_Master implements ConstDef {
 	}
 
 	public int getPrevTurn() {
-		if (turn - skipTurn < 0)
+		if (turn - skipTurn < 1)
 			return turn - skipTurn + 4;
 		else
 			return turn + skipTurn;
@@ -82,12 +82,19 @@ public class Board_Master implements ConstDef {
 		return board[x][y];
 	}
 
-	boolean getCatchable(int color, int x, int y) {
+	boolean getCatchable(int col, int x, int y) {
+		int color = (col>2)?(col-2):(col+2);
 		for (int i = 0; i < boardSize; i++) {
 			for (int j = 0; j < boardSize; j++) {
 				if (getPiece(i, j).getColor() == color) {
-					if (getPiece(i, j).getMovement(this, new Position(i, j)).contains(new Position(x, y))) {
-						return true;
+					if (getPiece(i, j) instanceof Pawn) {
+						if (((Pawn)getPiece(i, j)).getMovementV(this, new Position(i, j)).contains(new Position(x, y))) {
+							return true;
+						}
+					} else {
+						if (getPiece(i, j).getMovement(this, new Position(i, j)).contains(new Position(x, y))) {
+							return true;
+						}
 					}
 				}
 			}
@@ -125,9 +132,9 @@ public class Board_Master implements ConstDef {
 			return false;
 		}
 	}
-	
+
 	public void setMT(int x, int y) {
-		if(Position.inRange(x, y))
+		if (Position.inRange(x, y))
 			board[x][y] = new MT();
 	}
 }
