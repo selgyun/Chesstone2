@@ -4,8 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -37,8 +41,22 @@ public class GameFrame_2vs2 {
 	StyledDocument doc;
 	ImagePanel[][] imgPan = new ImagePanel[14][14];
 
-	Font myfont = new Font("NanumGothic", Font.BOLD, 12);
+	Font logFont = new Font("NanumGothic", Font.BOLD, 12);
+	Font turnScreenFont = new Font("NanumGothic", Font.BOLD, 15);
 
+	public void loadNewFont(String fontDir){
+		try {
+		    turnScreenFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontDir)).deriveFont(24f);
+		    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		    ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(fontDir)));
+		} catch (IOException e) {
+		    e.printStackTrace();
+		} catch(FontFormatException e) {
+		    e.printStackTrace();
+		}
+	}
+
+	
 	public void changeTurnScreen(String turnStr, StyledDocument doc, Style textStyle) {
 		try {
 			doc.insertString(doc.getLength(), "WHITE TeamÀÇ Â÷·Ê!", textStyle);
@@ -46,6 +64,9 @@ public class GameFrame_2vs2 {
 		}
 	}
 
+	Color foreColor = new Color(230,245,247);
+	Color backColor = new Color(81,191,181);
+	
 	public GameFrame_2vs2() {
 		gameFrame = new JFrame("Chess - 2vs2");
 		gameFrame.setSize(width, height);
@@ -56,17 +77,19 @@ public class GameFrame_2vs2 {
 		playSpectator.setLayout(new BoxLayout(playSpectator, BoxLayout.Y_AXIS));
 
 		logTextScreen = new JTextArea(5, 10);
-		logTextScreen.setFont(myfont);
+		logTextScreen.setFont(logFont);
 		JScrollPane textScrollPane = new JScrollPane(logTextScreen);
 		textScrollPane.setPreferredSize(new Dimension(150, 500));
 		logTextScreen.append("°ÔÀÓ½ÃÀÛ!!\n"); // ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½
 		playSpectator.add(textScrollPane);
 
 		turnScreen = new JTextPane();
-		turnScreen.setBackground(Color.black);
+		turnScreen.setBackground(backColor);
+		loadNewFont("fonts\\koverwatch.ttf");
+		turnScreen.setFont(turnScreenFont);
 		doc = turnScreen.getStyledDocument();
 		Style textStyle = turnScreen.addStyle("TextStyle", null);
-		StyleConstants.setForeground(textStyle, Color.white);
+		StyleConstants.setForeground(textStyle, foreColor);
 		turnScreen.setEditable(false);
 		turnScreen.setPreferredSize(new Dimension(150, 50));
 
