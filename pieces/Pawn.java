@@ -42,6 +42,29 @@ public class Pawn extends Piece{
 	public void moved() {
 		isMoved = true;
 	}
+	
+	public ArrayList<Position> getMovementV(Board_Master board, Position now) {
+		int x = now.getX();
+		int y = now.getY();
+		int dir = 0;
+		
+		if(color == BLACK || color == RED)      dir = +1;
+		else if(color == WHITE || color == GREEN) dir = -1;
+		
+		ArrayList<Position> go = new ArrayList<Position>();
+		
+		if (color == BLACK || color == WHITE) {
+			go.add(new Position(x + dir, y + 1));
+			go.add(new Position(x + dir, y - 1));
+		}
+		
+		else if (color == RED || color == GREEN) {
+			go.add(new Position(x + 1, y + dir));
+			go.add(new Position(x - 1, y + dir));
+		}
+		
+		return go;
+	}
 
 	public ArrayList<Position> getMovement(Board_Master board, Position now) {
 		int x = now.getX();
