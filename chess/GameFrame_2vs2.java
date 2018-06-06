@@ -56,10 +56,9 @@ public class GameFrame_2vs2 extends GameFrame{
 		descriptionText.setText("Dead Pieces");
 
 		deadPiecesPanel = new JPanel();
-		deadPiecesPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+		deadPiecesPanel.setLayout(new GridLayout(0, 32));
 		
-		
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 4; i++) {
 			for(int j=0; j < 16; j++) {
 				try {
 					corpsePanel[i][j] = new ImagePanel();
@@ -218,6 +217,7 @@ public class GameFrame_2vs2 extends GameFrame{
 		}
 
 		if (deadPiece != null) {
+			System.out.println(deadPiece.getColorS());
 			if(deadPiece.getColor() == WHITE)
 			{
 				dead_1.add(deadPiece);
@@ -242,24 +242,28 @@ public class GameFrame_2vs2 extends GameFrame{
 			BufferedImage temp = dead_1.get(i).getImg();
 			corpsePanel[0][i].setImage(temp);
 			corpsePanel[0][i].repaint();
+			System.out.println(dead_1.get(i).getColorS() +" " + i+": "+dead_1.get(i).getNameS());
 		}
 		for (int i = 0; i < dead_2.size(); i++)
 		{
 			BufferedImage temp = dead_2.get(i).getImg();
 			corpsePanel[1][i].setImage(temp);
 			corpsePanel[1][i].repaint();
+			System.out.println(dead_2.get(i).getColorS() +" " + i+": "+dead_2.get(i).getNameS());
 		}
 		for (int i = 0; i < dead_3.size(); i++)
 		{
 			BufferedImage temp = dead_3.get(i).getImg();
 			corpsePanel[2][i].setImage(temp);
 			corpsePanel[2][i].repaint();
+			System.out.println(dead_3.get(i).getColorS() +" " + i+": "+dead_3.get(i).getNameS());
 		}
 		for (int i = 0; i < dead_4.size(); i++)
 		{
 			BufferedImage temp = dead_4.get(i).getImg();
 			corpsePanel[3][i].setImage(temp);
 			corpsePanel[3][i].repaint();
+			System.out.println(dead_4.get(i).getColorS() +" " + i+": "+dead_4.get(i).getNameS());
 		}
 	}
 

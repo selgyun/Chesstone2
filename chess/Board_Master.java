@@ -30,7 +30,7 @@ public class Board_Master implements ConstDef {
 		if (turn - skipTurn < 1)
 			return turn - skipTurn + 4;
 		else
-			return turn + skipTurn;
+			return turn - skipTurn;
 	}
 
 	public int getNextTurn() {
@@ -83,7 +83,6 @@ public class Board_Master implements ConstDef {
 	}
 
 	boolean getCatchable(int col, int x, int y) {
-		int color = (col>2)?(col-2):(col+2);
 		for (int i = 0; i < boardSize; i++) {
 			for (int j = 0; j < boardSize; j++) {
 				if (getPiece(i, j).getColor() == color) {
