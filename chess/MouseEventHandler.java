@@ -105,6 +105,11 @@ public class MouseEventHandler implements MouseListener {
 						gFrame2.addMovelog(gFrame2.logTextScreen,
 								"\n"+board.getStringTurn() + " " + board.curPiece.getNameS() + " Moved "
 										+ board.getRealPos(board.curPiecePos) + " -> " + board.getRealPos(curPos));
+						if (board.getPiece(curPos).getColor() == board.getNextTurn()
+								|| board.getPiece(curPos).getColor() == board.getPrevTurn()) {
+							gFrame2.addMovelog(gFrame2.logTextScreen, "It took " + board.getPiece(curPos).getColorS() + " "
+									+ board.getPiece(curPos).getNameS());
+						}
 						board.Move(board.curPiecePos, curPos);
 						gFrame2.turnScreen.setText(board.getStringTurn() + " Turn");
 						System.out.println("Moved");
