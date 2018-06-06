@@ -1,6 +1,7 @@
 package chess;
 
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -48,7 +49,16 @@ public class MainFrame{
 			}
 		});
 		
-		JPanel butpanel = new JPanel();
+		ImageIcon icon = new ImageIcon("./Chess.jpg");
+		
+		JPanel butpanel = new JPanel() {
+			public void paintComponent(Graphics g) {
+				g.drawImage(icon.getImage(),  0,  0,  null);
+				setOpaque(false);
+				super.paintComponent(g);
+			}
+		};
+		
 		butpanel.add(StartBut_1vs1);
 		butpanel.add(StartBut_2vs2);
 		butpanel.add(ExitBut);
