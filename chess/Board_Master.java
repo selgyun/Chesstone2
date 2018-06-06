@@ -45,10 +45,6 @@ public class Board_Master implements ConstDef {
 		if (turn > 4)
 			turn = WHITE;
 
-		if (turn == 1)
-			System.out.println("WHITE turn");
-		else
-			System.out.println("BLACK turn");
 	}
 
 	public String getStringTurn() {
@@ -112,7 +108,6 @@ public class Board_Master implements ConstDef {
 		board[PiecePosition.getX()][PiecePosition.getY()] = new MT();
 		curPiece = null;
 		nextTurn();
-		System.out.println(board[PiecePosition.getX()][PiecePosition.getY()] + " , " + board[dest.getX()][dest.getY()]);
 	}
 
 	public boolean isIllegalMove(Position PiecePosition, Position dest) {

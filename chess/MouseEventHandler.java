@@ -36,12 +36,10 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 			int curX = (int) curSquare.getClientProperty("column");
 			int curY = (int) curSquare.getClientProperty("row");
 			Position curPos = new Position(curX, curY);
-			System.out.println(curX + " " + curY);
 			if (board.curPiece == null) {
 				if (board.getPiece(curPos).getColor() == board.turn) {
 					board.curPiece = board.getPiece(curPos);
 					board.curPiecePos = curPos;
-					System.out.println("Selected");
 				}
 			} else {
 				if (board.curPiece.getMovement((Board_1) board, board.curPiecePos).contains(curPos)) {
@@ -58,30 +56,24 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 						board.Move(board.curPiecePos, curPos);
 						gFrame.renewCorpses_1();
 						gFrame.turnScreen.setText(board.getStringTurn() + " Turn");
-						System.out.println("Moved");
 						Checker checker = new Checker(board);
 						if (checker.isChecked()) {
 							gFrame.addMovelog(gFrame.logTextScreen, board.getStringTurn() + " King Checked!");
-							System.out.println("Check");
 							if (checker.isCheckMate()) {
 								gFrame.addMovelog(gFrame.logTextScreen, "CheckMate!");
 								gFrame.showPopUp("CheckMate");
-								System.out.println("Checkmate");
 							}
 						} else if (checker.isStaleMate()) {
 							gFrame.addMovelog(gFrame.logTextScreen, "StaleMate!");
 							gFrame.showPopUp("StaleMate");
-							System.out.println("StaleMate");
 						}
 					}
 				} else if (board.getPiece(curPos).getColor() == board.getTurn()
 						&& !board.getPiece(curPos).equals(board.curPiece)) {
 					board.curPiece = board.getPiece(curPos);
 					board.curPiecePos = curPos;
-					System.out.println("Selected");
 				} else {
 					board.curPiece = null;
-					System.out.println("Canceled");
 				}
 			}
 			gFrame.change();
@@ -91,12 +83,10 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 			int curY = (int) curSquare.getClientProperty("row");
 
 			Position curPos = new Position(curX, curY);
-			System.out.println(curX + " " + curY);
 			if (board.curPiece == null) {
 				if (board.getPiece(curPos).getColor() == board.getTurn()) {
 					board.curPiece = board.getPiece(curPos);
 					board.curPiecePos = curPos;
-					System.out.println("Selected");
 				}
 			} else {
 				if (board.curPiece.getMovement(board, board.curPiecePos).contains(curPos)) {
@@ -113,11 +103,9 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 						}
 						board.Move(board.curPiecePos, curPos);
 						gFrame2.turnScreen.setText(board.getStringTurn() + " Turn");
-						System.out.println("Moved");
 						Checker checker = new Checker(board);
 						if (checker.isChecked()) {
 							gFrame2.addMovelog(gFrame2.logTextScreen, board.getStringTurn() + " King Checked!");
-							System.out.println("Check");
 							if (checker.isCheckMate()) {
 								gFrame2.addMovelog(gFrame2.logTextScreen, "CheckMate!");
 								int checked = board.getTurn();
@@ -142,7 +130,6 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 									else {
 										gFrame2.addMovelog(gFrame2.logTextScreen, "Checkmate!");
 										gFrame2.showPopUp("Team2 WIN!!");
-										System.out.println("Checkmate");
 									}
 									break;
 									
@@ -166,28 +153,23 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 									else {
 										gFrame2.addMovelog(gFrame2.logTextScreen, "Checkmate!");
 										gFrame2.showPopUp("Team1 WIN!!");
-										System.out.println("Checkmate");
 									}
 									break;
 								}
 								
 								gFrame2.showPopUp("CheckMate");
-								System.out.println("Checkmate");
 							}
 						} else if (checker.isStaleMate()) {
 							gFrame2.addMovelog(gFrame2.logTextScreen, "StaleMate!");
 							gFrame2.showPopUp("Draw!!");
-							System.out.println("StaleMate");
 						}
 					}
 				} else if (board.getPiece(curPos).getColor() == board.getTurn()
 						&& !board.getPiece(curPos).equals(board.curPiece)) {
 					board.curPiece = board.getPiece(curPos);
 					board.curPiecePos = curPos;
-					System.out.println("Selected");
 				} else {
 					board.curPiece = null;
-					System.out.println("Canceled");
 				}
 
 			}
