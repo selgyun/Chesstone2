@@ -44,7 +44,7 @@ public class Rook extends Piece {
 
 		ArrayList<Position> go = new ArrayList<Position>();
 
-		for (int i = 1; Position.inRange(x + i, 1); i++) {
+		for (int i = 1; Position.inRange(x + i, y); i++) {
 			int goX = x + i;
 			int goY = y;
 
@@ -58,7 +58,7 @@ public class Rook extends Piece {
 			}
 		}
 
-		for (int i = 1; Position.inRange(x - i, 1); i++) {
+		for (int i = 1; Position.inRange(x - i, y); i++) {
 			int goX = x - i;
 			int goY = y;
 
@@ -72,7 +72,7 @@ public class Rook extends Piece {
 			}
 		}
 
-		for (int i = 1; Position.inRange(1, y + i); i++) {
+		for (int i = 1; Position.inRange(x, y + i); i++) {
 			int goX = x;
 			int goY = y + i;
 
@@ -86,7 +86,7 @@ public class Rook extends Piece {
 			}
 		}
 
-		for (int i = 1; Position.inRange(1, y - i); i++) {
+		for (int i = 1; Position.inRange(x, y - i); i++) {
 			int goX = x;
 			int goY = y - i;
 
