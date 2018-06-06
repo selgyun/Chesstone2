@@ -14,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
+import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 
@@ -50,6 +51,9 @@ public class GameFrame_2vs2 extends GameFrame{
 		loadNewFont("fonts\\koverwatch.ttf");
 		turnScreen.setFont(turnScreenFont);
 		doc = turnScreen.getStyledDocument();
+		SimpleAttributeSet textAlignCenter = new SimpleAttributeSet();
+		StyleConstants.setAlignment(textAlignCenter, StyleConstants.ALIGN_CENTER);
+		doc.setParagraphAttributes(0, doc.getLength(), textAlignCenter, false);
 		Style textStyle = turnScreen.addStyle("TextStyle", null);
 		StyleConstants.setForeground(textStyle, foreColor);
 		turnScreen.setEditable(false);
