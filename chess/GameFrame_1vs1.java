@@ -4,32 +4,26 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
-import javax.swing.text.BadLocationException;
+import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
 
 import pieces.Position;
 
 public class GameFrame_1vs1 extends GameFrame{
 
+	private static final long serialVersionUID = 1L;
 	final int width = 860;
 	final int height = 720;
 
@@ -77,7 +71,7 @@ public class GameFrame_1vs1 extends GameFrame{
 		logTextScreen.setFont(logFont);
 		logTextScreen.setEditable(false);
 		JScrollPane textScrollPane = new JScrollPane(logTextScreen);
-		textScrollPane.setPreferredSize(new Dimension(200, 400));
+		textScrollPane.setPreferredSize(new Dimension(200, 600));
 		logTextScreen.append("게임 시작!!\n"); // 초기 서순
 		playSpectator.add(textScrollPane);
 
@@ -86,6 +80,9 @@ public class GameFrame_1vs1 extends GameFrame{
 		loadNewFont("fonts\\koverwatch.ttf");
 		turnScreen.setFont(turnScreenFont);
 		doc = turnScreen.getStyledDocument();
+		SimpleAttributeSet textAlignCenter = new SimpleAttributeSet();
+		StyleConstants.setAlignment(textAlignCenter, StyleConstants.ALIGN_CENTER);
+		doc.setParagraphAttributes(0, doc.getLength(), textAlignCenter, false);
 		Style textStyle = turnScreen.addStyle("TextStyle", null);
 		StyleConstants.setForeground(textStyle, foreColor);
 		turnScreen.setEditable(false);
