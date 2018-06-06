@@ -35,60 +35,79 @@ public class GameFrame_1vs1 {
 	JFrame gameFrame;
 	Board_1 board;
 	JPanel[][] square = new JPanel[8][8];
-	JPanel chessBoard, deadPieces;
+	JPanel chessBoard, deadPiecesMaster, deadPiecesPanel;
 	ImagePanel[][] imgPan = new ImagePanel[8][8];
+	ImagePanel[][] corpsePanel = new ImagePanel[2][8];
 	JPanel playSpectator;
 	JTextArea logTextScreen;
 	JTextField descriptionText;
 	JTextPane turnScreen;
 	StyledDocument doc;
-	
+
 	Font logFont = new Font("NanumGothic", Font.BOLD, 12);
 	Font turnScreenFont = new Font("NanumGothic", Font.BOLD, 15);
 
-	public void loadNewFont(String fontDir){
+	public void loadNewFont(String fontDir) {
 		try {
-		    turnScreenFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontDir)).deriveFont(24f);
-		    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		    ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(fontDir)));
+			turnScreenFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontDir)).deriveFont(24f);
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(fontDir)));
 		} catch (IOException e) {
-		    e.printStackTrace();
-		} catch(FontFormatException e) {
-		    e.printStackTrace();
+			e.printStackTrace();
+		} catch (FontFormatException e) {
+			e.printStackTrace();
 		}
 	}
 
-	Color foreColor = new Color(230,245,247);
-	Color backColor = new Color(81,191,181);
-	
+	Color foreColor = new Color(230, 245, 247);
+	Color backColor = new Color(81, 191, 181);
+
 	public void addMovelog(JTextArea area, String log) {
 		area.append(log + "\n");
 		area.setCaretPosition(area.getDocument().getLength());
 	}
 
-	public void changeTurnScreen(String turnStr, StyledDocument doc, Style textStyle){
+	public void changeTurnScreen(String turnStr, StyledDocument doc, Style textStyle) {
 		try {
 			doc.insertString(doc.getLength(), "WHITE TeamÀÇ Â÷·Ê!", textStyle);
 		} catch (BadLocationException e) {
 		}
 	}
-	
+
 	public GameFrame_1vs1() {
 		gameFrame = new JFrame("Chess - 1vs1");
 		gameFrame.setSize(width, height);
 		gameFrame.setLocationRelativeTo(null);
 		gameFrame.setLayout(new BorderLayout());
 
-		deadPieces = new JPanel();
-		deadPieces.setLayout(new FlowLayout(FlowLayout.LEFT));
-		deadPieces.setSize(800, 100);
+		deadPiecesMaster = new JPanel();
+		deadPiecesMaster.setLayout(new FlowLayout(FlowLayout.LEFT));
+		deadPiecesMaster.setSize(800, 100);
 		descriptionText = new JTextField(10);
 		descriptionText.setText("Á×Àº ¸»µé Ç¥½Ã");
 		descriptionText.setVisible(true);
-		deadPieces.add(descriptionText);
-		deadPieces.setVisible(true);
-		gameFrame.add(deadPieces, BorderLayout.SOUTH);
-		
+
+		deadPiecesPanel = new JPanel();
+		deadPiecesPanel.setLayout(new GridLayout(8, 2));
+
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 8; j++) {
+				try {
+					corpsePanel[i][j].setImage(board.deadPieces.get(i).getImg());
+					corpsePanel[i][j].setPreferredSize(new Dimension(20, 20));
+					deadPiecesPanel.add(corpsePanel[i][j], BorderLayout.CENTER);
+				} catch (NullPointerException e) {
+
+				}
+			}
+		}
+
+		deadPiecesMaster.add(descriptionText);
+		deadPiecesMaster.add(deadPiecesPanel);
+		deadPiecesMaster.setVisible(true);
+
+		gameFrame.add(deadPiecesMaster, BorderLayout.SOUTH);
+
 		playSpectator = new JPanel();
 		playSpectator.setLayout(new BoxLayout(playSpectator, BoxLayout.Y_AXIS));
 

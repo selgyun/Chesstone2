@@ -94,7 +94,6 @@ public class MouseEventHandler implements MouseListener {
 				}
 			} else {
 				if (board.curPiece.getMovement(board, board.curPiecePos).contains(curPos)) {
-					gFrame.descriptionText.setText(String.valueOf(board.getDeadPiece(board.curPiecePos, curPos).getName()));
 					board.Move(board.curPiecePos, curPos);
 					gFrame2.turnScreen.setText(board.getStringTurn());
 					gFrame2.addMovelog(gFrame2.logTextScreen, "Move Success!\n");
