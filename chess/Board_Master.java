@@ -9,7 +9,7 @@ import pieces.Position;
 
 public class Board_Master implements ConstDef {
 	public int boardSize;
-
+	
 	protected int turn;
 	protected int skipTurn;
 
@@ -17,13 +17,22 @@ public class Board_Master implements ConstDef {
 	public Piece curPiece;
 	public Position curPiecePos;
 
+	public ArrayList<Piece> deadPieces;
+	
 	public int getTurn() {
 		return turn;
 	}
-
+	
+	public int getPrevTurn() {
+		if(turn-skipTurn<0)
+			return turn-skipTurn+4;
+		else 
+			return turn+skipTurn;
+	}
+	
 	public int getNextTurn() {
 		if(turn+skipTurn>4)
-			return WHITE;
+			return turn+skipTurn-4;
 		else 
 			return turn+skipTurn;
 	}
@@ -81,6 +90,9 @@ public class Board_Master implements ConstDef {
 		if (getPiece(PiecePosition) instanceof Pawn) {
 			((Pawn) getPiece(PiecePosition)).moved();
 		}
+		if (getPiece(PiecePosition).getColor() == getNextTurn() || getPiece(PiecePosition).getColor() == getPrevTurn()) {
+			deadPieces.add(getPiece(dest));
+		}
 		board[dest.getX()][dest.getY()] = board[PiecePosition.getX()][PiecePosition.getY()];
 		board[PiecePosition.getX()][PiecePosition.getY()] = new MT();
 		curPiece = null;
@@ -103,5 +115,4 @@ public class Board_Master implements ConstDef {
 			return false;
 		}
 	}
-
 }
