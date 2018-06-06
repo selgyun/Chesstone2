@@ -40,6 +40,10 @@ public class Board_Master implements ConstDef {
 			return turn + skipTurn;
 	}
 
+	public int getTeamTurn() {
+		return turn > 2 ? turn - 2 : turn + 2;
+	}
+
 	public void nextTurn() {
 		turn += skipTurn;
 		if (turn > 4)
@@ -87,7 +91,8 @@ public class Board_Master implements ConstDef {
 			for (int j = 0; j < boardSize; j++) {
 				if (getPiece(i, j).getColor() == color) {
 					if (getPiece(i, j) instanceof Pawn) {
-						if (((Pawn)getPiece(i, j)).getMovementV(this, new Position(i, j)).contains(new Position(x, y))) {
+						if (((Pawn) getPiece(i, j)).getMovementV(this, new Position(i, j))
+								.contains(new Position(x, y))) {
 							return true;
 						}
 					} else {
@@ -121,7 +126,7 @@ public class Board_Master implements ConstDef {
 		board[dest.getX()][dest.getY()] = board[PiecePosition.getX()][PiecePosition.getY()];
 		board[PiecePosition.getX()][PiecePosition.getY()] = new MT();
 		Checker checker = new Checker(this);
-		if (checker.isChecked()) {
+		if (checker.isChecked(turn)) {
 			board[PiecePosition.getX()][PiecePosition.getY()] = board[dest.getX()][dest.getY()];
 			board[dest.getX()][dest.getY()] = temp;
 			return true;

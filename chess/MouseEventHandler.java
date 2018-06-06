@@ -6,7 +6,6 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
-import javax.swing.text.StyleConstants;
 
 import pieces.Position;
 
@@ -19,7 +18,7 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 	GameFrame_1vs1 gFrame;
 	GameFrame_2vs2 gFrame2;
 	ImagePanel[][] CorpsePanel = new ImagePanel[4][16];
-	
+
 	public MouseEventHandler(Board_Master board, GameFrame_1vs1 gameFrame) {
 		this.board = board;
 		this.gFrame = gameFrame;
@@ -30,16 +29,6 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 		this.gFrame2 = gameFrame;
 	}
 
-	Color intToColor(int colorType){
-		switch(colorType){
-		case 1: return Color.white;
-		case 2: return Color.red;
-		case 3: return Color.black;
-		case 4: return Color.green;
-		}
-		return null;
-	}
-	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (gFrame != null) {
@@ -57,29 +46,29 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 					if (board.isIllegalMove(board.curPiecePos, curPos)) {
 						gFrame.addMovelog(gFrame.logTextScreen, "\nIt is illegal Move!");
 					} else {
-						gFrame.addMovelog(gFrame.logTextScreen, "\n"+board.getStringTurn() + " " + board.curPiece.getNameS()
-								+ " Moved " + board.getRealPos(board.curPiecePos) + " -> " + board.getRealPos(curPos));
+						gFrame.addMovelog(gFrame.logTextScreen,
+								"\n" + board.getStringTurn() + " " + board.curPiece.getNameS() + " Moved "
+										+ board.getRealPos(board.curPiecePos) + " -> " + board.getRealPos(curPos));
 						if (board.getPiece(curPos).getColor() == board.getNextTurn()
 								|| board.getPiece(curPos).getColor() == board.getPrevTurn()) {
-							
+
 							gFrame.deadPiece = board.getPiece(curPos);
-							
-							gFrame.addMovelog(gFrame.logTextScreen, "It took " + board.getPiece(curPos).getColorS() + " "
-									+ board.getPiece(curPos).getNameS());
+
+							gFrame.addMovelog(gFrame.logTextScreen, "It took " + board.getPiece(curPos).getColorS()
+									+ " " + board.getPiece(curPos).getNameS());
 						}
-						
+
 						board.Move(board.curPiecePos, curPos);
-						
+
 						gFrame.turnScreen.setText(board.getStringTurn() + " Turn");
-						gFrame.turnScreen.setForeground(intToColor(board.getTurn()));
 						Checker checker = new Checker(board);
-						if (checker.isChecked()) {
+						if (checker.isChecked(board.getTurn())) {
 							gFrame.addMovelog(gFrame.logTextScreen, board.getStringTurn() + " King Checked!");
-							if (checker.isCheckMate()) {
+							if (checker.isCheckMate(board.getTurn())) {
 								gFrame.addMovelog(gFrame.logTextScreen, "CheckMate!");
 								gFrame.showPopUp("CheckMate");
 							}
-						} else if (checker.isStaleMate()) {
+						} else if (checker.isStaleMate(board.getTurn())) {
 							gFrame.addMovelog(gFrame.logTextScreen, "StaleMate!");
 							gFrame.showPopUp("StaleMate");
 						}
@@ -110,74 +99,114 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 						gFrame2.addMovelog(gFrame2.logTextScreen, "\nIt is illegal Move!");
 					} else {
 						gFrame2.addMovelog(gFrame2.logTextScreen,
-								"\n"+board.getStringTurn() + " " + board.curPiece.getNameS() + " Moved "
+								"\n" + board.getStringTurn() + " " + board.curPiece.getNameS() + " Moved "
 										+ board.getRealPos(board.curPiecePos) + " -> " + board.getRealPos(curPos));
 						if (board.getPiece(curPos).getColor() == board.getNextTurn()
-								|| board.getPiece(curPos).getColor() == board.getPrevTurn()) {		
+								|| board.getPiece(curPos).getColor() == board.getPrevTurn()) {
 							gFrame2.deadPiece = board.getPiece(curPos);
-							gFrame2.addMovelog(gFrame2.logTextScreen, "It took " + board.getPiece(curPos).getColorS() + " "
-									+ board.getPiece(curPos).getNameS());
+							gFrame2.addMovelog(gFrame2.logTextScreen, "It took " + board.getPiece(curPos).getColorS()
+									+ " " + board.getPiece(curPos).getNameS());
 						}
-						
 						board.Move(board.curPiecePos, curPos);
 						gFrame2.turnScreen.setText(board.getStringTurn() + " Turn");
 						Checker checker = new Checker(board);
-						if (checker.isChecked()) {
+						if (checker.isChecked(board.getTurn())) {
 							gFrame2.addMovelog(gFrame2.logTextScreen, board.getStringTurn() + " King Checked!");
-							if (checker.isCheckMate()) {
+							if (checker.isCheckMate(board.getTurn())) {
 								gFrame2.addMovelog(gFrame2.logTextScreen, "CheckMate!");
 								int checked = board.getTurn();
-								switch(checked)
-								{
+								switch (checked) {
 								case BLACK:
 								case WHITE:
-									if(!board.inDanger_1) {
-										for(int i = 0; i < 14; i++)
-										{
-											for(int j = 0; j < 14; j++)
-											{
-												if(Position.inRange(i, j))
-												{
-													if(board.getPiece(i, j).getColor() == checked)
+									if (!board.inDanger_1) {
+										for (int i = 0; i < 14; i++) {
+											for (int j = 0; j < 14; j++) {
+												if (Position.inRange(i, j)) {
+													if (board.getPiece(i, j).getColor() == checked)
 														board.setMT(i, j);
 												}
 											}
 										}
 										board.inDanger_1 = true;
-									}
-									else {
+									} else {
 										gFrame2.addMovelog(gFrame2.logTextScreen, "Checkmate!");
 										gFrame2.showPopUp("Team2 WIN!!");
 									}
 									break;
-									
+
 								case GREEN:
 								case RED:
-									if(!board.inDanger_2) {
-										for(int i = 0; i < 14; i++)
-										{
-											for(int j = 0; j < 14; j++)
-											{
-												if(Position.inRange(i, j))
-												{
-													if(board.getPiece(i, j).getColor() == checked)
+									if (!board.inDanger_2) {
+										for (int i = 0; i < 14; i++) {
+											for (int j = 0; j < 14; j++) {
+												if (Position.inRange(i, j)) {
+													if (board.getPiece(i, j).getColor() == checked)
 														board.setMT(i, j);
 												}
 											}
 										}
 										board.inDanger_2 = true;
-										
-									}
-									else {
+
+									} else {
 										gFrame2.addMovelog(gFrame2.logTextScreen, "Checkmate!");
 										gFrame2.showPopUp("Team1 WIN!!");
 									}
 									break;
 								}
-								
+
 								gFrame2.showPopUp("CheckMate");
 							}
-						} else if (checker.isStaleMate()) {
+						} else if (checker.isStaleMate(board.getTurn())) {
+							gFrame2.addMovelog(gFrame2.logTextScreen, "StaleMate!");
+							gFrame2.showPopUp("Draw!!");
+						}
+						if (checker.isChecked(board.getTeamTurn())) {
+							gFrame2.addMovelog(gFrame2.logTextScreen, board.getStringTurn() + " King Checked!");
+							if (checker.isCheckMate(board.getTeamTurn())) {
+								gFrame2.addMovelog(gFrame2.logTextScreen, "CheckMate!");
+								int checked = board.getTeamTurn();
+								switch (checked) {
+								case BLACK:
+								case WHITE:
+									if (!board.inDanger_1) {
+										for (int i = 0; i < 14; i++) {
+											for (int j = 0; j < 14; j++) {
+												if (Position.inRange(i, j)) {
+													if (board.getPiece(i, j).getColor() == checked)
+														board.setMT(i, j);
+												}
+											}
+										}
+										board.inDanger_1 = true;
+									} else {
+										gFrame2.addMovelog(gFrame2.logTextScreen, "Checkmate!");
+										gFrame2.showPopUp("Team2 WIN!!");
+									}
+									break;
+
+								case GREEN:
+								case RED:
+									if (!board.inDanger_2) {
+										for (int i = 0; i < 14; i++) {
+											for (int j = 0; j < 14; j++) {
+												if (Position.inRange(i, j)) {
+													if (board.getPiece(i, j).getColor() == checked)
+														board.setMT(i, j);
+												}
+											}
+										}
+										board.inDanger_2 = true;
+
+									} else {
+										gFrame2.addMovelog(gFrame2.logTextScreen, "Checkmate!");
+										gFrame2.showPopUp("Team1 WIN!!");
+									}
+									break;
+								}
+
+								gFrame2.showPopUp("CheckMate");
+							}
+						} else if (checker.isStaleMate(board.getTeamTurn())) {
 							gFrame2.addMovelog(gFrame2.logTextScreen, "StaleMate!");
 							gFrame2.showPopUp("Draw!!");
 						}
@@ -192,8 +221,34 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 
 			}
 			gFrame2.change();
-		}
+			for (int i = 0; i < 14; i++, System.out.println()) {
+				for (int j = 0; j < 14; j++) {
+					if (Position.inRange(i, j)) {
+						if (board.getCatchable(board.getPrevTurn(), i, j)) {
+							System.out.print(1);
+						} else
+							System.out.print(0);
+					} else
+						System.out.print(" ");
+				}
+			}
+			System.out.println("--");
 
+			for (int i = 0; i < 14; i++, System.out.println()) {
+				for (int j = 0; j < 14; j++) {
+					if (Position.inRange(i, j)) {
+						if (board.getCatchable(board.getTurn(), i, j)) {
+							System.out.print(1);
+						} else
+							System.out.print(0);
+					} else
+						System.out.print(" ");
+				}
+			}
+			System.out.println("--------------");
+
+			System.out.println(board.getPrevTurn() + "," + board.getTurn() + "," +board.getNextTurn());
+		}
 	}
 
 	@Override

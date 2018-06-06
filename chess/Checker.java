@@ -14,25 +14,25 @@ public class Checker implements ConstDef {
 		this.board = board;
 	}
 
-	public boolean isChecked() {
+	public boolean isChecked(int color) {
 		// find king position
 		int KingX = 0, KingY = 0;
 
 		for (int X = 0; X < board.boardSize; X++) {
 			for (int Y = 0; Y < board.boardSize; Y++) {
-				if (board.getPiece(X, Y).getName() == KING && board.getPiece(X, Y).getColor() == board.getTurn()) {
+				if (board.getPiece(X, Y).getName() == KING && board.getPiece(X, Y).getColor() == color) {
 					KingX = X;
 					KingY = Y;
 				}
 			}
 		}
-
+		
 		// is king underAttecked?
-		return board.getCatchable(board.getNextTurn(), KingX, KingY) || board.getCatchable(board.getPrevTurn(), KingX, KingY);
+		return (board.getCatchable(color%4+1, KingX, KingY) || board.getCatchable((color+2)%4+1, KingX, KingY));
 	}
 
-	public boolean isCheckMate() {
-		if (!isChecked()) {
+	public boolean isCheckMate(int color) {
+		if (!isChecked(color)) {
 			return false;
 		}
 		// find king position
@@ -41,7 +41,7 @@ public class Checker implements ConstDef {
 
 		LABEL: for (int X = 0; X < board.boardSize; X++) {
 			for (int Y = 0; Y < board.boardSize; Y++) {
-				if (board.getPiece(X, Y).getName() == KING && board.getPiece(X, Y).getColor() == board.getTurn()) {
+				if (board.getPiece(X, Y).getName() == KING && board.getPiece(X, Y).getColor() == color) {
 					KingX = X;
 					KingY = Y;
 					KingPos = new Position(X, Y);
@@ -65,7 +65,7 @@ public class Checker implements ConstDef {
 		for (int X = 0; X < board.boardSize; X++) {
 			for (int Y = 0; Y < board.boardSize; Y++) {
 				Piece nowPiece = board.getPiece(X, Y);
-				if(nowPiece.getColor() == board.getTurn()) {
+				if(nowPiece.getColor() == color) {
 					Position nowPos = new Position(X, Y);
 					ArrayList<Position> nowPieceMove = nowPiece.getMovement(board, nowPos);
 					for(int i= 0; i<nowPieceMove.size(); i++) {
@@ -79,15 +79,15 @@ public class Checker implements ConstDef {
 		return true;
 	}
 
-	public boolean isStaleMate() {
-		if (isChecked()) {
+	public boolean isStaleMate(int color) {
+		if (isChecked(color)) {
 			return false;
 		}
 		// no legal move
 		for (int X = 0; X < board.boardSize; X++) {
 			for (int Y = 0; Y < board.boardSize; Y++) {
 				Piece nowPiece = board.getPiece(X, Y);
-				if(nowPiece.getColor() == board.getTurn()) {
+				if(nowPiece.getColor() == color) {
 					Position nowPos = new Position(X, Y);
 					ArrayList<Position> nowPieceMove = nowPiece.getMovement(board, nowPos);
 					for(int i= 0; i<nowPieceMove.size(); i++) {
