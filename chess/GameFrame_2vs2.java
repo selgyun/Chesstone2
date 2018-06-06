@@ -13,7 +13,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
+import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
@@ -36,6 +38,13 @@ public class GameFrame_2vs2 {
 
 	Font myfont = new Font("NanumGothic", Font.BOLD, 12);
 	
+	public void changeTurnScreen(String turnStr, StyledDocument doc, Style textStyle){
+		try {
+			doc.insertString(doc.getLength(), "WHITE TeamÀÇ Â÷·Ê!", textStyle);
+		} catch (BadLocationException e) {
+		}
+	}
+	
 	public GameFrame_2vs2() {
 		gameFrame = new JFrame("Chess - 2vs2");
 		gameFrame.setSize(width, height);
@@ -52,13 +61,15 @@ public class GameFrame_2vs2 {
 		logTextScreen.append("°ÔÀÓ½ÃÀÛ!!\n"); //ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½
 		playSpectator.add(textScrollPane);
 
-		doc = (StyledDocument) new DefaultStyledDocument();
-		turnScreen = new JTextPane(doc);
-		javax.swing.text.Style textStyle = turnScreen.addStyle("Red", null);
-		StyleConstants.setForeground(textStyle, Color.RED);
+		turnScreen = new JTextPane();
+		turnScreen.setBackground(Color.black);
+		doc = turnScreen.getStyledDocument();
+		Style textStyle = turnScreen.addStyle("TextStyle", null);
+		StyleConstants.setForeground(textStyle, Color.white);
 		turnScreen.setEditable(false);
-		turnScreen.setPreferredSize(new Dimension(150,50));
-		turnScreen.setText("WHITE TeamÀÇ Â÷·Ê!");
+		turnScreen.setPreferredSize(new Dimension(150, 50));
+
+		changeTurnScreen("WHITE TeamÀÇ Â÷·Ê!", doc, textStyle);
 		
 		playSpectator.add(turnScreen);
 		gameFrame.add(playSpectator, BorderLayout.EAST);
