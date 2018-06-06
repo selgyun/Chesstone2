@@ -12,9 +12,11 @@ import pieces.Position;
 /* by jung */
 
 public class MouseEventHandler implements MouseListener {
+	Color tempCol = new Color(0, 0, 0);
+	LineBorder tempBord = new LineBorder(tempCol, 5);
 	Board_Master board;
 	GameFrame_1vs1 gFrame;
-	GameFrame_2vs2 gFrame1;
+	GameFrame_2vs2 gFrame2;
 
 	public MouseEventHandler(Board_Master board, GameFrame_1vs1 gameFrame) {
 		this.board = board;
@@ -23,7 +25,7 @@ public class MouseEventHandler implements MouseListener {
 
 	public MouseEventHandler(Board_Master board, GameFrame_2vs2 gameFrame) {
 		this.board = board;
-		this.gFrame1 = gameFrame;
+		this.gFrame2 = gameFrame;
 	}
 
 	@Override
@@ -39,111 +41,91 @@ public class MouseEventHandler implements MouseListener {
 				if (board.getPiece(curPos).getColor() == board.turn) {
 					board.curPiece = board.getPiece(curPos);
 					board.curPiecePos = curPos;
-					gFrame.change();
 					gFrame.addMovelog(gFrame.logTextScreen, "Selected\n");
 					System.out.println("Selected");
 				}
 			} else {
 				if (board.curPiece.getMovement((Board_1) board, board.curPiecePos).contains(curPos)) {
-					if (board.isIllegalMove(board.curPiecePos, curPos)) {
-						gFrame.addMovelog(gFrame.logTextScreen, "Illegal Move!!\n");
-						System.out.println("Illegal Move");
-					} else {
-						board.Move(board.curPiecePos, curPos);
-						gFrame.turnScreen.setText(board.getStringTurn());
-
-						gFrame.change();
-						gFrame.addMovelog(gFrame.logTextScreen, "Move Success!\n");
-						System.out.println("Moved");
-
-						Checker checker = new Checker();
-						if (checker.isChecked((Board_1) board)) {
-							gFrame.addMovelog(gFrame.logTextScreen, "Check!");
-							System.out.println("Check");
-							if (checker.isCheckMate((Board_1) board)) {
-								gFrame.addMovelog(gFrame.logTextScreen, "CheckMate!");
-								gFrame.showPopUp("CheckMate");
-								System.out.println("Checkmate");
-							}
-						} else if (checker.isStaleMate((Board_1) board)) {
-							gFrame.addMovelog(gFrame.logTextScreen, "StaleMate!");
-							gFrame.showPopUp("StaleMate");
-							System.out.println("StaleMate");
+					board.Move(board.curPiecePos, curPos);
+					gFrame.turnScreen.setText(board.getStringTurn());
+					gFrame.addMovelog(gFrame.logTextScreen, "Move Success!\n");
+					System.out.println("Moved");
+					Checker checker = new Checker(board);
+					if (checker.isChecked()) {
+						gFrame.addMovelog(gFrame.logTextScreen, "Check!");
+						System.out.println("Check");
+						if (checker.isCheckMate()) {
+							gFrame.addMovelog(gFrame.logTextScreen, "CheckMate!");
+							gFrame.showPopUp("CheckMate");
+							System.out.println("Checkmate");
 						}
+					} else if (checker.isStaleMate()) {
+						gFrame.addMovelog(gFrame.logTextScreen, "StaleMate!");
+						gFrame.showPopUp("StaleMate");
+						System.out.println("StaleMate");
 					}
 				} else if (board.getPiece(curPos).getColor() == board.getTurn()
 						&& !board.getPiece(curPos).equals(board.curPiece)) {
 					board.curPiece = board.getPiece(curPos);
 					board.curPiecePos = curPos;
-					gFrame.change();
 					gFrame.addMovelog(gFrame.logTextScreen, "Selected\n");
 					System.out.println("Selected");
 				} else {
 					board.curPiece = null;
-					gFrame.change();
 					gFrame.addMovelog(gFrame.logTextScreen, "Canceled\n");
 					System.out.println("Canceled");
 				}
-
 			}
+			gFrame.change();
 		} else {
 			JPanel curSquare = (JPanel) e.getSource();
 			int curX = (int) curSquare.getClientProperty("column");
 			int curY = (int) curSquare.getClientProperty("row");
 			Position curPos = new Position(curX, curY);
-			gFrame1.addMovelog(gFrame1.logTextScreen, curX + " " + curY);
+			gFrame2.addMovelog(gFrame2.logTextScreen, curX + " " + curY);
 			System.out.println(curX + " " + curY);
 			if (board.curPiece == null) {
 				if (board.getPiece(curPos).getColor() == board.turn) {
 					board.curPiece = board.getPiece(curPos);
 					board.curPiecePos = curPos;
-					gFrame1.change();
-					gFrame1.addMovelog(gFrame1.logTextScreen, "Selected\n");
+					gFrame2.addMovelog(gFrame2.logTextScreen, "Selected\n");
 					System.out.println("Selected");
 				}
 			} else {
-				if (board.curPiece.getMovement((Board_1) board, board.curPiecePos).contains(curPos)) {
-					if (board.isIllegalMove(board.curPiecePos, curPos)) {
-						gFrame1.addMovelog(gFrame1.logTextScreen, "Illegal Move!!\n");
-						System.out.println("Illegal Move");
-					} else {
-						board.Move(board.curPiecePos, curPos);
-						gFrame1.turnScreen.setText(board.getStringTurn());
+				if (board.curPiece.getMovement(board, board.curPiecePos).contains(curPos)) {
+					board.Move(board.curPiecePos, curPos);
+					gFrame2.turnScreen.setText(board.getStringTurn());
+					gFrame2.addMovelog(gFrame2.logTextScreen, "Move Success!\n");
+					System.out.println("Moved");
 
-						gFrame1.change();
-						gFrame1.addMovelog(gFrame1.logTextScreen, "Move Success!\n");
-						System.out.println("Moved");
-
-						Checker checker = new Checker();
-						if (checker.isChecked((Board_1) board)) {
-							gFrame1.addMovelog(gFrame1.logTextScreen, "Check!");
-							System.out.println("Check");
-							if (checker.isCheckMate((Board_1) board)) {
-								gFrame1.addMovelog(gFrame1.logTextScreen, "CheckMate!");
-								gFrame1.showPopUp("CheckMate");
-								System.out.println("Checkmate");
-							}
-						} else if (checker.isStaleMate((Board_1) board)) {
-							gFrame1.addMovelog(gFrame1.logTextScreen, "StaleMate!");
-							gFrame1.showPopUp("StaleMate");
-							System.out.println("StaleMate");
+					Checker checker = new Checker(board);
+					if (checker.isChecked()) {
+						gFrame2.addMovelog(gFrame2.logTextScreen, "Check!");
+						System.out.println("Check");
+						if (checker.isCheckMate()) {
+							gFrame2.addMovelog(gFrame2.logTextScreen, "CheckMate!");
+							gFrame2.showPopUp("CheckMate");
+							System.out.println("Checkmate");
 						}
+					} else if (checker.isStaleMate()) {
+						gFrame2.addMovelog(gFrame2.logTextScreen, "StaleMate!");
+						gFrame2.showPopUp("StaleMate");
+						System.out.println("StaleMate");
 					}
 				} else if (board.getPiece(curPos).getColor() == board.getTurn()
 						&& !board.getPiece(curPos).equals(board.curPiece)) {
 					board.curPiece = board.getPiece(curPos);
 					board.curPiecePos = curPos;
-					gFrame1.change();
-					gFrame1.addMovelog(gFrame1.logTextScreen, "Selected\n");
+					gFrame2.addMovelog(gFrame2.logTextScreen, "Selected\n");
 					System.out.println("Selected");
 				} else {
 					board.curPiece = null;
-					gFrame1.change();
-					gFrame1.addMovelog(gFrame1.logTextScreen, "Canceled\n");
+					gFrame2.addMovelog(gFrame2.logTextScreen, "Canceled\n");
 					System.out.println("Canceled");
 				}
 
 			}
+			gFrame2.change();
 		}
 
 	}
@@ -151,29 +133,27 @@ public class MouseEventHandler implements MouseListener {
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
+		/*
 		JPanel curSquare = (JPanel) e.getSource();
+		tempCol = curSquare.getBackground();
+		tempBord = (LineBorder) curSquare.getBorder();
 		curSquare.setBackground(new Color(255, 178, 245));
+		*/
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
+		/*
 		JPanel curSquare = (JPanel) e.getSource();
-		int curX = (int) curSquare.getClientProperty("column");
-		int curY = (int) curSquare.getClientProperty("row");
-
-		if ((curX + curY) % 2 == 1) {
-			curSquare.setBackground(new Color(180, 120, 50));
-			curSquare.setBorder(new LineBorder(new Color(180, 120, 50), 5));
-
-		} else {
-			curSquare.setBackground(new Color(240, 220, 200));
-			curSquare.setBorder(new LineBorder(new Color(240, 220, 200), 5));
-		}
+		curSquare.setBackground(tempCol);
+		curSquare.setBorder(tempBord);
+		tempCol = null;
+		*/
 	}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
+	public void mousePressed(MouseEvent e) { 
 		// TODO Auto-generated method stub
 
 	}

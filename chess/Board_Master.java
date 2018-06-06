@@ -104,8 +104,8 @@ public class Board_Master implements ConstDef {
 		Piece temp = board[dest.getX()][dest.getY()];
 		board[dest.getX()][dest.getY()] = board[PiecePosition.getX()][PiecePosition.getY()];
 		board[PiecePosition.getX()][PiecePosition.getY()] = new MT();
-		Checker checker = new Checker();
-		if (checker.isChecked((Board_1) this)) {
+		Checker checker = new Checker(this);
+		if (checker.isChecked()) {
 			board[PiecePosition.getX()][PiecePosition.getY()] = board[dest.getX()][dest.getY()];
 			board[dest.getX()][dest.getY()] = temp;
 			return true;

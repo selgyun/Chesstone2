@@ -45,7 +45,7 @@ public class GameFrame_1vs1 {
 
 	public void loadNewFont(String fontDir){
 		try {
-		    turnScreenFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontDir)).deriveFont(24f);
+		    turnScreenFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontDir)).deriveFont(12f);
 		    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		    ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(fontDir)));
 		} catch (IOException e) {
@@ -55,8 +55,8 @@ public class GameFrame_1vs1 {
 		}
 	}
 
-	Color foreColor = new Color(230,245,247);
-	Color backColor = new Color(81,191,181);
+	Color foreColor = new Color(213,94,45);
+	Color backColor = new Color(202,203,213);
 	
 	public void addMovelog(JTextArea area, String log) {
 		area.append(log + "\n");
@@ -81,7 +81,6 @@ public class GameFrame_1vs1 {
 
 		logTextScreen = new JTextArea(5, 10);
 		logTextScreen.setFont(logFont);
-		logTextScreen.setEditable(false);
 		JScrollPane textScrollPane = new JScrollPane(logTextScreen);
 		textScrollPane.setPreferredSize(new Dimension(150, 400));
 		logTextScreen.append("게임 시작!!\n"); // 초기 서순
@@ -89,7 +88,7 @@ public class GameFrame_1vs1 {
 
 		turnScreen = new JTextPane();
 		turnScreen.setBackground(backColor);
-		loadNewFont("fonts\\koverwatch.ttf");
+		loadNewFont("fonts\\a뉴굴림2.ttf");
 		turnScreen.setFont(turnScreenFont);
 		doc = turnScreen.getStyledDocument();
 		Style textStyle = turnScreen.addStyle("TextStyle", null);

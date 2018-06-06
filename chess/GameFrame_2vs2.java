@@ -4,12 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -41,22 +37,8 @@ public class GameFrame_2vs2 {
 	StyledDocument doc;
 	ImagePanel[][] imgPan = new ImagePanel[14][14];
 
-	Font logFont = new Font("NanumGothic", Font.BOLD, 12);
-	Font turnScreenFont = new Font("NanumGothic", Font.BOLD, 15);
+	Font myfont = new Font("NanumGothic", Font.BOLD, 12);
 
-	public void loadNewFont(String fontDir){
-		try {
-		    turnScreenFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontDir)).deriveFont(24f);
-		    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		    ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(fontDir)));
-		} catch (IOException e) {
-		    e.printStackTrace();
-		} catch(FontFormatException e) {
-		    e.printStackTrace();
-		}
-	}
-
-	
 	public void changeTurnScreen(String turnStr, StyledDocument doc, Style textStyle) {
 		try {
 			doc.insertString(doc.getLength(), "WHITE TeamÀÇ Â÷·Ê!", textStyle);
@@ -64,9 +46,6 @@ public class GameFrame_2vs2 {
 		}
 	}
 
-	Color foreColor = new Color(230,245,247);
-	Color backColor = new Color(81,191,181);
-	
 	public GameFrame_2vs2() {
 		gameFrame = new JFrame("Chess - 2vs2");
 		gameFrame.setSize(width, height);
@@ -77,19 +56,17 @@ public class GameFrame_2vs2 {
 		playSpectator.setLayout(new BoxLayout(playSpectator, BoxLayout.Y_AXIS));
 
 		logTextScreen = new JTextArea(5, 10);
-		logTextScreen.setFont(logFont);
+		logTextScreen.setFont(myfont);
 		JScrollPane textScrollPane = new JScrollPane(logTextScreen);
 		textScrollPane.setPreferredSize(new Dimension(150, 500));
 		logTextScreen.append("°ÔÀÓ½ÃÀÛ!!\n"); // ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½
 		playSpectator.add(textScrollPane);
 
 		turnScreen = new JTextPane();
-		turnScreen.setBackground(backColor);
-		loadNewFont("fonts\\koverwatch.ttf");
-		turnScreen.setFont(turnScreenFont);
+		turnScreen.setBackground(Color.black);
 		doc = turnScreen.getStyledDocument();
 		Style textStyle = turnScreen.addStyle("TextStyle", null);
-		StyleConstants.setForeground(textStyle, foreColor);
+		StyleConstants.setForeground(textStyle, Color.white);
 		turnScreen.setEditable(false);
 		turnScreen.setPreferredSize(new Dimension(150, 50));
 
@@ -104,29 +81,28 @@ public class GameFrame_2vs2 {
 
 		board = new Board_2();
 
-		boolean painter = true;
-		for (int i = 0; i < 14; i++) {
-			for (int j = 0; j < 14; j++) {
+		boolean painter = false;
+		for (int i = 0; i < 14; i++, painter = painter ? false : true) {
+			for (int j = 0; j < 14; j++, painter = painter ? false : true) {
 				square[i][j] = new JPanel();
 				square[i][j].putClientProperty("column", i);
 				square[i][j].putClientProperty("row", j);
 				if (!Position.inRange(i, j)) {
 					square[i][j].setBackground(Color.GRAY);
-					painter = !painter;
-				} else if (painter) {
-					square[i][j].setBackground(Color.YELLOW);
-					square[i][j].setBorder(new LineBorder(Color.YELLOW, 5));
-					painter = false;
+					square[i][j].putClientProperty("Useable", false);
 				} else {
-					square[i][j].setBackground(Color.ORANGE);
-					square[i][j].setBorder(new LineBorder(Color.ORANGE, 5));
-					painter = true;
+					if (painter) {
+						square[i][j].setBackground(new Color(180, 120, 50));
+						square[i][j].setBorder(new LineBorder(new Color(180, 120, 50), 5));
+					} else {
+						square[i][j].setBackground(new Color(240, 220, 200));
+						square[i][j].setBorder(new LineBorder(new Color(240, 220, 200), 5));
+					}
+					square[i][j].putClientProperty("Useable", true);
+					square[i][j].addMouseListener(new MouseEventHandler(board, this));
 				}
-				// square[i][j].addMouseListener(new MouseEventHandler(board,
-				// this));
 				chessBoard.add(square[i][j]);
 			}
-			painter = painter ? false : true;
 		}
 
 		for (int i = 0; i < 14; i++) {
@@ -151,8 +127,9 @@ public class GameFrame_2vs2 {
 	public void change() {
 		boolean painter = false;
 		if (board.curPiece != null) {
-			for (int i = 0; i < 14; i++) {
-				for (int j = 0; j < 14; j++) {
+			for (int i = 0; i < 14; i++, painter = painter ? false : true) {
+				for (int j = 0; j < 14
+						&& (boolean) square[i][j].getClientProperty("Useable"); j++, painter = painter ? false : true) {
 					if (painter) {
 						square[i][j].setBackground(new Color(180, 120, 50));
 						square[i][j].setBorder(new LineBorder(new Color(180, 120, 50), 5));
@@ -163,15 +140,14 @@ public class GameFrame_2vs2 {
 					if (board.curPiece.getMovement(board, board.curPiecePos).contains(new Position(i, j))) {
 						square[i][j].setBackground(new Color(255, 140, 30));
 					}
-					painter = painter ? false : true;
 				}
-				painter = painter ? false : true;
+
 			}
 			square[board.curPiecePos.getX()][board.curPiecePos.getY()]
 					.setBorder(new LineBorder(new Color(255, 140, 30), 5));
 		} else {
-			for (int i = 0; i < 14; i++) {
-				for (int j = 0; j < 14; j++) {
+			for (int i = 0; i < 14; i++, painter = painter ? false : true) {
+				for (int j = 0; j < 14 && (boolean) square[i][j].getClientProperty("Useable"); j++, painter = painter ? false : true) {
 					if (painter) {
 						square[i][j].setBackground(new Color(180, 120, 50));
 						square[i][j].setBorder(new LineBorder(new Color(180, 120, 50), 5));
@@ -179,9 +155,7 @@ public class GameFrame_2vs2 {
 						square[i][j].setBackground(new Color(240, 220, 200));
 						square[i][j].setBorder(new LineBorder(new Color(240, 220, 200), 5));
 					}
-					painter = painter ? false : true;
 				}
-				painter = painter ? false : true;
 			}
 		}
 
