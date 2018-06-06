@@ -22,7 +22,7 @@ import pieces.Position;
 public class GameFrame_2vs2 extends GameFrame{
 	private static final long serialVersionUID = 1L;
 
-	final int width = 840;
+	final int width = 900;
 	final int height = 840;
 
 	public GameFrame_2vs2() {
@@ -41,7 +41,7 @@ public class GameFrame_2vs2 extends GameFrame{
 		logTextScreen = new JTextArea(5, 10);
 		logTextScreen.setFont(logFont);
 		JScrollPane textScrollPane = new JScrollPane(logTextScreen);
-		textScrollPane.setPreferredSize(new Dimension(150, 500));
+		textScrollPane.setPreferredSize(new Dimension(150, 750));
 		logTextScreen.append("게임 시작!!\n");
 		playSpectator.add(textScrollPane);
 
