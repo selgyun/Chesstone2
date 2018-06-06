@@ -30,14 +30,14 @@ import pieces.Position;
 
 public class GameFrame_1vs1 {
 
-	final int width = 740;
-	final int height = 640;
+	final int width = 820;
+	final int height = 720;
 	JFrame gameFrame;
 	Board_1 board;
 	JPanel[][] square = new JPanel[8][8];
 	JPanel chessBoard, deadPiecesMaster, deadPiecesPanel;
 	ImagePanel[][] imgPan = new ImagePanel[8][8];
-	ImagePanel[][] corpsePanel = new ImagePanel[2][8];
+	ImagePanel[] corpsePanel = new ImagePanel[32];
 	JPanel playSpectator;
 	JTextArea logTextScreen;
 	JTextField descriptionText;
@@ -88,18 +88,17 @@ public class GameFrame_1vs1 {
 		descriptionText.setVisible(true);
 
 		deadPiecesPanel = new JPanel();
-		deadPiecesPanel.setLayout(new GridLayout(8, 2));
+		deadPiecesPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+		deadPiecesPanel.setVisible(true);
 
-		for (int i = 0; i < 2; i++) {
-			for (int j = 0; j < 8; j++) {
+		for (int i = 0; i < 32; i++) {
 				try {
-					corpsePanel[i][j].setImage(board.deadPieces.get(i).getImg());
-					corpsePanel[i][j].setPreferredSize(new Dimension(20, 20));
-					deadPiecesPanel.add(corpsePanel[i][j], BorderLayout.CENTER);
+					corpsePanel[i].setImage(board.deadPieces.get(i).getImg());
+					corpsePanel[i].setPreferredSize(new Dimension(20, 20));
+					deadPiecesPanel.add(corpsePanel[i], BorderLayout.CENTER);
 				} catch (NullPointerException e) {
 
 				}
-			}
 		}
 
 		deadPiecesMaster.add(descriptionText);
