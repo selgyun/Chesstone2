@@ -21,17 +21,29 @@ import javax.swing.text.StyleConstants;
 
 import pieces.Position;
 
-public class GameFrame_1vs1 extends GameFrame{
+public class GameFrame_1vs1 extends GameFrame {
 
 	private static final long serialVersionUID = 1L;
 	final int width = 860;
 	final int height = 720;
 
+	public void renewCorpses() {
+		for (int i = 0; i < 32; i++) {
+			try {
+				corpsePanel[i].setImage(board.deadPieces.get(i).getImg());
+				corpsePanel[i].setPreferredSize(new Dimension(20, 20));
+				deadPiecesPanel.add(corpsePanel[i], BorderLayout.CENTER);
+			} catch (NullPointerException e) {
+
+			}
+		}
+	}
+
 	public GameFrame_1vs1() {
 		square = new JPanel[8][8];
 		imgPan = new ImagePanel[8][8];
 		corpsePanel = new ImagePanel[32];
-		
+
 		setTitle("Chess - 1vs1");
 		setSize(width, height);
 		setLocationRelativeTo(null);
@@ -48,22 +60,12 @@ public class GameFrame_1vs1 extends GameFrame{
 		deadPiecesPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		deadPiecesPanel.setVisible(true);
 
-		for (int i = 0; i < 32; i++) {
-				try {
-					corpsePanel[i].setImage(board.deadPieces.get(i).getImg());
-					corpsePanel[i].setPreferredSize(new Dimension(20, 20));
-					deadPiecesPanel.add(corpsePanel[i], BorderLayout.CENTER);
-				} catch (NullPointerException e) {
-
-				}
-		}
-
 		deadPiecesMaster.add(descriptionText);
 		deadPiecesMaster.add(deadPiecesPanel);
 		deadPiecesMaster.setVisible(true);
 
 		add(deadPiecesMaster, BorderLayout.SOUTH);
-		
+
 		playSpectator = new JPanel();
 		playSpectator.setLayout(new BoxLayout(playSpectator, BoxLayout.Y_AXIS));
 
