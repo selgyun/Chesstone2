@@ -5,8 +5,8 @@ import pieces.*;
 public class Board_2 extends Board_Master implements ConstDef {
 	// 20180531 RedJen Initialized
 	final Piece[][] initialBoard = {
-		{ new MT(), new MT(), new MT(), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new MT(), new MT(), new MT(), },
 		{ new MT(), new MT(), new MT(), new Rook(BLACK), new Knight(BLACK), new Bishop(BLACK), new Queen(BLACK), new King(BLACK), new Bishop(BLACK), new Knight(BLACK), new Rook(BLACK), new MT(), new MT(), new MT() },
+		{ new MT(), new MT(), new MT(), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new Pawn(BLACK), new MT(), new MT(), new MT(), },
 		{ new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT()},
 		{ new Rook(RED), new Pawn(RED), new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new Pawn(GREEN), new Rook(GREEN)},
 		{ new Knight(RED), new Pawn(RED), new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new MT(), new Pawn(GREEN), new Knight(GREEN) },

@@ -59,7 +59,7 @@ public class GameFrame_2vs2 {
 		logTextScreen.setFont(myfont);
 		JScrollPane textScrollPane = new JScrollPane(logTextScreen);
 		textScrollPane.setPreferredSize(new Dimension(150, 500));
-		logTextScreen.append("∞‘¿”Ω√¿€!!\n"); // ÔøΩ ±ÔøΩ ÔøΩÔøΩÔøΩÔøΩ
+		logTextScreen.append("∞‘¿”Ω√¿€!!\n"); 
 		playSpectator.add(textScrollPane);
 
 		turnScreen = new JTextPane();
