@@ -28,10 +28,17 @@ public class GameFrame_1vs1 {
 	StyledDocument doc;
 
 	Font myfont = new Font("NanumGothic", Font.BOLD, 12);
-	
-	public void addMovelog(JTextArea area, String log){
+
+	public void addMovelog(JTextArea area, String log) {
 		area.append(log + "\n");
 		area.setCaretPosition(area.getDocument().getLength());
+	}
+
+	public void changeTurnScreen(String turnStr, StyledDocument doc, Style textStyle){
+		try {
+			doc.insertString(doc.getLength(), "WHITE Team의 차례!", textStyle);
+		} catch (BadLocationException e) {
+		}
 	}
 	
 	public GameFrame_1vs1() {
@@ -42,26 +49,28 @@ public class GameFrame_1vs1 {
 
 		playSpectator = new JPanel();
 		playSpectator.setLayout(new BoxLayout(playSpectator, BoxLayout.Y_AXIS));
-		
+
 		logTextScreen = new JTextArea(5, 10);
 		logTextScreen.setFont(myfont);
 		JScrollPane textScrollPane = new JScrollPane(logTextScreen);
-		textScrollPane.setPreferredSize(new Dimension(150,400));
-		logTextScreen.append("게임 시작!!\n"); //초기 서순
+		textScrollPane.setPreferredSize(new Dimension(150, 400));
+		logTextScreen.append("게임 시작!!\n"); // 초기 서순
 		playSpectator.add(textScrollPane);
 
-		doc = (StyledDocument) new DefaultStyledDocument();
-		turnScreen = new JTextPane(doc);
-		javax.swing.text.Style textStyle = turnScreen.addStyle("Red", null);
-		StyleConstants.setForeground(textStyle, Color.RED);
+		turnScreen = new JTextPane();
+		turnScreen.setBackground(Color.gray);
+		doc = turnScreen.getStyledDocument();
+		Style textStyle = turnScreen.addStyle("TextStyle", null);
+		StyleConstants.setForeground(textStyle, Color.yellow);
 		turnScreen.setEditable(false);
-		turnScreen.setPreferredSize(new Dimension(150,50));
-		turnScreen.setText("WHITE Team의 차례!");
-		
+		turnScreen.setPreferredSize(new Dimension(150, 50));
+
+		changeTurnScreen("WHITE Team의 차례!", doc, textStyle);
+
 		playSpectator.add(turnScreen);
 		gameFrame.add(playSpectator, BorderLayout.EAST);
 		playSpectator.setVisible(true);
-		
+
 		JPanel chessBoard = new JPanel();
 		chessBoard.setLayout(new GridLayout(8, 8));
 

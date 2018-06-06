@@ -49,7 +49,7 @@ public class GameFrame_2vs2 {
 		logTextScreen.setFont(myfont);
 		JScrollPane textScrollPane = new JScrollPane(logTextScreen);
 		textScrollPane.setPreferredSize(new Dimension(150,500));
-		logTextScreen.append("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!!\n"); //ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½
+		logTextScreen.append("°ÔÀÓ½ÃÀÛ!!\n"); //ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½
 		playSpectator.add(textScrollPane);
 
 		doc = (StyledDocument) new DefaultStyledDocument();
@@ -58,7 +58,7 @@ public class GameFrame_2vs2 {
 		StyleConstants.setForeground(textStyle, Color.RED);
 		turnScreen.setEditable(false);
 		turnScreen.setPreferredSize(new Dimension(150,50));
-		turnScreen.setText("WHITE Teamï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!");
+		turnScreen.setText("WHITE TeamÀÇ Â÷·Ê!");
 		
 		playSpectator.add(turnScreen);
 		gameFrame.add(playSpectator, BorderLayout.EAST);
