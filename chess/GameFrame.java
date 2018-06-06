@@ -1,36 +1,27 @@
 package chess;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
-import java.awt.GridLayout;
 import java.io.File;
 import java.io.IOException;
 
-import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
-import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
-
-import pieces.Piece;
 
 public abstract class GameFrame extends JFrame {
 	JPanel[][] square;
 	JPanel chessBoard, deadPiecesMaster, deadPiecesPanel;
 	ImagePanel[][] imgPan;
-	ImagePanel[] corpsePanel;
+	ImagePanel[][] corpsePanel;
 	Board_Master board;
 
 	Color foreColor = new Color(230, 245, 247);

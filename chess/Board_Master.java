@@ -100,8 +100,8 @@ public class Board_Master implements ConstDef {
 		if (getPiece(PiecePosition) instanceof Pawn) {
 			((Pawn) getPiece(PiecePosition)).moved();
 		}
-		if (getPiece(PiecePosition).getColor() == getNextTurn()
-				|| getPiece(PiecePosition).getColor() == getPrevTurn()) {
+		if (getPiece(PiecePosition).getColor() == getNextTurn() && getPiece(dest).getName() == 0
+				|| getPiece(PiecePosition).getColor() == getPrevTurn() && getPiece(dest).getName() == 0) {
 			deadPieces.add(getPiece(dest));
 		}
 

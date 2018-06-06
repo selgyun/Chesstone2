@@ -56,6 +56,7 @@ public class MouseEventHandler implements MouseListener {
 									+ board.getPiece(curPos).getNameS());
 						}
 						board.Move(board.curPiecePos, curPos);
+						gFrame.renewCorpses_1();
 						gFrame.turnScreen.setText(board.getStringTurn() + " Turn");
 						System.out.println("Moved");
 						Checker checker = new Checker(board);

@@ -27,14 +27,16 @@ public class GameFrame_1vs1 extends GameFrame {
 	final int width = 860;
 	final int height = 720;
 
-	public void renewCorpses() {
-		for (int i = 0; i < 32; i++) {
-			try {
-				corpsePanel[i].setImage(board.deadPieces.get(i).getImg());
-				corpsePanel[i].setPreferredSize(new Dimension(20, 20));
-				deadPiecesPanel.add(corpsePanel[i], BorderLayout.CENTER);
-			} catch (NullPointerException e) {
+	public void renewCorpses_1() {
+		for (int i = 0; i < 2; i++) {
+			for(int j=0; j<16; j++) {
+				try {
+					corpsePanel[i][j].setImage(board.deadPieces.get(i).getImg());
+					corpsePanel[i][j].setPreferredSize(new Dimension(20, 20));
+					deadPiecesPanel.add(corpsePanel[i][j], BorderLayout.CENTER);
+				} catch (NullPointerException e) {
 
+				}
 			}
 		}
 	}
@@ -42,7 +44,7 @@ public class GameFrame_1vs1 extends GameFrame {
 	public GameFrame_1vs1() {
 		square = new JPanel[8][8];
 		imgPan = new ImagePanel[8][8];
-		corpsePanel = new ImagePanel[32];
+		corpsePanel = new ImagePanel[2][16];
 
 		setTitle("Chess - 1vs1");
 		setSize(width, height);

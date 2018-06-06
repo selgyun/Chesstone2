@@ -28,7 +28,7 @@ public class GameFrame_2vs2 extends GameFrame{
 	public GameFrame_2vs2() {
 		square = new JPanel[14][14];
 		imgPan = new ImagePanel[14][14];
-		corpsePanel = new ImagePanel[64];
+		corpsePanel = new ImagePanel[4][16];
 		
 		setTitle("Chess - 2vs2");
 		setSize(width, height);
