@@ -55,7 +55,6 @@ public class GameFrame_1vs1 extends GameFrame {
 		deadPiecesPanel = new JPanel();
 		deadPiecesPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		
-		
 		for (int i = 0; i < 2; i++) {
 			for(int j=0; j < 16; j++) {
 				try {
@@ -86,7 +85,7 @@ public class GameFrame_1vs1 extends GameFrame {
 		logTextScreen.setEditable(false);
 		JScrollPane textScrollPane = new JScrollPane(logTextScreen);
 		textScrollPane.setPreferredSize(new Dimension(200, 700));
-		logTextScreen.append("게임 시작!!\n"); // 초기 서순
+		logTextScreen.append("Game Start!!\n"); // 초기 서순
 		playSpectator.add(textScrollPane);
 
 		turnScreen = new JTextPane();
@@ -97,7 +96,7 @@ public class GameFrame_1vs1 extends GameFrame {
 		SimpleAttributeSet textAlignCenter = new SimpleAttributeSet();
 		StyleConstants.setAlignment(textAlignCenter, StyleConstants.ALIGN_CENTER);
 		doc.setParagraphAttributes(0, doc.getLength(), textAlignCenter, false);
-		Style textStyle = turnScreen.addStyle("TextStyle", null);
+		textStyle = turnScreen.addStyle("TextStyle", null);
 		StyleConstants.setForeground(textStyle, foreColor);
 		turnScreen.setEditable(false);
 		turnScreen.setPreferredSize(new Dimension(150, 50));

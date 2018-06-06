@@ -32,6 +32,7 @@ public abstract class GameFrame extends JFrame implements ConstDef{
 	JTextField descriptionText;
 	JTextPane turnScreen;
 	StyledDocument doc;
+	Style textStyle;
 	
 	Font logFont = new Font("NanumGothic", Font.BOLD, 13);
 	Font turnScreenFont = new Font("NanumGothic", Font.BOLD, 15);

@@ -87,7 +87,7 @@ public class GameFrame_2vs2 extends GameFrame{
 		logTextScreen.setFont(logFont);
 		JScrollPane textScrollPane = new JScrollPane(logTextScreen);
 		textScrollPane.setPreferredSize(new Dimension(215, 750));
-		logTextScreen.append("게임 시작!!\n");
+		logTextScreen.append("Game Start!!\n");
 		playSpectator.add(textScrollPane);
 
 		turnScreen = new JTextPane();
@@ -98,12 +98,12 @@ public class GameFrame_2vs2 extends GameFrame{
 		SimpleAttributeSet textAlignCenter = new SimpleAttributeSet();
 		StyleConstants.setAlignment(textAlignCenter, StyleConstants.ALIGN_CENTER);
 		doc.setParagraphAttributes(0, doc.getLength(), textAlignCenter, false);
-		Style textStyle = turnScreen.addStyle("TextStyle", null);
+		textStyle = turnScreen.addStyle("TextStyle", null);
 		StyleConstants.setForeground(textStyle, foreColor);
 		turnScreen.setEditable(false);
 		turnScreen.setPreferredSize(new Dimension(150, 50));
 
-		changeTurnScreen("WHITE Team의 차례!", doc, textStyle);
+		changeTurnScreen("WHITE Turn", doc, textStyle);
 
 		playSpectator.add(turnScreen);
 		add(playSpectator, BorderLayout.EAST);

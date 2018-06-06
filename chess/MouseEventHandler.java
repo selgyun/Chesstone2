@@ -6,6 +6,8 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.StyleConstants;
 
 import pieces.Position;
 
@@ -18,6 +20,16 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 	GameFrame_1vs1 gFrame;
 	GameFrame_2vs2 gFrame2;
 	ImagePanel[][] CorpsePanel = new ImagePanel[4][16];
+	
+	Color intToColor(int colorType){
+		switch(colorType){
+		case 1: return Color.WHITE;
+		case 2: return Color.RED;
+		case 3: return Color.BLACK;
+		case 4: return Color.GREEN;
+		}
+		return null;
+	}
 
 	public MouseEventHandler(Board_Master board, GameFrame_1vs1 gameFrame) {
 		this.board = board;
@@ -59,8 +71,15 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 						}
 
 						board.Move(board.curPiecePos, curPos);
-
-						gFrame.turnScreen.setText(board.getStringTurn() + " Turn");
+						
+						//Change Turn Color
+						try {
+							gFrame.doc.remove(0, gFrame.doc.getLength());
+							StyleConstants.setForeground(gFrame.textStyle, intToColor(board.getTurn()));
+							gFrame.doc.insertString(gFrame.doc.getLength(), board.getStringTurn() + " Turn", gFrame.textStyle);
+						}	catch(BadLocationException badboy) {		
+						}
+						
 						Checker checker = new Checker(board);
 						if (checker.isChecked(board.getTurn())) {
 							gFrame.addMovelog(gFrame.logTextScreen, board.getStringTurn() + " King Checked!");
@@ -108,7 +127,16 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 									+ " " + board.getPiece(curPos).getNameS());
 						}
 						board.Move(board.curPiecePos, curPos);
-						gFrame2.turnScreen.setText(board.getStringTurn() + " Turn");
+						
+						//Change Turn Color
+						try {
+							gFrame2.doc.remove(0, gFrame2.doc.getLength());
+							StyleConstants.setForeground(gFrame2.textStyle, intToColor(board.getTurn()));
+							gFrame2.doc.insertString(gFrame2.doc.getLength(), board.getStringTurn() + " Turn", gFrame2.textStyle);
+						}	catch(BadLocationException badboy) {		
+						}
+						
+						
 						Checker checker = new Checker(board);
 						if (checker.isChecked(board.getTurn())) {
 							gFrame2.addMovelog(gFrame2.logTextScreen, board.getStringTurn() + " King Checked!");
