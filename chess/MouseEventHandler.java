@@ -17,6 +17,7 @@ public class MouseEventHandler implements MouseListener {
 	Board_Master board;
 	GameFrame_1vs1 gFrame;
 	GameFrame_2vs2 gFrame2;
+	ImagePanel[][] CorpsePanel = new ImagePanel[4][16];
 
 	public MouseEventHandler(Board_Master board, GameFrame_1vs1 gameFrame) {
 		this.board = board;
@@ -93,6 +94,7 @@ public class MouseEventHandler implements MouseListener {
 				}
 			} else {
 				if (board.curPiece.getMovement(board, board.curPiecePos).contains(curPos)) {
+					gFrame.descriptionText.setText(String.valueOf(board.getDeadPiece(board.curPiecePos, curPos).getName()));
 					board.Move(board.curPiecePos, curPos);
 					gFrame2.turnScreen.setText(board.getStringTurn());
 					gFrame2.addMovelog(gFrame2.logTextScreen, "Move Success!\n");
