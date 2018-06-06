@@ -49,7 +49,7 @@ public class GameFrame_2vs2 {
 
 	public void changeTurnScreen(String turnStr, StyledDocument doc, Style textStyle) {
 		try {
-			doc.insertString(doc.getLength(), "WHITE TeamÀÇ Â÷·Ê!", textStyle);
+			doc.insertString(doc.getLength(), "WHITE Teamï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!", textStyle);
 		} catch (BadLocationException e) {
 		}
 	}
@@ -79,7 +79,7 @@ public class GameFrame_2vs2 {
 		logTextScreen.setFont(logFont);
 		JScrollPane textScrollPane = new JScrollPane(logTextScreen);
 		textScrollPane.setPreferredSize(new Dimension(150, 500));
-		logTextScreen.append("°ÔÀÓ½ÃÀÛ!!\n");
+		logTextScreen.append("ï¿½ï¿½ï¿½Ó½ï¿½ï¿½ï¿½!!\n");
 		playSpectator.add(textScrollPane);
 
 		turnScreen = new JTextPane();
@@ -92,7 +92,7 @@ public class GameFrame_2vs2 {
 		turnScreen.setEditable(false);
 		turnScreen.setPreferredSize(new Dimension(150, 50));
 
-		changeTurnScreen("WHITE TeamÀÇ Â÷·Ê!", doc, textStyle);
+		changeTurnScreen("WHITE Teamï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!", doc, textStyle);
 
 		playSpectator.add(turnScreen);
 		gameFrame.add(playSpectator, BorderLayout.EAST);
@@ -149,41 +149,52 @@ public class GameFrame_2vs2 {
 	public void change() {
 		boolean painter = false;
 		if (board.curPiece != null) {
-			for (int i = 0; i < 14; i++, painter = painter ? false : true) {
-				for (int j = 0; j < 14
-						&& (boolean) square[i][j].getClientProperty("Useable"); j++, painter = painter ? false : true) {
-					if (painter) {
-						square[i][j].setBackground(new Color(180, 120, 50));
-						square[i][j].setBorder(new LineBorder(new Color(180, 120, 50), 5));
-					} else {
-						square[i][j].setBackground(new Color(240, 220, 200));
-						square[i][j].setBorder(new LineBorder(new Color(240, 220, 200), 5));
+			for (int i = 0; i < 14; i++) {
+				for (int j = 0; j < 14; j++) {
+					if (!Position.inRange(i, j))
+						square[i][j].setBackground(Color.GRAY);
+					else {
+						if (painter) {
+							square[i][j].setBackground(new Color(180, 120, 50));
+							square[i][j].setBorder(new LineBorder(new Color(180, 120, 50), 5));
+						} else {
+							square[i][j].setBackground(new Color(240, 220, 200));
+							square[i][j].setBorder(new LineBorder(new Color(240, 220, 200), 5));
+						}
+						if (board.curPiece.getMovement(board, board.curPiecePos).contains(new Position(i, j))) {
+							square[i][j].setBackground(new Color(255, 140, 30));
+						}
 					}
-					if (board.curPiece.getMovement(board, board.curPiecePos).contains(new Position(i, j))) {
-						square[i][j].setBackground(new Color(255, 140, 30));
-					}
+					painter = painter ? false : true;
 				}
-
+				painter = painter ? false : true;
 			}
 			square[board.curPiecePos.getX()][board.curPiecePos.getY()]
 					.setBorder(new LineBorder(new Color(255, 140, 30), 5));
 		} else {
-			for (int i = 0; i < 14; i++, painter = painter ? false : true) {
-				for (int j = 0; j < 14
-						&& (boolean) square[i][j].getClientProperty("Useable"); j++, painter = painter ? false : true) {
-					if (painter) {
-						square[i][j].setBackground(new Color(180, 120, 50));
-						square[i][j].setBorder(new LineBorder(new Color(180, 120, 50), 5));
-					} else {
-						square[i][j].setBackground(new Color(240, 220, 200));
-						square[i][j].setBorder(new LineBorder(new Color(240, 220, 200), 5));
+			for (int i = 0; i < 14; i++) {
+				for (int j = 0; j < 14; j++) {
+					if (!Position.inRange(i, j))
+						square[i][j].setBackground(Color.GRAY);
+					else {
+						if (painter) {
+							square[i][j].setBackground(new Color(180, 120, 50));
+							square[i][j].setBorder(new LineBorder(new Color(180, 120, 50), 5));
+						} else {
+							square[i][j].setBackground(new Color(240, 220, 200));
+							square[i][j].setBorder(new LineBorder(new Color(240, 220, 200), 5));
+						}
 					}
+					painter = painter ? false : true;
 				}
+				painter = painter ? false : true;
 			}
 		}
 
 		for (int i = 0; i < 14; i++) {
 			for (int j = 0; j < 14; j++) {
+				if (!Position.inRange(i, j))
+					continue;
 				if (board.getPiece(i, j) != null) {
 					BufferedImage temp = board.getPiece(i, j).getImg();
 					imgPan[i][j].setImage(temp);
