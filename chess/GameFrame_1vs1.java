@@ -1,15 +1,28 @@
 package chess;
 
 import java.awt.BorderLayout;
-import javax.swing.text.*;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
-import java.awt.Font;
+import java.io.File;
+import java.io.IOException;
 
-import javax.swing.*;
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 import pieces.Position;
 
@@ -26,9 +39,27 @@ public class GameFrame_1vs1 {
 	JTextArea logTextScreen;
 	JTextPane turnScreen;
 	StyledDocument doc;
+	
+	Font logFont = new Font("NanumGothic", Font.BOLD, 12);
+	Font turnScreenFont = new Font("NanumGothic", Font.BOLD, 15);
 
-	Font myfont = new Font("NanumGothic", Font.BOLD, 12);
+	public void loadNewFont(String fontDir){
+		try {
+		    //create the font to use. Specify the size!
+		    turnScreenFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontDir)).deriveFont(12f);
+		    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		    //register the font
+		    ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(fontDir)));
+		} catch (IOException e) {
+		    e.printStackTrace();
+		} catch(FontFormatException e) {
+		    e.printStackTrace();
+		}
+	}
 
+	Color foreColor = new Color(213,94,45);
+	Color backColor = new Color(202,203,213);
+	
 	public void addMovelog(JTextArea area, String log) {
 		area.append(log + "\n");
 		area.setCaretPosition(area.getDocument().getLength());
@@ -51,17 +82,19 @@ public class GameFrame_1vs1 {
 		playSpectator.setLayout(new BoxLayout(playSpectator, BoxLayout.Y_AXIS));
 
 		logTextScreen = new JTextArea(5, 10);
-		logTextScreen.setFont(myfont);
+		logTextScreen.setFont(logFont);
 		JScrollPane textScrollPane = new JScrollPane(logTextScreen);
 		textScrollPane.setPreferredSize(new Dimension(150, 400));
 		logTextScreen.append("게임 시작!!\n"); // 초기 서순
 		playSpectator.add(textScrollPane);
 
 		turnScreen = new JTextPane();
-		turnScreen.setBackground(Color.gray);
+		turnScreen.setBackground(backColor);
+		loadNewFont("fonts\\a뉴굴림2.ttf");
+		turnScreen.setFont(turnScreenFont);
 		doc = turnScreen.getStyledDocument();
 		Style textStyle = turnScreen.addStyle("TextStyle", null);
-		StyleConstants.setForeground(textStyle, Color.yellow);
+		StyleConstants.setForeground(textStyle, foreColor);
 		turnScreen.setEditable(false);
 		turnScreen.setPreferredSize(new Dimension(150, 50));
 

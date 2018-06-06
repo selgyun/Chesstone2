@@ -14,7 +14,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 import javax.swing.text.BadLocationException;
-import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
