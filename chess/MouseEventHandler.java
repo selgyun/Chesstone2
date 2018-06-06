@@ -5,8 +5,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
-import chess.GameFrame_1vs1;
-import java.awt.Color;
 import javax.swing.border.LineBorder;
 
 import pieces.Position;
@@ -16,78 +14,145 @@ import pieces.Position;
 public class MouseEventHandler implements MouseListener {
 	Board_Master board;
 	GameFrame_1vs1 gFrame;
+	GameFrame_2vs2 gFrame1;
 
 	public MouseEventHandler(Board_Master board, GameFrame_1vs1 gameFrame) {
 		this.board = board;
 		this.gFrame = gameFrame;
 	}
 
+	public MouseEventHandler(Board_Master board, GameFrame_2vs2 gameFrame) {
+		this.board = board;
+		this.gFrame1 = gameFrame;
+	}
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		JPanel curSquare = (JPanel) e.getSource();
-		int curX = (int) curSquare.getClientProperty("column");
-		int curY = (int) curSquare.getClientProperty("row");
-		Position curPos = new Position(curX, curY);
-		gFrame.addMovelog(gFrame.logTextScreen, curX + " " + curY);
-		System.out.println(curX + " " + curY);
-		if (board.curPiece == null) {
-			if (board.getPiece(curPos).getColor() == board.turn) {
-				board.curPiece = board.getPiece(curPos);
-				board.curPiecePos = curPos;
-				gFrame.change();
-				gFrame.addMovelog(gFrame.logTextScreen, "Selected\n");
-				System.out.println("Selected");
+		if (gFrame != null) {
+			JPanel curSquare = (JPanel) e.getSource();
+			int curX = (int) curSquare.getClientProperty("column");
+			int curY = (int) curSquare.getClientProperty("row");
+			Position curPos = new Position(curX, curY);
+			gFrame.addMovelog(gFrame.logTextScreen, curX + " " + curY);
+			System.out.println(curX + " " + curY);
+			if (board.curPiece == null) {
+				if (board.getPiece(curPos).getColor() == board.turn) {
+					board.curPiece = board.getPiece(curPos);
+					board.curPiecePos = curPos;
+					gFrame.change();
+					gFrame.addMovelog(gFrame.logTextScreen, "Selected\n");
+					System.out.println("Selected");
+				}
+			} else {
+				if (board.curPiece.getMovement((Board_1) board, board.curPiecePos).contains(curPos)) {
+					if (board.isIllegalMove(board.curPiecePos, curPos)) {
+						gFrame.addMovelog(gFrame.logTextScreen, "Illegal Move!!\n");
+						System.out.println("Illegal Move");
+					} else {
+						board.Move(board.curPiecePos, curPos);
+						gFrame.turnScreen.setText(board.getStringTurn());
+
+						gFrame.change();
+						gFrame.addMovelog(gFrame.logTextScreen, "Move Success!\n");
+						System.out.println("Moved");
+
+						Checker checker = new Checker();
+						if (checker.isChecked((Board_1) board)) {
+							gFrame.addMovelog(gFrame.logTextScreen, "Check!");
+							System.out.println("Check");
+							if (checker.isCheckMate((Board_1) board)) {
+								gFrame.addMovelog(gFrame.logTextScreen, "CheckMate!");
+								gFrame.showPopUp("CheckMate");
+								System.out.println("Checkmate");
+							}
+						} else if (checker.isStaleMate((Board_1) board)) {
+							gFrame.addMovelog(gFrame.logTextScreen, "StaleMate!");
+							gFrame.showPopUp("StaleMate");
+							System.out.println("StaleMate");
+						}
+					}
+				} else if (board.getPiece(curPos).getColor() == board.getTurn()
+						&& !board.getPiece(curPos).equals(board.curPiece)) {
+					board.curPiece = board.getPiece(curPos);
+					board.curPiecePos = curPos;
+					gFrame.change();
+					gFrame.addMovelog(gFrame.logTextScreen, "Selected\n");
+					System.out.println("Selected");
+				} else {
+					board.curPiece = null;
+					gFrame.change();
+					gFrame.addMovelog(gFrame.logTextScreen, "Canceled\n");
+					System.out.println("Canceled");
+				}
+
 			}
 		} else {
-			if (board.curPiece.getMovement((Board_1) board, board.curPiecePos).contains(curPos)) {
-				if (board.isIllegalMove(board.curPiecePos, curPos)) {
-					gFrame.addMovelog(gFrame.logTextScreen, "Illegal Move!!\n");
-					System.out.println("Illegal Move");
-				} else {
-					board.Move(board.curPiecePos, curPos);
-					gFrame.turnScreen.setText(board.getStringTurn());
-
-					gFrame.change();
-					gFrame.addMovelog(gFrame.logTextScreen, "Move Success!\n");
-					System.out.println("Moved");
-
-					Checker checker = new Checker();
-					if (checker.isChecked((Board_1) board)) {
-						gFrame.addMovelog(gFrame.logTextScreen, "Check!");
-						System.out.println("Check");
-						if (checker.isCheckMate((Board_1) board)) {
-							gFrame.addMovelog(gFrame.logTextScreen, "CheckMate!");
-							gFrame.showPopUp("CheckMate");
-							System.out.println("Checkmate");
-						}
-					} else if (checker.isStaleMate((Board_1) board)) {
-						gFrame.addMovelog(gFrame.logTextScreen, "StaleMate!");
-						gFrame.showPopUp("StaleMate");
-						System.out.println("StaleMate");
-					}
+			JPanel curSquare = (JPanel) e.getSource();
+			int curX = (int) curSquare.getClientProperty("column");
+			int curY = (int) curSquare.getClientProperty("row");
+			Position curPos = new Position(curX, curY);
+			gFrame1.addMovelog(gFrame1.logTextScreen, curX + " " + curY);
+			System.out.println(curX + " " + curY);
+			if (board.curPiece == null) {
+				if (board.getPiece(curPos).getColor() == board.turn) {
+					board.curPiece = board.getPiece(curPos);
+					board.curPiecePos = curPos;
+					gFrame1.change();
+					gFrame1.addMovelog(gFrame1.logTextScreen, "Selected\n");
+					System.out.println("Selected");
 				}
-			} else if (board.getPiece(curPos).getColor() == board.getTurn()
-					&& !board.getPiece(curPos).equals(board.curPiece)) {
-				board.curPiece = board.getPiece(curPos);
-				board.curPiecePos = curPos;
-				gFrame.change();
-				gFrame.addMovelog(gFrame.logTextScreen, "Selected\n");
-				System.out.println("Selected");
 			} else {
-				board.curPiece = null;
-				gFrame.change();
-				gFrame.addMovelog(gFrame.logTextScreen, "Canceled\n");
-				System.out.println("Canceled");
-			}
+				if (board.curPiece.getMovement((Board_1) board, board.curPiecePos).contains(curPos)) {
+					if (board.isIllegalMove(board.curPiecePos, curPos)) {
+						gFrame1.addMovelog(gFrame1.logTextScreen, "Illegal Move!!\n");
+						System.out.println("Illegal Move");
+					} else {
+						board.Move(board.curPiecePos, curPos);
+						gFrame1.turnScreen.setText(board.getStringTurn());
 
+						gFrame1.change();
+						gFrame1.addMovelog(gFrame1.logTextScreen, "Move Success!\n");
+						System.out.println("Moved");
+
+						Checker checker = new Checker();
+						if (checker.isChecked((Board_1) board)) {
+							gFrame1.addMovelog(gFrame1.logTextScreen, "Check!");
+							System.out.println("Check");
+							if (checker.isCheckMate((Board_1) board)) {
+								gFrame1.addMovelog(gFrame1.logTextScreen, "CheckMate!");
+								gFrame1.showPopUp("CheckMate");
+								System.out.println("Checkmate");
+							}
+						} else if (checker.isStaleMate((Board_1) board)) {
+							gFrame1.addMovelog(gFrame1.logTextScreen, "StaleMate!");
+							gFrame1.showPopUp("StaleMate");
+							System.out.println("StaleMate");
+						}
+					}
+				} else if (board.getPiece(curPos).getColor() == board.getTurn()
+						&& !board.getPiece(curPos).equals(board.curPiece)) {
+					board.curPiece = board.getPiece(curPos);
+					board.curPiecePos = curPos;
+					gFrame1.change();
+					gFrame1.addMovelog(gFrame1.logTextScreen, "Selected\n");
+					System.out.println("Selected");
+				} else {
+					board.curPiece = null;
+					gFrame1.change();
+					gFrame1.addMovelog(gFrame1.logTextScreen, "Canceled\n");
+					System.out.println("Canceled");
+				}
+
+			}
 		}
+
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
 		JPanel curSquare = (JPanel) e.getSource();
-		curSquare.setBackground(new Color(255,178,245));
+		curSquare.setBackground(new Color(255, 178, 245));
 	}
 
 	@Override
@@ -96,7 +161,7 @@ public class MouseEventHandler implements MouseListener {
 		JPanel curSquare = (JPanel) e.getSource();
 		int curX = (int) curSquare.getClientProperty("column");
 		int curY = (int) curSquare.getClientProperty("row");
-		
+
 		if ((curX + curY) % 2 == 1) {
 			curSquare.setBackground(new Color(180, 120, 50));
 			curSquare.setBorder(new LineBorder(new Color(180, 120, 50), 5));
@@ -106,7 +171,7 @@ public class MouseEventHandler implements MouseListener {
 			curSquare.setBorder(new LineBorder(new Color(240, 220, 200), 5));
 		}
 	}
-	
+
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub

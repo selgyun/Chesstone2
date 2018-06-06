@@ -45,10 +45,8 @@ public class GameFrame_1vs1 {
 
 	public void loadNewFont(String fontDir){
 		try {
-		    //create the font to use. Specify the size!
 		    turnScreenFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontDir)).deriveFont(12f);
 		    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		    //register the font
 		    ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(fontDir)));
 		} catch (IOException e) {
 		    e.printStackTrace();
