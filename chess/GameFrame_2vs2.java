@@ -49,7 +49,7 @@ public class GameFrame_2vs2 {
 
 	public void changeTurnScreen(String turnStr, StyledDocument doc, Style textStyle) {
 		try {
-			doc.insertString(doc.getLength(), "WHITE Teamï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!", textStyle);
+			doc.insertString(doc.getLength(), "WHITE TeamÀÇ Â÷·Ê!", textStyle);
 		} catch (BadLocationException e) {
 		}
 	}
@@ -79,7 +79,7 @@ public class GameFrame_2vs2 {
 		logTextScreen.setFont(logFont);
 		JScrollPane textScrollPane = new JScrollPane(logTextScreen);
 		textScrollPane.setPreferredSize(new Dimension(150, 500));
-		logTextScreen.append("ï¿½ï¿½ï¿½Ó½ï¿½ï¿½ï¿½!!\n");
+		logTextScreen.append("°ÔÀÓ ½ÃÀÛ!!\n");
 		playSpectator.add(textScrollPane);
 
 		turnScreen = new JTextPane();

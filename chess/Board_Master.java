@@ -86,6 +86,10 @@ public class Board_Master implements ConstDef {
 		return false;
 	}
 
+	public Piece getDeadPiece(Piece corpse){
+		return corpse;
+	}
+	
 	void Move(Position PiecePosition, Position dest) {
 		if (getPiece(PiecePosition) instanceof Pawn) {
 			((Pawn) getPiece(PiecePosition)).moved();
@@ -93,6 +97,11 @@ public class Board_Master implements ConstDef {
 		if (getPiece(PiecePosition).getColor() == getNextTurn() || getPiece(PiecePosition).getColor() == getPrevTurn()) {
 			deadPieces.add(getPiece(dest));
 		}
+		
+		if(getPiece(dest).getName() != 0 && (getPiece(dest).getColor() != getPiece(PiecePosition).getColor())){ //가려는 위치가 MT가 아니면 (말이 있으면)
+			
+		}
+		
 		board[dest.getX()][dest.getY()] = board[PiecePosition.getX()][PiecePosition.getY()];
 		board[PiecePosition.getX()][PiecePosition.getY()] = new MT();
 		curPiece = null;
