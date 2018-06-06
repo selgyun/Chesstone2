@@ -50,11 +50,15 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 								+ " Moved " + board.getRealPos(board.curPiecePos) + " -> " + board.getRealPos(curPos));
 						if (board.getPiece(curPos).getColor() == board.getNextTurn()
 								|| board.getPiece(curPos).getColor() == board.getPrevTurn()) {
+							
+							gFrame.deadPiece = board.getPiece(curPos);
+							
 							gFrame.addMovelog(gFrame.logTextScreen, "It took " + board.getPiece(curPos).getColorS() + " "
 									+ board.getPiece(curPos).getNameS());
 						}
+						
 						board.Move(board.curPiecePos, curPos);
-						gFrame.renewCorpses_1();
+						
 						gFrame.turnScreen.setText(board.getStringTurn() + " Turn");
 						Checker checker = new Checker(board);
 						if (checker.isChecked()) {

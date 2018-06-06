@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -19,27 +20,18 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 
-import pieces.Position;
+import pieces.*;
 
 public class GameFrame_1vs1 extends GameFrame {
 
 	private static final long serialVersionUID = 1L;
-	final int width = 860;
+	final int width = 1000;
 	final int height = 720;
-
-	public void renewCorpses_1() {
-		for (int i = 0; i < 2; i++) {
-			for(int j=0; j<16; j++) {
-				try {
-					corpsePanel[i][j].setImage(board.deadPieces.get(i).getImg());
-					corpsePanel[i][j].setPreferredSize(new Dimension(20, 20));
-					deadPiecesPanel.add(corpsePanel[i][j], BorderLayout.CENTER);
-				} catch (NullPointerException e) {
-
-				}
-			}
-		}
-	}
+	
+	ArrayList<Piece> dead_1 = new ArrayList<Piece>();
+	ArrayList<Piece> dead_2 = new ArrayList<Piece>();
+	
+	Piece deadPiece = null;
 
 	public GameFrame_1vs1() {
 		square = new JPanel[8][8];
@@ -56,15 +48,27 @@ public class GameFrame_1vs1 extends GameFrame {
 		deadPiecesMaster.setSize(800, 100);
 		descriptionText = new JTextField(10);
 		descriptionText.setText("죽은 말들 표시");
-		descriptionText.setVisible(true);
 
 		deadPiecesPanel = new JPanel();
 		deadPiecesPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-		deadPiecesPanel.setVisible(true);
-
+		
+		
+		for (int i = 0; i < 2; i++) {
+			for(int j=0; j < 16; j++) {
+				try {
+					corpsePanel[i][j] = new ImagePanel();
+					corpsePanel[i][j].setImage(null);
+					corpsePanel[i][j].setPreferredSize(new Dimension(20, 20));
+					deadPiecesPanel.add(corpsePanel[i][j]);
+				} catch (NullPointerException e) {
+				}
+			}
+		}
+		
+		descriptionText.setBackground(Color.ORANGE);
+		deadPiecesPanel.setBackground(Color.YELLOW);
 		deadPiecesMaster.add(descriptionText);
 		deadPiecesMaster.add(deadPiecesPanel);
-		deadPiecesMaster.setVisible(true);
 
 		add(deadPiecesMaster, BorderLayout.SOUTH);
 
@@ -189,6 +193,32 @@ public class GameFrame_1vs1 extends GameFrame {
 				}
 				imgPan[i][j].repaint();
 			}
+		}
+		
+		if (deadPiece != null) {
+			System.out.println("now: " + deadPiece.getNameS());
+			if(deadPiece.getColor() == WHITE)
+			{
+				dead_1.add(deadPiece);
+			}
+			else if(deadPiece.getColor() == BLACK)
+			{
+				dead_2.add(deadPiece);
+			}
+			deadPiece = null;
+		}
+		
+		for (int i = 0; i < dead_1.size(); i++)
+		{
+			BufferedImage temp = dead_1.get(i).getImg();
+			corpsePanel[0][i].setImage(temp);
+			corpsePanel[0][i].repaint();
+		}
+		for (int i = 0; i < dead_2.size(); i++)
+		{
+			BufferedImage temp = dead_2.get(i).getImg();
+			corpsePanel[1][i].setImage(temp);
+			corpsePanel[1][i].repaint();
 		}
 
 	}

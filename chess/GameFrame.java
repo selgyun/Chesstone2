@@ -17,7 +17,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
 import javax.swing.text.StyledDocument;
 
-public abstract class GameFrame extends JFrame {
+public abstract class GameFrame extends JFrame implements ConstDef{
 	JPanel[][] square;
 	JPanel chessBoard, deadPiecesMaster, deadPiecesPanel;
 	ImagePanel[][] imgPan;
