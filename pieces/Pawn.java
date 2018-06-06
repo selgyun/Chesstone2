@@ -12,6 +12,7 @@ public class Pawn extends Piece{
 	public Pawn(int col){
 		color = col;
 		name = PAWN;
+		nameS = "pawn";
 		isMoved = false;
 		
 		if(players == 1) team = color;
@@ -117,23 +118,7 @@ public class Pawn extends Piece{
 
 		}
 		
-		if(!checking)
-		{
-			checking = true;
-			for(int i = 0; i < go.size(); i++)
-			{
-				int goX, goY;
-				goX = go.get(i).getX();
-				goY = go.get(i).getY();
-
-				if(board.isIllegalMove(new Position(x, y), new Position(goX, goY)))
-				{
-					go.remove(i);
-					i--;
-				}
-			}
-			checking = false;
-		}
+	
         
 		return go;
 	}

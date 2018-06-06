@@ -11,6 +11,7 @@ public class King extends Piece {
 	public King(int col){
 		color = col;
 		name = KING;
+		nameS = "king";
 		
 		if(players == 1) team = color;
 		
@@ -71,24 +72,6 @@ public class King extends Piece {
 				go.remove(i);
 				i--;
 			}
-		}
-		
-		if(!checking)
-		{
-			checking = true;
-			for(int i = 0; i < go.size(); i++)
-			{
-				int goX, goY;
-				goX = go.get(i).getX();
-				goY = go.get(i).getY();
-
-				if(board.isIllegalMove(new Position(x, y), new Position(goX, goY)))
-				{
-					go.remove(i);
-					i--;
-				}
-			}
-			checking = false;
 		}
 	
 		return go;

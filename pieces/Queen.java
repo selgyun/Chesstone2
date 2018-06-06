@@ -11,7 +11,7 @@ public class Queen extends Piece {
 	public Queen(int col) {
 		color = col;
 		name = QUEEN;
-
+		nameS = "queen";
 		if(players == 1) team = color;
 		
 		else {
@@ -168,24 +168,6 @@ public class Queen extends Piece {
 					go.add(new Position(goX, goY));			
 				break;
 			}
-		}
-		
-		if(!checking)
-		{
-			checking = true;
-			for(int i = 0; i < go.size(); i++)
-			{
-				int goX, goY;
-				goX = go.get(i).getX();
-				goY = go.get(i).getY();
-
-				if(board.isIllegalMove(new Position(x, y), new Position(goX, goY)))
-				{
-					go.remove(i);
-					i--;
-				}
-			}
-			checking = false;
 		}
 
 		return go;
