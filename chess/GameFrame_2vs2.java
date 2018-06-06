@@ -100,6 +100,8 @@ public class GameFrame_2vs2 extends GameFrame{
 		doc.setParagraphAttributes(0, doc.getLength(), textAlignCenter, false);
 		textStyle = turnScreen.addStyle("TextStyle", null);
 		StyleConstants.setForeground(textStyle, foreColor);
+		colorChange = turnScreen.addStyle("Let's Change", null);
+		StyleConstants.setForeground(colorChange, foreColor);
 		turnScreen.setEditable(false);
 		turnScreen.setPreferredSize(new Dimension(150, 50));
 

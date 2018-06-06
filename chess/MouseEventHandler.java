@@ -75,8 +75,9 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 						//Change Turn Color
 						try {
 							gFrame.doc.remove(0, gFrame.doc.getLength());
-							StyleConstants.setForeground(gFrame.textStyle, intToColor(board.getTurn()));
-							gFrame.doc.insertString(gFrame.doc.getLength(), board.getStringTurn() + " Turn", gFrame.textStyle);
+							StyleConstants.setForeground(gFrame.colorChange, intToColor(board.getTurn()));
+							gFrame.doc.insertString(gFrame.doc.getLength(), board.getStringTurn(), gFrame.colorChange);
+							gFrame.doc.insertString(gFrame.doc.getLength(), " Turn", gFrame.textStyle);
 						}	catch(BadLocationException badboy) {		
 						}
 						
@@ -131,8 +132,9 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 						//Change Turn Color
 						try {
 							gFrame2.doc.remove(0, gFrame2.doc.getLength());
-							StyleConstants.setForeground(gFrame2.textStyle, intToColor(board.getTurn()));
-							gFrame2.doc.insertString(gFrame2.doc.getLength(), board.getStringTurn() + " Turn", gFrame2.textStyle);
+							StyleConstants.setForeground(gFrame2.colorChange, intToColor(board.getTurn()));
+							gFrame2.doc.insertString(gFrame2.doc.getLength(), board.getStringTurn(), gFrame2.colorChange);
+							gFrame2.doc.insertString(gFrame2.doc.getLength(), " Turn", gFrame2.textStyle);
 						}	catch(BadLocationException badboy) {		
 						}
 						
