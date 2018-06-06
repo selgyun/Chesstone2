@@ -11,7 +11,7 @@ import pieces.Position;
 
 /* by jung */
 
-public class MouseEventHandler implements MouseListener {
+public class MouseEventHandler implements MouseListener, ConstDef {
 	Color tempCol = new Color(0, 0, 0);
 	LineBorder tempBord = new LineBorder(tempCol, 5);
 	Board_Master board;
@@ -120,12 +120,63 @@ public class MouseEventHandler implements MouseListener {
 							System.out.println("Check");
 							if (checker.isCheckMate()) {
 								gFrame2.addMovelog(gFrame2.logTextScreen, "CheckMate!");
+								int checked = board.getTurn();
+								switch(checked)
+								{
+								case BLACK:
+								case WHITE:
+									if(!board.inDanger_1) {
+										for(int i = 0; i < 14; i++)
+										{
+											for(int j = 0; j < 14; j++)
+											{
+												if(Position.inRange(i, j))
+												{
+													if(board.getPiece(i, j).getColor() == checked)
+														board.setMT(i, j);
+												}
+											}
+										}
+										board.inDanger_1 = true;
+									}
+									else {
+										gFrame2.addMovelog(gFrame2.logTextScreen, "Checkmate!");
+										gFrame2.showPopUp("Team2 WIN!!");
+										System.out.println("Checkmate");
+									}
+									break;
+									
+								case GREEN:
+								case RED:
+									if(!board.inDanger_2) {
+										for(int i = 0; i < 14; i++)
+										{
+											for(int j = 0; j < 14; j++)
+											{
+												if(Position.inRange(i, j))
+												{
+													if(board.getPiece(i, j).getColor() == checked)
+														board.setMT(i, j);
+												}
+											}
+										}
+										board.inDanger_2 = true;
+										
+									}
+									else {
+										gFrame2.addMovelog(gFrame2.logTextScreen, "Checkmate!");
+										gFrame2.showPopUp("Team1 WIN!!");
+										System.out.println("Checkmate");
+									}
+									break;
+								}
+								
 								gFrame2.showPopUp("CheckMate");
 								System.out.println("Checkmate");
 							}
 						} else if (checker.isStaleMate()) {
 							gFrame2.addMovelog(gFrame2.logTextScreen, "StaleMate!");
-							gFrame2.showPopUp("StaleMate");
+							gFrame2.showPopUp("Draw!!");
 							System.out.println("StaleMate");
 						}
 					}

@@ -18,6 +18,9 @@ public class Board_Master implements ConstDef {
 	public Position curPiecePos;
 
 	public ArrayList<Piece> deadPieces;
+	
+	public boolean inDanger_1 = false;
+	public boolean inDanger_2 = false;
 
 	public int getTurn() {
 		return turn;
@@ -126,5 +129,10 @@ public class Board_Master implements ConstDef {
 			board[dest.getX()][dest.getY()] = temp;
 			return false;
 		}
+	}
+	
+	public void setMT(int x, int y) {
+		if(Position.inRange(x, y))
+			board[x][y] = new MT();
 	}
 }
