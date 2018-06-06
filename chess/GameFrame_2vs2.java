@@ -48,7 +48,7 @@ public class GameFrame_2vs2 extends GameFrame{
 
 		turnScreen = new JTextPane();
 		turnScreen.setBackground(backColor);
-		loadNewFont("fonts\\koverwatch.ttf");
+		loadNewFont("fonts\\koverwatch.ttf", 24f);
 		turnScreen.setFont(turnScreenFont);
 		doc = turnScreen.getStyledDocument();
 		SimpleAttributeSet textAlignCenter = new SimpleAttributeSet();

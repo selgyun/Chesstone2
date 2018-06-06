@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -20,13 +21,14 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 
-import pieces.*;
+import pieces.Piece;
+import pieces.Position;
 
 public class GameFrame_1vs1 extends GameFrame {
 
 	private static final long serialVersionUID = 1L;
-	final int width = 1000;
-	final int height = 720;
+	final int width = 940;
+	final int height = 820;
 	
 	ArrayList<Piece> dead_1 = new ArrayList<Piece>();
 	ArrayList<Piece> dead_2 = new ArrayList<Piece>();
@@ -45,9 +47,11 @@ public class GameFrame_1vs1 extends GameFrame {
 
 		deadPiecesMaster = new JPanel();
 		deadPiecesMaster.setLayout(new FlowLayout(FlowLayout.LEFT));
-		deadPiecesMaster.setSize(800, 100);
-		descriptionText = new JTextField(10);
-		descriptionText.setText("죽은 말들 표시");
+		deadPiecesMaster.setSize(20, 20);
+		descriptionText = new JTextField(9);
+		descriptionText.setHorizontalAlignment(JTextField.CENTER);
+		descriptionText.setEditable(false);
+		descriptionText.setText("Dead Pieces");
 
 		deadPiecesPanel = new JPanel();
 		deadPiecesPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -65,8 +69,11 @@ public class GameFrame_1vs1 extends GameFrame {
 			}
 		}
 		
-		descriptionText.setBackground(Color.ORANGE);
-		deadPiecesPanel.setBackground(Color.YELLOW);
+		descriptionText.setBackground(new Color(185,237,193));
+		descriptionText.setForeground(new Color(32,148,120));
+		loadNewFont("fonts\\koverwatch.ttf", 18f);
+		descriptionText.setFont(turnScreenFont);
+		deadPiecesPanel.setBackground(Color.white);
 		deadPiecesMaster.add(descriptionText);
 		deadPiecesMaster.add(deadPiecesPanel);
 
@@ -79,13 +86,13 @@ public class GameFrame_1vs1 extends GameFrame {
 		logTextScreen.setFont(logFont);
 		logTextScreen.setEditable(false);
 		JScrollPane textScrollPane = new JScrollPane(logTextScreen);
-		textScrollPane.setPreferredSize(new Dimension(200, 600));
+		textScrollPane.setPreferredSize(new Dimension(200, 700));
 		logTextScreen.append("게임 시작!!\n"); // 초기 서순
 		playSpectator.add(textScrollPane);
 
 		turnScreen = new JTextPane();
 		turnScreen.setBackground(backColor);
-		loadNewFont("fonts\\koverwatch.ttf");
+		loadNewFont("fonts\\koverwatch.ttf", 24f);
 		turnScreen.setFont(turnScreenFont);
 		doc = turnScreen.getStyledDocument();
 		SimpleAttributeSet textAlignCenter = new SimpleAttributeSet();
@@ -96,7 +103,7 @@ public class GameFrame_1vs1 extends GameFrame {
 		turnScreen.setEditable(false);
 		turnScreen.setPreferredSize(new Dimension(150, 50));
 
-		changeTurnScreen("WHITE Team의 차례!", doc, textStyle);
+		changeTurnScreen("WHITE Turn", doc, textStyle);
 
 		playSpectator.add(turnScreen);
 		add(playSpectator, BorderLayout.EAST);
@@ -196,7 +203,6 @@ public class GameFrame_1vs1 extends GameFrame {
 		}
 		
 		if (deadPiece != null) {
-			System.out.println("now: " + deadPiece.getNameS());
 			if(deadPiece.getColor() == WHITE)
 			{
 				dead_1.add(deadPiece);

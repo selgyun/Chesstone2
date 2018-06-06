@@ -33,12 +33,12 @@ public abstract class GameFrame extends JFrame implements ConstDef{
 	JTextPane turnScreen;
 	StyledDocument doc;
 	
-	Font logFont = new Font("NanumGothic", Font.BOLD, 12);
+	Font logFont = new Font("NanumGothic", Font.BOLD, 13);
 	Font turnScreenFont = new Font("NanumGothic", Font.BOLD, 15);
 	
-	public void loadNewFont(String fontDir) {
+	public void loadNewFont(String fontDir, float fontSize) {
 		try {
-			turnScreenFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontDir)).deriveFont(24f);
+			turnScreenFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontDir)).deriveFont(fontSize);
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(fontDir)));
 		} catch (IOException e) {
