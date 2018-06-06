@@ -3,6 +3,7 @@ package chess;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
@@ -17,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 import javax.swing.text.BadLocationException;
@@ -33,10 +35,11 @@ public class GameFrame_1vs1 {
 	JFrame gameFrame;
 	Board_1 board;
 	JPanel[][] square = new JPanel[8][8];
-	JPanel chessBoard;
+	JPanel chessBoard, deadPieces;
 	ImagePanel[][] imgPan = new ImagePanel[8][8];
 	JPanel playSpectator;
 	JTextArea logTextScreen;
+	JTextField descriptionText;
 	JTextPane turnScreen;
 	StyledDocument doc;
 	
@@ -76,6 +79,16 @@ public class GameFrame_1vs1 {
 		gameFrame.setLocationRelativeTo(null);
 		gameFrame.setLayout(new BorderLayout());
 
+		deadPieces = new JPanel();
+		deadPieces.setLayout(new FlowLayout(FlowLayout.LEFT));
+		deadPieces.setSize(800, 100);
+		descriptionText = new JTextField(10);
+		descriptionText.setText("죽은 말들 표시");
+		descriptionText.setVisible(true);
+		deadPieces.add(descriptionText);
+		deadPieces.setVisible(true);
+		gameFrame.add(deadPieces, BorderLayout.SOUTH);
+		
 		playSpectator = new JPanel();
 		playSpectator.setLayout(new BoxLayout(playSpectator, BoxLayout.Y_AXIS));
 
