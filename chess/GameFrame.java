@@ -50,7 +50,7 @@ public abstract class GameFrame extends JFrame implements ConstDef{
 
 	public void changeTurnScreen(String turnStr, StyledDocument doc, Style textStyle) {
 		try {
-			doc.insertString(doc.getLength(), "WHITE TeamÀÇ Â÷·Ê!", textStyle);
+			doc.insertString(doc.getLength(), turnStr, textStyle);
 		} catch (BadLocationException e) {
 		}
 	}

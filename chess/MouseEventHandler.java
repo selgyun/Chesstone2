@@ -6,6 +6,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
+import javax.swing.text.StyleConstants;
 
 import pieces.Position;
 
@@ -18,7 +19,7 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 	GameFrame_1vs1 gFrame;
 	GameFrame_2vs2 gFrame2;
 	ImagePanel[][] CorpsePanel = new ImagePanel[4][16];
-
+	
 	public MouseEventHandler(Board_Master board, GameFrame_1vs1 gameFrame) {
 		this.board = board;
 		this.gFrame = gameFrame;
@@ -29,6 +30,16 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 		this.gFrame2 = gameFrame;
 	}
 
+	Color intToColor(int colorType){
+		switch(colorType){
+		case 1: return Color.white;
+		case 2: return Color.red;
+		case 3: return Color.black;
+		case 4: return Color.green;
+		}
+		return null;
+	}
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (gFrame != null) {
@@ -60,6 +71,7 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 						board.Move(board.curPiecePos, curPos);
 						
 						gFrame.turnScreen.setText(board.getStringTurn() + " Turn");
+						gFrame.turnScreen.setForeground(intToColor(board.getTurn()));
 						Checker checker = new Checker(board);
 						if (checker.isChecked()) {
 							gFrame.addMovelog(gFrame.logTextScreen, board.getStringTurn() + " King Checked!");
