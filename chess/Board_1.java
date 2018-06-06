@@ -47,6 +47,7 @@ public class Board_1 extends Board_Master implements ConstDef {
 	}
 
 	public Board_1() {
+		Piece.players = 1;
 		this.board = initialBoard;
 		boardSize = 8;
 		curPiece = null;

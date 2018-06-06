@@ -11,7 +11,7 @@ public class Knight extends Piece{
 	public Knight(int col){
 		color = col;
 		name = KNIGHT;
-		nameS = "knight";
+		nameS = "Knight";
 		if(players == 1) team = color;
 		
 		else {

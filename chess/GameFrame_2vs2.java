@@ -26,52 +26,22 @@ import javax.swing.text.StyledDocument;
 
 import pieces.Position;
 
-public class GameFrame_2vs2 {
+public class GameFrame_2vs2 extends GameFrame{
 	private static final long serialVersionUID = 1L;
 
 	final int width = 840;
 	final int height = 840;
-	JFrame gameFrame;
-	Board_2 board;
-	JPanel[][] square = new JPanel[14][14];
-	JPanel chessBoard;
-	JPanel playSpectator;
-	JTextArea logTextScreen;
-	JTextPane turnScreen;
-	StyledDocument doc;
-	ImagePanel[][] imgPan = new ImagePanel[14][14];
-
-	Font logFont = new Font("NanumGothic", Font.BOLD, 12);
-	Font turnScreenFont = new Font("NanumGothic", Font.BOLD, 15);
-	
-	Color foreColor = new Color(230,245,247);
-	Color backColor = new Color(81,191,181);
-
-	public void changeTurnScreen(String turnStr, StyledDocument doc, Style textStyle) {
-		try {
-			doc.insertString(doc.getLength(), "WHITE TeamÀÇ Â÷·Ê!", textStyle);
-		} catch (BadLocationException e) {
-		}
-	}
-
-	public void loadNewFont(String fontDir) {
-		try {
-			turnScreenFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontDir)).deriveFont(24f);
-			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(fontDir)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (FontFormatException e) {
-			e.printStackTrace();
-		}
-	}
 
 	public GameFrame_2vs2() {
-		gameFrame = new JFrame("Chess - 2vs2");
-		gameFrame.setSize(width, height);
-		gameFrame.setLocationRelativeTo(null);
-		gameFrame.setLayout(new BorderLayout());
-
+		square = new JPanel[14][14];
+		imgPan = new ImagePanel[14][14];
+		corpsePanel = new ImagePanel[64];
+		
+		setTitle("Chess - 2vs2");
+		setSize(width, height);
+		setLocationRelativeTo(null);
+		setLayout(new BorderLayout());
+		
 		playSpectator = new JPanel();
 		playSpectator.setLayout(new BoxLayout(playSpectator, BoxLayout.Y_AXIS));
 
@@ -92,12 +62,12 @@ public class GameFrame_2vs2 {
 		turnScreen.setEditable(false);
 		turnScreen.setPreferredSize(new Dimension(150, 50));
 
-		changeTurnScreen("WHITE Teamï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!", doc, textStyle);
+		changeTurnScreen("WHITE TeamÀÇ Â÷·Ê!", doc, textStyle);
 
 		playSpectator.add(turnScreen);
-		gameFrame.add(playSpectator, BorderLayout.EAST);
+		add(playSpectator, BorderLayout.EAST);
 		playSpectator.setVisible(true);
-
+		
 		JPanel chessBoard = new JPanel();
 		chessBoard.setLayout(new GridLayout(14, 14));
 
@@ -140,9 +110,9 @@ public class GameFrame_2vs2 {
 			}
 		}
 
-		gameFrame.add(chessBoard, BorderLayout.CENTER);
-		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		gameFrame.setVisible(true);
+		add(chessBoard, BorderLayout.CENTER);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
 
 	}
 
@@ -211,8 +181,4 @@ public class GameFrame_2vs2 {
 		JOptionPane.showMessageDialog(null, msg, "System", JOptionPane.INFORMATION_MESSAGE);
 	}
 
-	public void addMovelog(JTextArea area, String log) {
-		area.append(log + "\n");
-		area.setCaretPosition(area.getDocument().getLength());
-	}
 }

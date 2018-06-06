@@ -11,7 +11,7 @@ public class King extends Piece {
 	public King(int col){
 		color = col;
 		name = KING;
-		nameS = "king";
+		nameS = "King";
 		
 		if(players == 1) team = color;
 		

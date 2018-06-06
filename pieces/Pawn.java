@@ -12,7 +12,7 @@ public class Pawn extends Piece{
 	public Pawn(int col){
 		color = col;
 		name = PAWN;
-		nameS = "pawn";
+		nameS = "Pawn";
 		isMoved = false;
 		
 		if(players == 1) team = color;

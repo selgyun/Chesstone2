@@ -11,7 +11,7 @@ public class Rook extends Piece {
 	public Rook(int col) {
 		color = col;
 		name = ROOK;
-		nameS = "rook";
+		nameS = "Rook";
 		if (players == 1)
 			team = color;
 

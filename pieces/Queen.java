@@ -11,7 +11,7 @@ public class Queen extends Piece {
 	public Queen(int col) {
 		color = col;
 		name = QUEEN;
-		nameS = "queen";
+		nameS = "Queen";
 		if(players == 1) team = color;
 		
 		else {

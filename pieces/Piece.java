@@ -17,6 +17,20 @@ public abstract class Piece implements ConstDef{
 	public int getName() { return name; }
 	public String getNameS() { return nameS; }
 	public BufferedImage getImg() { return img; }
+	public String getColorS() {
+		switch(color) {
+		case BLACK:
+			return "Black";
+		case WHITE:
+			return "White";
+		case GREEN:
+			return "Green";
+		case RED:
+			return "Red";
+		default:
+			return null;
+		}
+	}
 	
 	abstract public ArrayList<Position> getMovement(Board_Master board, Position now);
 }

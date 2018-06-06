@@ -1,5 +1,6 @@
 package chess;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -12,18 +13,19 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
 
 public class MainFrame{
-	final int width = 1280;
-	final int height = 720;
+	final int width = 600;
+	final int height = 600;
 	JFrame frame;
 	
 	public MainFrame() {
 		frame = new JFrame("Chess");
 		frame.setSize(width, height);
 		frame.setLocationRelativeTo(null);
-
+		frame.setLayout(null);
 
 		//frame.setLayout(new BorderLayout(10, 20));
 		
@@ -59,11 +61,28 @@ public class MainFrame{
 			}
 		};
 		
-		butpanel.add(StartBut_1vs1);
-		butpanel.add(StartBut_2vs2);
-		butpanel.add(ExitBut);
+		StartBut_1vs1.setSize(200, 50);
+		StartBut_1vs1.setLocation(200, 300);
+		StartBut_1vs1.setBackground(new Color(251, 251, 208));
+		StartBut_1vs1.setBorder(new LineBorder(new Color(205, 221, 244), 5));
 		
-		butpanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+		StartBut_2vs2.setSize(200, 50);
+		StartBut_2vs2.setLocation(200, 380);
+		StartBut_2vs2.setBackground(new Color(251, 251, 208));
+		StartBut_2vs2.setBorder(new LineBorder(new Color(205, 221, 244), 5));
+		
+		ExitBut.setSize(200, 50);
+		ExitBut.setLocation(200,460);
+		ExitBut.setBackground(new Color(251, 251, 208));
+		ExitBut.setBorder(new LineBorder(new Color(205, 221, 244), 5));
+		
+		butpanel.setBounds(0, 0, 600, 600);
+		
+		frame.add(StartBut_1vs1);
+		frame.add(StartBut_2vs2);
+		frame.add(ExitBut);
+		
+		frame.add(butpanel);
 		
 		frame.add(butpanel);
 		

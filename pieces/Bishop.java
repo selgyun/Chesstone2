@@ -11,7 +11,7 @@ public class Bishop extends Piece {
 	public Bishop(int col){
 		color = col;
 		name = BISHOP;
-		nameS = "bishop";
+		nameS = "Bishop";
 		
 		if(players == 1) team = color;
 		

@@ -28,57 +28,20 @@ import javax.swing.text.StyledDocument;
 
 import pieces.Position;
 
-public class GameFrame_1vs1 {
+public class GameFrame_1vs1 extends GameFrame{
 
 	final int width = 860;
 	final int height = 720;
-	JFrame gameFrame;
-	Board_1 board;
-	JPanel[][] square = new JPanel[8][8];
-	JPanel chessBoard, deadPiecesMaster, deadPiecesPanel;
-	ImagePanel[][] imgPan = new ImagePanel[8][8];
-	ImagePanel[] corpsePanel = new ImagePanel[32];
-	JPanel playSpectator;
-	JTextArea logTextScreen;
-	JTextField descriptionText;
-	JTextPane turnScreen;
-	StyledDocument doc;
-
-	Font logFont = new Font("NanumGothic", Font.BOLD, 12);
-	Font turnScreenFont = new Font("NanumGothic", Font.BOLD, 15);
-
-	public void loadNewFont(String fontDir) {
-		try {
-			turnScreenFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontDir)).deriveFont(24f);
-			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(fontDir)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (FontFormatException e) {
-			e.printStackTrace();
-		}
-	}
-
-	Color foreColor = new Color(230, 245, 247);
-	Color backColor = new Color(81, 191, 181);
-
-	public void addMovelog(JTextArea area, String log) {
-		area.append(log + "\n");
-		area.setCaretPosition(area.getDocument().getLength());
-	}
-
-	public void changeTurnScreen(String turnStr, StyledDocument doc, Style textStyle) {
-		try {
-			doc.insertString(doc.getLength(), "WHITE TeamÀÇ Â÷·Ê!", textStyle);
-		} catch (BadLocationException e) {
-		}
-	}
 
 	public GameFrame_1vs1() {
-		gameFrame = new JFrame("Chess - 1vs1");
-		gameFrame.setSize(width, height);
-		gameFrame.setLocationRelativeTo(null);
-		gameFrame.setLayout(new BorderLayout());
+		square = new JPanel[8][8];
+		imgPan = new ImagePanel[8][8];
+		corpsePanel = new ImagePanel[32];
+		
+		setTitle("Chess - 1vs1");
+		setSize(width, height);
+		setLocationRelativeTo(null);
+		setLayout(new BorderLayout());
 
 		deadPiecesMaster = new JPanel();
 		deadPiecesMaster.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -105,8 +68,8 @@ public class GameFrame_1vs1 {
 		deadPiecesMaster.add(deadPiecesPanel);
 		deadPiecesMaster.setVisible(true);
 
-		gameFrame.add(deadPiecesMaster, BorderLayout.SOUTH);
-
+		add(deadPiecesMaster, BorderLayout.SOUTH);
+		
 		playSpectator = new JPanel();
 		playSpectator.setLayout(new BoxLayout(playSpectator, BoxLayout.Y_AXIS));
 
@@ -131,7 +94,7 @@ public class GameFrame_1vs1 {
 		changeTurnScreen("WHITE TeamÀÇ Â÷·Ê!", doc, textStyle);
 
 		playSpectator.add(turnScreen);
-		gameFrame.add(playSpectator, BorderLayout.EAST);
+		add(playSpectator, BorderLayout.EAST);
 		playSpectator.setVisible(true);
 
 		JPanel chessBoard = new JPanel();
@@ -172,9 +135,9 @@ public class GameFrame_1vs1 {
 				}
 			}
 		}
-		gameFrame.add(chessBoard, BorderLayout.CENTER);
-		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		gameFrame.setVisible(true);
+		add(chessBoard, BorderLayout.CENTER);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
 
 	}
 
@@ -229,7 +192,4 @@ public class GameFrame_1vs1 {
 
 	}
 
-	public void showPopUp(String msg) {
-		JOptionPane.showMessageDialog(null, msg, "System", JOptionPane.INFORMATION_MESSAGE);
-	}
 }
