@@ -48,10 +48,15 @@ public class MouseEventHandler implements MouseListener {
 					if (board.isIllegalMove(board.curPiecePos, curPos)) {
 						gFrame.addMovelog(gFrame.logTextScreen, "It is illegal Move!\n");
 					} else {
-						gFrame.addMovelog(gFrame.logTextScreen, board.getStringTurn() + " " + board.curPiece.getNameS() + " Moved "
-								+ board.getRealPos(board.curPiecePos) + " -> " + board.getRealPos(curPos));
+						gFrame.addMovelog(gFrame.logTextScreen, board.getStringTurn() + " " + board.curPiece.getNameS()
+								+ " Moved " + board.getRealPos(board.curPiecePos) + " -> " + board.getRealPos(curPos));
+						if (board.getPiece(curPos).getColor() == board.getNextTurn()
+								|| board.getPiece(curPos).getColor() == board.getPrevTurn()) {
+							gFrame.addMovelog(gFrame.logTextScreen, "It took " + board.getPiece(curPos).getColor() + " "
+									+ board.getPiece(curPos).getNameS());
+						}
 						board.Move(board.curPiecePos, curPos);
-						gFrame.turnScreen.setText(board.getStringTurn());
+						gFrame.turnScreen.setText(board.getStringTurn() + " Turn");
 						System.out.println("Moved");
 						Checker checker = new Checker(board);
 						if (checker.isChecked()) {
@@ -97,10 +102,9 @@ public class MouseEventHandler implements MouseListener {
 					if (board.isIllegalMove(board.curPiecePos, curPos)) {
 						gFrame2.addMovelog(gFrame2.logTextScreen, "It is illegal Move!\n");
 					} else {
-						gFrame.descriptionText
-								.setText(String.valueOf(board.getDeadPiece(board.curPiecePos, curPos).getName()));
-						gFrame2.addMovelog(gFrame2.logTextScreen, board.getStringTurn() + " " + board.curPiece.getNameS() + " Moved "
-								+ board.getRealPos(board.curPiecePos) + " -> " + board.getRealPos(curPos));
+						gFrame2.addMovelog(gFrame2.logTextScreen,
+								board.getStringTurn() + " " + board.curPiece.getNameS() + " Moved "
+										+ board.getRealPos(board.curPiecePos) + " -> " + board.getRealPos(curPos));
 						board.Move(board.curPiecePos, curPos);
 						gFrame2.turnScreen.setText(board.getStringTurn() + " Turn");
 						System.out.println("Moved");

@@ -61,8 +61,7 @@ public class Board_Master implements ConstDef {
 
 	public String getRealPos(Position pos) {
 		char user_curX = (char) ('A' + pos.getY());
-		int user_curY = 8 - pos.getX();
-		//String String_X = Integer.toString(user_curX);
+		int user_curY = boardSize - pos.getX();
 		String String_Y = Integer.toString(user_curY);
 		return user_curX + String_Y;
 	}
@@ -95,16 +94,6 @@ public class Board_Master implements ConstDef {
 			}
 		}
 		return false;
-	}
-
-	public Piece getDeadPiece(Position PiecePosition, Position dest) {
-		Piece corpse = getPiece(dest);
-		MT tempMT = new MT();
-		if (corpse.getName() != 0 && (corpse.getColor() != getPiece(PiecePosition).getColor())) {
-			// 가려는 위치가 MT가 아니면 (말이 있으면) && 색이 다를 때(상대방 말일 때), 말 킬처리
-			return corpse;
-		} else
-			return tempMT; // 말 킬처리 일어나지 않는 경우 MT리턴
 	}
 
 	void Move(Position PiecePosition, Position dest) {
