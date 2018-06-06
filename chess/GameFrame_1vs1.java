@@ -30,7 +30,7 @@ import pieces.Position;
 
 public class GameFrame_1vs1 {
 
-	final int width = 820;
+	final int width = 860;
 	final int height = 720;
 	JFrame gameFrame;
 	Board_1 board;
@@ -110,11 +110,11 @@ public class GameFrame_1vs1 {
 		playSpectator = new JPanel();
 		playSpectator.setLayout(new BoxLayout(playSpectator, BoxLayout.Y_AXIS));
 
-		logTextScreen = new JTextArea(5, 10);
+		logTextScreen = new JTextArea(20, 15);
 		logTextScreen.setFont(logFont);
 		logTextScreen.setEditable(false);
 		JScrollPane textScrollPane = new JScrollPane(logTextScreen);
-		textScrollPane.setPreferredSize(new Dimension(150, 400));
+		textScrollPane.setPreferredSize(new Dimension(200, 400));
 		logTextScreen.append("게임 시작!!\n"); // 초기 서순
 		playSpectator.add(textScrollPane);
 
