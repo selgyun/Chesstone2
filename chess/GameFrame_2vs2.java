@@ -12,9 +12,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
+import javax.swing.border.LineBorder;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
+
+import pieces.Position;
 
 public class GameFrame_2vs2 {
 	private static final long serialVersionUID = 1L;
@@ -46,7 +49,7 @@ public class GameFrame_2vs2 {
 		logTextScreen.setFont(myfont);
 		JScrollPane textScrollPane = new JScrollPane(logTextScreen);
 		textScrollPane.setPreferredSize(new Dimension(150,500));
-		logTextScreen.append("°ÔÀÓ ½ÃÀÛ!!\n"); //ÃÊ±â ¼­¼ø
+		logTextScreen.append("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!!\n"); //ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½
 		playSpectator.add(textScrollPane);
 
 		doc = (StyledDocument) new DefaultStyledDocument();
@@ -55,7 +58,7 @@ public class GameFrame_2vs2 {
 		StyleConstants.setForeground(textStyle, Color.RED);
 		turnScreen.setEditable(false);
 		turnScreen.setPreferredSize(new Dimension(150,50));
-		turnScreen.setText("WHITE TeamÀÇ Â÷·Ê!");
+		turnScreen.setText("WHITE Teamï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!");
 		
 		playSpectator.add(turnScreen);
 		gameFrame.add(playSpectator, BorderLayout.EAST);
@@ -72,29 +75,26 @@ public class GameFrame_2vs2 {
 				square[i][j] = new JPanel();
 				square[i][j].putClientProperty("column", i);
 				square[i][j].putClientProperty("row", j);
-
-				if ((0 <= i && i < 3) && (0 <= j && j < 3) || (11 <= i && i < 14) && (0 <= j && j < 3) || (0 <= i && i < 3) && (11 <= j && j < 14) || (11 <= i && i < 14) && (11 <= j && j < 14)) {
-					square[i][j].putClientProperty("OutOfBound", true);
-				} else
-					square[i][j].putClientProperty("OutOfBound", false);
-				
-
-				if ((boolean) square[i][j].getClientProperty("OutOfBound") == true)
-					square[i][j].setBackground(Color.GRAY);
-				else {
-					if (painter) {
-						square[i][j].setBackground(Color.ORANGE);
-						painter = false;
-					} else {
-						square[i][j].setBackground(Color.YELLOW);
-						painter = true;
-					}
-					//square[i][j].addMouseListener(new MouseEventHandler(board,this));
+				if (!Position.inRange(i, j))
+	            {
+	               square[i][j].setBackground(Color.GRAY);
+	               painter = !painter;
+	            }
+				else if (painter) {
+					square[i][j].setBackground(Color.YELLOW);
+					square[i][j].setBorder(new LineBorder(Color.YELLOW, 5));
+					painter = false;
+				} else {
+					square[i][j].setBackground(Color.ORANGE);
+					square[i][j].setBorder(new LineBorder(Color.ORANGE, 5));
+					painter = true;
 				}
+				//square[i][j].addMouseListener(new MouseEventHandler(board, this));
 				chessBoard.add(square[i][j]);
 			}
 			painter = painter ? false : true;
 		}
+
 
 		for (int i = 0; i < 14; i++) {
 			for (int j = 0; j < 14; j++) {
