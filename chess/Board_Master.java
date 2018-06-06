@@ -82,7 +82,7 @@ public class Board_Master implements ConstDef {
 		return board[x][y];
 	}
 
-	boolean getCatchable(int col, int x, int y) {
+	boolean getCatchable(int color, int x, int y) {
 		for (int i = 0; i < boardSize; i++) {
 			for (int j = 0; j < boardSize; j++) {
 				if (getPiece(i, j).getColor() == color) {
