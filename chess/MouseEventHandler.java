@@ -102,6 +102,9 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 										+ board.getRealPos(board.curPiecePos) + " -> " + board.getRealPos(curPos));
 						if (board.getPiece(curPos).getColor() == board.getNextTurn()
 								|| board.getPiece(curPos).getColor() == board.getPrevTurn()) {
+							
+							gFrame.deadPiece = board.getPiece(curPos);
+							
 							gFrame2.addMovelog(gFrame2.logTextScreen, "It took " + board.getPiece(curPos).getColorS() + " "
 									+ board.getPiece(curPos).getNameS());
 						}

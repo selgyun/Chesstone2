@@ -3,8 +3,10 @@ package chess;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -12,29 +14,72 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 
+import pieces.Piece;
 import pieces.Position;
 
 public class GameFrame_2vs2 extends GameFrame{
 	private static final long serialVersionUID = 1L;
 
-	final int width = 900;
-	final int height = 840;
+	ArrayList<Piece> dead_1 = new ArrayList<Piece>();
+	ArrayList<Piece> dead_2 = new ArrayList<Piece>();
+	ArrayList<Piece> dead_3 = new ArrayList<Piece>();
+	ArrayList<Piece> dead_4 = new ArrayList<Piece>();
+	
+	final int width = 1000;
+	final int height = 900;
+	Piece deadPiece = null;
 
 	public GameFrame_2vs2() {
 		square = new JPanel[14][14];
 		imgPan = new ImagePanel[14][14];
 		corpsePanel = new ImagePanel[4][16];
 		
+		
 		setTitle("Chess - 2vs2");
 		setSize(width, height);
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout());
+		
+		deadPiecesMaster = new JPanel();
+		deadPiecesMaster.setLayout(new FlowLayout(FlowLayout.LEFT));
+		deadPiecesMaster.setSize(20, 20);
+		descriptionText = new JTextField(9);
+		descriptionText.setHorizontalAlignment(JTextField.CENTER);
+		descriptionText.setEditable(false);
+		descriptionText.setText("Dead Pieces");
+
+		deadPiecesPanel = new JPanel();
+		deadPiecesPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+		
+		
+		for (int i = 0; i < 2; i++) {
+			for(int j=0; j < 16; j++) {
+				try {
+					corpsePanel[i][j] = new ImagePanel();
+					corpsePanel[i][j].setImage(null);
+					corpsePanel[i][j].setPreferredSize(new Dimension(20, 20));
+					deadPiecesPanel.add(corpsePanel[i][j]);
+				} catch (NullPointerException e) {
+				}
+			}
+		}
+		
+		descriptionText.setBackground(new Color(185,237,193));
+		descriptionText.setForeground(new Color(32,148,120));
+		loadNewFont("fonts\\koverwatch.ttf", 18f);
+		descriptionText.setFont(turnScreenFont);
+		deadPiecesPanel.setBackground(Color.white);
+		deadPiecesMaster.add(descriptionText);
+		deadPiecesMaster.add(deadPiecesPanel);
+
+		add(deadPiecesMaster, BorderLayout.SOUTH);
 		
 		playSpectator = new JPanel();
 		playSpectator.setLayout(new BoxLayout(playSpectator, BoxLayout.Y_AXIS));
@@ -42,7 +87,7 @@ public class GameFrame_2vs2 extends GameFrame{
 		logTextScreen = new JTextArea(5, 10);
 		logTextScreen.setFont(logFont);
 		JScrollPane textScrollPane = new JScrollPane(logTextScreen);
-		textScrollPane.setPreferredSize(new Dimension(200, 750));
+		textScrollPane.setPreferredSize(new Dimension(215, 750));
 		logTextScreen.append("게임 시작!!\n");
 		playSpectator.add(textScrollPane);
 
@@ -172,6 +217,50 @@ public class GameFrame_2vs2 extends GameFrame{
 			}
 		}
 
+		if (deadPiece != null) {
+			if(deadPiece.getColor() == WHITE)
+			{
+				dead_1.add(deadPiece);
+			}
+			else if(deadPiece.getColor() == RED)
+			{
+				dead_2.add(deadPiece);
+			}
+			else if(deadPiece.getColor() == BLACK)
+			{
+				dead_3.add(deadPiece);
+			}
+			else if(deadPiece.getColor() == GREEN)
+			{
+				dead_4.add(deadPiece);
+			}
+			deadPiece = null;
+		}
+		
+		for (int i = 0; i < dead_1.size(); i++)
+		{
+			BufferedImage temp = dead_1.get(i).getImg();
+			corpsePanel[0][i].setImage(temp);
+			corpsePanel[0][i].repaint();
+		}
+		for (int i = 0; i < dead_2.size(); i++)
+		{
+			BufferedImage temp = dead_2.get(i).getImg();
+			corpsePanel[1][i].setImage(temp);
+			corpsePanel[1][i].repaint();
+		}
+		for (int i = 0; i < dead_3.size(); i++)
+		{
+			BufferedImage temp = dead_3.get(i).getImg();
+			corpsePanel[2][i].setImage(temp);
+			corpsePanel[2][i].repaint();
+		}
+		for (int i = 0; i < dead_4.size(); i++)
+		{
+			BufferedImage temp = dead_4.get(i).getImg();
+			corpsePanel[3][i].setImage(temp);
+			corpsePanel[3][i].repaint();
+		}
 	}
 
 	public void showPopUp(String msg) {
