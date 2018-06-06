@@ -49,10 +49,16 @@ public class Checker implements ConstDef {
 		}
 		// done
 		// king cannot move
-		if (board.getPiece(KingX, KingY).getMovement(board, new Position(KingX, KingY)).size() > 0) {
-			return false;
+		for (int X = -1; X < 2 && (KingX+X < board.boardSize && 0 <= KingX+X); X++) {
+			for (int Y = -1; Y < 2 && (KingY+Y < board.boardSize && 0 <= KingY+Y); Y++) {
+				if (board.getPiece(KingX, KingY).getColor() == board.getTurn()|| !board.getCatchable(board.getNextTurn(), KingX+X, KingY+Y)) {
+					return false;
+				}
+			}
 		}
+		
 		// there is no legal move
+		
 		for (int X = 0; X < board.boardSize; X++) {
 			for (int Y = 0; Y < board.boardSize; Y++) {
 				if (board.getCatchable(board.getTurn(), X, Y))
