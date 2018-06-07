@@ -196,6 +196,7 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 							if (checker.isCheckMate(board.getTeamTurn())) {
 								gFrame2.addMovelog(gFrame2.logTextScreen, "Player " + board.getStringTurn(board.getTurn())+" CheckMate!");
 								int checked = board.getTeamTurn();
+								board.dead[checked] = true;
 								switch (checked) {
 								case BLACK:
 								case WHITE:
