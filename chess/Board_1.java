@@ -13,7 +13,7 @@ import pieces.Position;
 import pieces.Queen;
 import pieces.Rook;
 
-public class Board_1 extends Board_Master implements ConstDef {
+public class Board_1 extends Board_Master {
 
 	// 20180531 RedJen Initialized
 

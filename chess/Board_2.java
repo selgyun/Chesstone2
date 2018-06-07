@@ -2,7 +2,7 @@ package chess;
 
 import pieces.*;
 
-public class Board_2 extends Board_Master implements ConstDef {
+public class Board_2 extends Board_Master {
 	// 20180531 RedJen Initialized
 
 	public Board_2() {

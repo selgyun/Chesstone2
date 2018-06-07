@@ -89,7 +89,7 @@ public class Checker implements ConstDef {
 			for (int Y = 0; Y < board.boardSize; Y++) {
 				Piece nowPiece = board.getPiece(X, Y);
 				if(nowPiece.getColor() == color) {
-					if(board.getPiece(X, Y).players == 1) {
+					if(Piece.players == 1) {
 						if(isChecked(color))
 							return false;
 					}else {
