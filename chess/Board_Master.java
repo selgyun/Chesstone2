@@ -51,12 +51,12 @@ public class Board_Master implements ConstDef {
 
 	}
 
-	public String getStringTurn() {
-		if (this.turn == 1)
+	public String getStringTurn(int t) {
+		if (t == WHITE)
 			return "WHITE";
-		else if (this.turn == 2)
+		else if (t == RED)
 			return "RED";
-		else if (this.turn == 3)
+		else if (t == BLACK)
 			return "BLACK";
 		else
 			return "GREEN";
