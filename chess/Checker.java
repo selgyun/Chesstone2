@@ -84,14 +84,18 @@ public class Checker implements ConstDef {
 	}
 
 	public boolean isStaleMate(int color) {
-		if (isChecked(color)) {
-			return false;
-		}
 		// no legal move
 		for (int X = 0; X < board.boardSize; X++) {
 			for (int Y = 0; Y < board.boardSize; Y++) {
 				Piece nowPiece = board.getPiece(X, Y);
 				if(nowPiece.getColor() == color) {
+					if(board.getPiece(X, Y).players == 1) {
+						if(isChecked(color))
+							return false;
+					}else {
+						if(isChecked(color) || isChecked((color+2)%4))
+							return false;
+					}
 					Position nowPos = new Position(X, Y);
 					ArrayList<Position> nowPieceMove = nowPiece.getMovement(board, nowPos);
 					for(int i= 0; i<nowPieceMove.size(); i++) {
