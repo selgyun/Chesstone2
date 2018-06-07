@@ -148,6 +148,7 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 												}
 											}
 										}
+										gFrame2.showPopUp("Player " + board.getStringTurn(board.getTurn())+" CheckMate");
 										board.inDanger_1 = true;
 									} else {
 										gFrame2.addMovelog(gFrame2.logTextScreen, "Player " + board.getStringTurn(board.getTurn())+" Checkmate!");
@@ -166,6 +167,7 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 												}
 											}
 										}
+										gFrame2.showPopUp("Player " + board.getStringTurn(board.getTurn())+" CheckMate");
 										board.inDanger_2 = true;
 
 									} else {
@@ -175,7 +177,6 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 									break;
 								}
 
-								gFrame2.showPopUp("Player " + board.getStringTurn(board.getTurn())+" CheckMate");
 								board.nextTurn();
 							}
 						} else if (checker.isStaleMate(board.getTurn())) {
@@ -199,6 +200,7 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 												}
 											}
 										}
+										gFrame2.showPopUp("Player " + board.getStringTurn(board.getTurn()) + " CheckMate");
 										board.inDanger_1 = true;
 									} else {
 										gFrame2.addMovelog(gFrame2.logTextScreen,"Player " +  board.getStringTurn(board.getTurn())+" Checkmate!");
@@ -217,6 +219,7 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 												}
 											}
 										}
+										gFrame2.showPopUp("Player " + board.getStringTurn(board.getTurn()) + " CheckMate");
 										board.inDanger_2 = true;
 
 									} else {
@@ -226,7 +229,7 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 									break;
 								}
 
-								gFrame2.showPopUp("Player " + board.getStringTurn(board.getTurn()) + " CheckMate");
+
 								board.nextTurn();						
 							}
 						}
