@@ -56,7 +56,6 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 			} else {
 				if (board.curPiece.getMovement((Board_1) board, board.curPiecePos).contains(curPos)) {
 					if (board.isIllegalMove(board.curPiecePos, curPos)) {
-						gFrame.addMovelog(gFrame.logTextScreen, "\nIt is illegal Move!");
 					} else {
 						gFrame.addMovelog(gFrame.logTextScreen,
 								"\n" + board.getStringTurn(board.getTurn()) + " " + board.curPiece.getNameS() + " Moved "
@@ -78,7 +77,7 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 						if (checker.isChecked(board.getTurn())) {
 							gFrame.addMovelog(gFrame.logTextScreen, board.getStringTurn(board.getTurn()) + " King Checked!");
 							if (checker.isCheckMate(board.getTurn())) {
-								gFrame.addMovelog(gFrame.logTextScreen, "CheckMate!");
+								gFrame.addMovelog(gFrame.logTextScreen, " CheckMate!");
 								gFrame.showPopUp("Player " + board.getStringTurn(board.getTurn())+" CheckMate");
 							}
 						} else if (checker.isStaleMate(board.getTurn())) {
@@ -118,7 +117,6 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 			} else {
 				if (board.curPiece.getMovement(board, board.curPiecePos).contains(curPos)) {
 					if (board.isIllegalMove(board.curPiecePos, curPos)) {
-						gFrame2.addMovelog(gFrame2.logTextScreen, "\nIt is illegal Move!");
 					} else {
 						gFrame2.addMovelog(gFrame2.logTextScreen,
 								"\n" + board.getStringTurn(board.getTurn()) + " " + board.curPiece.getNameS() + " Moved "
@@ -177,7 +175,7 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 									break;
 								}
 
-								gFrame2.showPopUp("Player " + board.getStringTurn(board.getTurn())+"CheckMate");
+								gFrame2.showPopUp("Player " + board.getStringTurn(board.getTurn())+" CheckMate");
 								board.nextTurn();
 							}
 						} else if (checker.isStaleMate(board.getTurn())) {

@@ -175,7 +175,8 @@ public class GameFrame_2vs2 extends GameFrame{
 							square[i][j].setBorder(new LineBorder(new Color(240, 220, 200), 5));
 						}
 						if (board.curPiece.getMovement(board, board.curPiecePos).contains(new Position(i, j))) {
-							square[i][j].setBackground(new Color(255, 140, 30));
+							if(!board.isIllegalMove(board.curPiecePos, new Position(i, j)))
+								square[i][j].setBackground(new Color(255, 140, 30));
 						}
 					}
 					painter = painter ? false : true;
