@@ -26,13 +26,14 @@ public class Checker implements ConstDef {
 				}
 			}
 		}
-		
+
 		// is king underAttecked?
-		if(board.getPiece(KingX, KingY).players != 1)
-			return (board.getCatchable(color%4+1, KingX, KingY) || board.getCatchable((color+2)%4+1, KingX, KingY));
+		if (board.getPiece(KingX, KingY).players != 1)
+			return (board.getCatchable(color % 4 + 1, KingX, KingY)
+					|| board.getCatchable((color + 2) % 4 + 1, KingX, KingY));
 		else
-			return (board.getCatchable((color+2)%4, KingX, KingY));
-		
+			return (board.getCatchable((color + 2) % 4, KingX, KingY));
+
 	}
 
 	public boolean isCheckMate(int color) {
@@ -57,9 +58,7 @@ public class Checker implements ConstDef {
 		// king cannot move
 		ArrayList<Position> KingMovement = board.getPiece(KingPos).getMovement(board, KingPos);
 		for (int i = 0; i < KingMovement.size(); i++) {
-			if (board.getCatchable(board.getNextTurn(), KingMovement.get(i).getX(), KingMovement.get(i).getY())) {
-			}
-			else {
+			if (!board.isIllegalMove(KingPos, KingMovement.get(i))) {
 				return false;
 			}
 		}
@@ -69,12 +68,24 @@ public class Checker implements ConstDef {
 		for (int X = 0; X < board.boardSize; X++) {
 			for (int Y = 0; Y < board.boardSize; Y++) {
 				Piece nowPiece = board.getPiece(X, Y);
-				if(nowPiece.getColor() == color) {
-					Position nowPos = new Position(X, Y);
-					ArrayList<Position> nowPieceMove = nowPiece.getMovement(board, nowPos);
-					for(int i= 0; i<nowPieceMove.size(); i++) {
-						if(!board.isIllegalMove(nowPos, nowPieceMove.get(i))){
-							return false;
+				if (board.getPiece(X, Y).players == 1) {
+					if (nowPiece.getColor() == color) {
+						Position nowPos = new Position(X, Y);
+						ArrayList<Position> nowPieceMove = nowPiece.getMovement(board, nowPos);
+						for (int i = 0; i < nowPieceMove.size(); i++) {
+							if (!board.isIllegalMove(nowPos, nowPieceMove.get(i))) {
+								return false;
+							}
+						}
+					}
+				}else {
+					if (nowPiece.getColor() == color || nowPiece.getColor() == (color+2) % 4) {
+						Position nowPos = new Position(X, Y);
+						ArrayList<Position> nowPieceMove = nowPiece.getMovement(board, nowPos);
+						for (int i = 0; i < nowPieceMove.size(); i++) {
+							if (!board.isIllegalMove(nowPos, nowPieceMove.get(i))) {
+								return false;
+							}
 						}
 					}
 				}
@@ -88,18 +99,18 @@ public class Checker implements ConstDef {
 		for (int X = 0; X < board.boardSize; X++) {
 			for (int Y = 0; Y < board.boardSize; Y++) {
 				Piece nowPiece = board.getPiece(X, Y);
-				if(nowPiece.getColor() == color) {
-					if(Piece.players == 1) {
-						if(isChecked(color))
+				if (nowPiece.getColor() == color) {
+					if (Piece.players == 1) {
+						if (isChecked(color))
 							return false;
-					}else {
-						if(isChecked(color) || isChecked((color+2)%4))
+					} else {
+						if (isChecked(color) || isChecked((color + 2) % 4))
 							return false;
 					}
 					Position nowPos = new Position(X, Y);
 					ArrayList<Position> nowPieceMove = nowPiece.getMovement(board, nowPos);
-					for(int i= 0; i<nowPieceMove.size(); i++) {
-						if(!board.isIllegalMove(nowPos, nowPieceMove.get(i))){
+					for (int i = 0; i < nowPieceMove.size(); i++) {
+						if (!board.isIllegalMove(nowPos, nowPieceMove.get(i))) {
 							return false;
 						}
 					}
