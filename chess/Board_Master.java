@@ -21,6 +21,8 @@ public class Board_Master implements ConstDef {
 
 	public boolean inDanger_1 = false;
 	public boolean inDanger_2 = false;
+	
+	public boolean dead[] = {true, false, false, false, false};
 
 	public int getTurn() {
 		return turn;
@@ -45,10 +47,12 @@ public class Board_Master implements ConstDef {
 	}
 
 	public void nextTurn() {
+		System.out.println(turn);
 		turn += skipTurn;
 		if (turn > 4)
 			turn = WHITE;
-
+		if (dead[turn])
+			nextTurn();
 	}
 
 	public String getStringTurn(int t) {

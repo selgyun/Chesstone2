@@ -72,21 +72,14 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 
 						board.Move(board.curPiecePos, curPos);
 						
-						//Change Turn Color
-						try {
-							gFrame.doc.remove(0, gFrame.doc.getLength());
-							StyleConstants.setForeground(gFrame.colorChange, intToColor(board.getTurn()));
-							gFrame.doc.insertString(gFrame.doc.getLength(), board.getStringTurn(board.getTurn()), gFrame.colorChange);
-							gFrame.doc.insertString(gFrame.doc.getLength(), " Turn", gFrame.textStyle);
-						}	catch(BadLocationException badboy) {		
-						}
+				
 						
 						Checker checker = new Checker(board);
 						if (checker.isChecked(board.getTurn())) {
 							gFrame.addMovelog(gFrame.logTextScreen, board.getStringTurn(board.getTurn()) + " King Checked!");
 							if (checker.isCheckMate(board.getTurn())) {
 								gFrame.addMovelog(gFrame.logTextScreen, "CheckMate!");
-								gFrame.showPopUp(board.getStringTurn(board.getTurn())+" team "+"CheckMate");
+								gFrame.showPopUp("Player " + board.getStringTurn(board.getTurn())+" CheckMate");
 							}
 						} else if (checker.isStaleMate(board.getTurn())) {
 							gFrame.addMovelog(gFrame.logTextScreen, "StaleMate!");
@@ -101,6 +94,15 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 					board.curPiece = null;
 				}
 			}
+			//Change Turn Color
+			try {
+				gFrame.doc.remove(0, gFrame.doc.getLength());
+				StyleConstants.setForeground(gFrame.colorChange, intToColor(board.getTurn()));
+				gFrame.doc.insertString(gFrame.doc.getLength(), board.getStringTurn(board.getTurn()), gFrame.colorChange);
+				gFrame.doc.insertString(gFrame.doc.getLength(), " Turn", gFrame.textStyle);
+			}	catch(BadLocationException badboy) {		
+			}
+			
 			gFrame.change();
 		} else {
 			JPanel curSquare = (JPanel) e.getSource();
@@ -127,24 +129,15 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 							gFrame2.addMovelog(gFrame2.logTextScreen, "It took " + board.getPiece(curPos).getColorS()
 									+ " " + board.getPiece(curPos).getNameS());
 						}
-						board.Move(board.curPiecePos, curPos);
-						
-						//Change Turn Color
-						try {
-							gFrame2.doc.remove(0, gFrame2.doc.getLength());
-							StyleConstants.setForeground(gFrame2.colorChange, intToColor(board.getTurn()));
-							gFrame2.doc.insertString(gFrame2.doc.getLength(), board.getStringTurn(board.getTurn()), gFrame2.colorChange);
-							gFrame2.doc.insertString(gFrame2.doc.getLength(), " Turn", gFrame2.textStyle);
-						}	catch(BadLocationException badboy) {		
-						}
-						
+						board.Move(board.curPiecePos, curPos);						
 						
 						Checker checker = new Checker(board);
 						if (checker.isChecked(board.getTurn())) {
 							gFrame2.addMovelog(gFrame2.logTextScreen, board.getStringTurn(board.getTurn()) + " King Checked!");
 							if (checker.isCheckMate(board.getTurn())) {
-								gFrame2.addMovelog(gFrame2.logTextScreen, board.getStringTurn(board.getTurn())+" team "+"CheckMate!");
+								gFrame2.addMovelog(gFrame2.logTextScreen, "Player " + board.getStringTurn(board.getTurn())+" CheckMate!");
 								int checked = board.getTurn();
+								board.dead[checked] = true;
 								switch (checked) {
 								case BLACK:
 								case WHITE:
@@ -159,7 +152,7 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 										}
 										board.inDanger_1 = true;
 									} else {
-										gFrame2.addMovelog(gFrame2.logTextScreen, board.getStringTurn(board.getTurn())+" team "+"Checkmate!");
+										gFrame2.addMovelog(gFrame2.logTextScreen, "Player " + board.getStringTurn(board.getTurn())+" Checkmate!");
 										gFrame2.showPopUp("Team2 WIN!!");
 									}
 									break;
@@ -178,13 +171,14 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 										board.inDanger_2 = true;
 
 									} else {
-										gFrame2.addMovelog(gFrame2.logTextScreen, board.getStringTurn(board.getTurn())+" team "+"Checkmate!");
+										gFrame2.addMovelog(gFrame2.logTextScreen, "Player " + board.getStringTurn(board.getTurn())+" Checkmate!");
 										gFrame2.showPopUp("Team1 WIN!!");
 									}
 									break;
 								}
 
-								gFrame2.showPopUp(board.getStringTurn(board.getTurn())+" team "+"CheckMate");
+								gFrame2.showPopUp("Player " + board.getStringTurn(board.getTurn())+"CheckMate");
+								board.nextTurn();
 							}
 						} else if (checker.isStaleMate(board.getTurn())) {
 							gFrame2.addMovelog(gFrame2.logTextScreen, "StaleMate!");
@@ -193,7 +187,7 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 						if (checker.isChecked(board.getTeamTurn())) {
 							gFrame2.addMovelog(gFrame2.logTextScreen, board.getStringTurn(board.getTeamTurn()) + " King Checked!");
 							if (checker.isCheckMate(board.getTeamTurn())) {
-								gFrame2.addMovelog(gFrame2.logTextScreen, board.getStringTurn(board.getTurn())+" team "+"CheckMate!");
+								gFrame2.addMovelog(gFrame2.logTextScreen, "Player " + board.getStringTurn(board.getTurn())+" CheckMate!");
 								int checked = board.getTeamTurn();
 								switch (checked) {
 								case BLACK:
@@ -209,7 +203,7 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 										}
 										board.inDanger_1 = true;
 									} else {
-										gFrame2.addMovelog(gFrame2.logTextScreen, board.getStringTurn(board.getTurn())+" team "+"Checkmate!");
+										gFrame2.addMovelog(gFrame2.logTextScreen,"Player " +  board.getStringTurn(board.getTurn())+" Checkmate!");
 										gFrame2.showPopUp("Team2 WIN!!");
 									}
 									break;
@@ -228,13 +222,14 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 										board.inDanger_2 = true;
 
 									} else {
-										gFrame2.addMovelog(gFrame2.logTextScreen, board.getStringTurn(board.getTurn())+" team "+"Checkmate!");
+										gFrame2.addMovelog(gFrame2.logTextScreen, "Player " + board.getStringTurn(board.getTurn())+" Checkmate!");
 										gFrame2.showPopUp("Team1 WIN!!");
 									}
 									break;
 								}
 
-								gFrame2.showPopUp(board.getStringTurn(board.getTurn())+" team "+"CheckMate");
+								gFrame2.showPopUp("Player " + board.getStringTurn(board.getTurn()) + " CheckMate");
+								board.nextTurn();						
 							}
 						}
 					}
@@ -247,6 +242,16 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 				}
 
 			}
+			
+			//Change Turn Color
+			try {
+				gFrame2.doc.remove(0, gFrame2.doc.getLength());
+				StyleConstants.setForeground(gFrame2.colorChange, intToColor(board.getTurn()));
+				gFrame2.doc.insertString(gFrame2.doc.getLength(), board.getStringTurn(board.getTurn()), gFrame2.colorChange);
+				gFrame2.doc.insertString(gFrame2.doc.getLength(), " Turn", gFrame2.textStyle);
+			}	catch(BadLocationException badboy) {		
+			}
+			
 			gFrame2.change();
 		}
 	}
