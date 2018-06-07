@@ -59,7 +59,7 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 						gFrame.addMovelog(gFrame.logTextScreen, "\nIt is illegal Move!");
 					} else {
 						gFrame.addMovelog(gFrame.logTextScreen,
-								"\n" + board.getStringTurn() + " " + board.curPiece.getNameS() + " Moved "
+								"\n" + board.getStringTurn(board.turn) + " " + board.curPiece.getNameS() + " Moved "
 										+ board.getRealPos(board.curPiecePos) + " -> " + board.getRealPos(curPos));
 						if (board.getPiece(curPos).getColor() == board.getNextTurn()
 								|| board.getPiece(curPos).getColor() == board.getPrevTurn()) {
@@ -76,14 +76,14 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 						try {
 							gFrame.doc.remove(0, gFrame.doc.getLength());
 							StyleConstants.setForeground(gFrame.colorChange, intToColor(board.getTurn()));
-							gFrame.doc.insertString(gFrame.doc.getLength(), board.getStringTurn(), gFrame.colorChange);
+							gFrame.doc.insertString(gFrame.doc.getLength(), board.getStringTurn(board.turn), gFrame.colorChange);
 							gFrame.doc.insertString(gFrame.doc.getLength(), " Turn", gFrame.textStyle);
 						}	catch(BadLocationException badboy) {		
 						}
 						
 						Checker checker = new Checker(board);
 						if (checker.isChecked(board.getTurn())) {
-							gFrame.addMovelog(gFrame.logTextScreen, board.getStringTurn() + " King Checked!");
+							gFrame.addMovelog(gFrame.logTextScreen, board.getStringTurn(board.turn) + " King Checked!");
 							if (checker.isCheckMate(board.getTurn())) {
 								gFrame.addMovelog(gFrame.logTextScreen, "CheckMate!");
 								gFrame.showPopUp("CheckMate");
@@ -119,7 +119,7 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 						gFrame2.addMovelog(gFrame2.logTextScreen, "\nIt is illegal Move!");
 					} else {
 						gFrame2.addMovelog(gFrame2.logTextScreen,
-								"\n" + board.getStringTurn() + " " + board.curPiece.getNameS() + " Moved "
+								"\n" + board.getStringTurn(board.turn) + " " + board.curPiece.getNameS() + " Moved "
 										+ board.getRealPos(board.curPiecePos) + " -> " + board.getRealPos(curPos));
 						if (board.getPiece(curPos).getColor() == board.getNextTurn()
 								|| board.getPiece(curPos).getColor() == board.getPrevTurn()) {
@@ -133,7 +133,7 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 						try {
 							gFrame2.doc.remove(0, gFrame2.doc.getLength());
 							StyleConstants.setForeground(gFrame2.colorChange, intToColor(board.getTurn()));
-							gFrame2.doc.insertString(gFrame2.doc.getLength(), board.getStringTurn(), gFrame2.colorChange);
+							gFrame2.doc.insertString(gFrame2.doc.getLength(), board.getStringTurn(board.turn), gFrame2.colorChange);
 							gFrame2.doc.insertString(gFrame2.doc.getLength(), " Turn", gFrame2.textStyle);
 						}	catch(BadLocationException badboy) {		
 						}
@@ -141,7 +141,7 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 						
 						Checker checker = new Checker(board);
 						if (checker.isChecked(board.getTurn())) {
-							gFrame2.addMovelog(gFrame2.logTextScreen, board.getStringTurn() + " King Checked!");
+							gFrame2.addMovelog(gFrame2.logTextScreen, board.getStringTurn(board.turn) + " King Checked!");
 							if (checker.isCheckMate(board.getTurn())) {
 								gFrame2.addMovelog(gFrame2.logTextScreen, "CheckMate!");
 								int checked = board.getTurn();
@@ -191,7 +191,7 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 							gFrame2.showPopUp("Draw!!");
 						}
 						if (checker.isChecked(board.getTeamTurn())) {
-							gFrame2.addMovelog(gFrame2.logTextScreen, board.getStringTurn() + " King Checked!");
+							gFrame2.addMovelog(gFrame2.logTextScreen, board.getStringTurn(board.turn) + " King Checked!");
 							if (checker.isCheckMate(board.getTeamTurn())) {
 								gFrame2.addMovelog(gFrame2.logTextScreen, "CheckMate!");
 								int checked = board.getTeamTurn();
