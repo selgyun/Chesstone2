@@ -16,23 +16,23 @@ public class Checker implements ConstDef {
 
 	public boolean isChecked(int color) {
 		// find king position
-		int KingX = 0, KingY = 0;
+		int kingX = 0, kingY = 0;
 
 		for (int X = 0; X < board.boardSize; X++) {
 			for (int Y = 0; Y < board.boardSize; Y++) {
 				if (board.getPiece(X, Y).getName() == KING && board.getPiece(X, Y).getColor() == color) {
-					KingX = X;
-					KingY = Y;
+					kingX = X;
+					kingY = Y;
 				}
 			}
 		}
 
 		// is king underAttecked?
-		if (board.getPiece(KingX, KingY).players != 1)
-			return (board.getCatchable(color % 4 + 1, KingX, KingY)
-					|| board.getCatchable((color + 2) % 4 + 1, KingX, KingY));
+		if (board.getPiece(kingX, kingY).players != 1)
+			return (board.getCatchable(color % 4 + 1, kingX, kingY)
+					|| board.getCatchable((color + 2) % 4 + 1, kingX, kingY));
 		else
-			return (board.getCatchable((color + 2) % 4, KingX, KingY));
+			return (board.getCatchable((color + 2) % 4, kingX, kingY));
 
 	}
 
@@ -41,24 +41,24 @@ public class Checker implements ConstDef {
 			return false;
 		}
 		// find king position
-		int KingX = 0, KingY = 0;
-		Position KingPos = null;
+		int kingX = 0, kingY = 0;
+		Position kingPos = null;
 
 		LABEL: for (int X = 0; X < board.boardSize; X++) {
 			for (int Y = 0; Y < board.boardSize; Y++) {
 				if (board.getPiece(X, Y).getName() == KING && board.getPiece(X, Y).getColor() == color) {
-					KingX = X;
-					KingY = Y;
-					KingPos = new Position(X, Y);
+					kingX = X;
+					kingY = Y;
+					kingPos = new Position(X, Y);
 					break LABEL;
 				}
 			}
 		}
 
 		// king cannot move
-		ArrayList<Position> KingMovement = board.getPiece(KingPos).getMovement(board, KingPos);
+		ArrayList<Position> KingMovement = board.getPiece(kingPos).getMovement(board, kingPos);
 		for (int i = 0; i < KingMovement.size(); i++) {
-			if (!board.isIllegalMove(KingPos, KingMovement.get(i))) {
+			if (!board.isIllegalMove(kingPos, KingMovement.get(i))) {
 				return false;
 			}
 		}
