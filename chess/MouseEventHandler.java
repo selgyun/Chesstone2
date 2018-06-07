@@ -86,7 +86,7 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 							gFrame.addMovelog(gFrame.logTextScreen, board.getStringTurn(board.getTurn()) + " King Checked!");
 							if (checker.isCheckMate(board.getTurn())) {
 								gFrame.addMovelog(gFrame.logTextScreen, "CheckMate!");
-								gFrame.showPopUp("CheckMate");
+								gFrame.showPopUp(board.getStringTurn(board.getTurn())+" team "+"CheckMate");
 							}
 						} else if (checker.isStaleMate(board.getTurn())) {
 							gFrame.addMovelog(gFrame.logTextScreen, "StaleMate!");
@@ -143,7 +143,7 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 						if (checker.isChecked(board.getTurn())) {
 							gFrame2.addMovelog(gFrame2.logTextScreen, board.getStringTurn(board.getTurn()) + " King Checked!");
 							if (checker.isCheckMate(board.getTurn())) {
-								gFrame2.addMovelog(gFrame2.logTextScreen, "CheckMate!");
+								gFrame2.addMovelog(gFrame2.logTextScreen, board.getStringTurn(board.getTurn())+" team "+"CheckMate!");
 								int checked = board.getTurn();
 								switch (checked) {
 								case BLACK:
@@ -159,7 +159,7 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 										}
 										board.inDanger_1 = true;
 									} else {
-										gFrame2.addMovelog(gFrame2.logTextScreen, "Checkmate!");
+										gFrame2.addMovelog(gFrame2.logTextScreen, board.getStringTurn(board.getTurn())+" team "+"Checkmate!");
 										gFrame2.showPopUp("Team2 WIN!!");
 									}
 									break;
@@ -178,13 +178,13 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 										board.inDanger_2 = true;
 
 									} else {
-										gFrame2.addMovelog(gFrame2.logTextScreen, "Checkmate!");
+										gFrame2.addMovelog(gFrame2.logTextScreen, board.getStringTurn(board.getTurn())+" team "+"Checkmate!");
 										gFrame2.showPopUp("Team1 WIN!!");
 									}
 									break;
 								}
 
-								gFrame2.showPopUp("CheckMate");
+								gFrame2.showPopUp(board.getStringTurn(board.getTurn())+" team "+"CheckMate");
 							}
 						} else if (checker.isStaleMate(board.getTurn())) {
 							gFrame2.addMovelog(gFrame2.logTextScreen, "StaleMate!");
@@ -193,7 +193,7 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 						if (checker.isChecked(board.getTeamTurn())) {
 							gFrame2.addMovelog(gFrame2.logTextScreen, board.getStringTurn(board.getTeamTurn()) + " King Checked!");
 							if (checker.isCheckMate(board.getTeamTurn())) {
-								gFrame2.addMovelog(gFrame2.logTextScreen, "CheckMate!");
+								gFrame2.addMovelog(gFrame2.logTextScreen, board.getStringTurn(board.getTurn())+" team "+"CheckMate!");
 								int checked = board.getTeamTurn();
 								switch (checked) {
 								case BLACK:
@@ -209,7 +209,7 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 										}
 										board.inDanger_1 = true;
 									} else {
-										gFrame2.addMovelog(gFrame2.logTextScreen, "Checkmate!");
+										gFrame2.addMovelog(gFrame2.logTextScreen, board.getStringTurn(board.getTurn())+" team "+"Checkmate!");
 										gFrame2.showPopUp("Team2 WIN!!");
 									}
 									break;
@@ -228,13 +228,13 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 										board.inDanger_2 = true;
 
 									} else {
-										gFrame2.addMovelog(gFrame2.logTextScreen, "Checkmate!");
+										gFrame2.addMovelog(gFrame2.logTextScreen, board.getStringTurn(board.getTurn())+" team "+"Checkmate!");
 										gFrame2.showPopUp("Team1 WIN!!");
 									}
 									break;
 								}
 
-								gFrame2.showPopUp("CheckMate");
+								gFrame2.showPopUp(board.getStringTurn(board.getTurn())+" team "+"CheckMate");
 							}
 						}
 					}
