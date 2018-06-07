@@ -28,7 +28,7 @@ public class Checker implements ConstDef {
 		}
 
 		// is king underAttecked?
-		if (board.getPiece(kingX, kingY).players != 1)
+		if (Piece.players != 1)
 			return (board.getCatchable(color % 4 + 1, kingX, kingY)
 					|| board.getCatchable((color + 2) % 4 + 1, kingX, kingY));
 		else
@@ -68,7 +68,7 @@ public class Checker implements ConstDef {
 		for (int X = 0; X < board.boardSize; X++) {
 			for (int Y = 0; Y < board.boardSize; Y++) {
 				Piece nowPiece = board.getPiece(X, Y);
-				if (board.getPiece(X, Y).players == 1) {
+				
 					if (nowPiece.getColor() == color) {
 						Position nowPos = new Position(X, Y);
 						ArrayList<Position> nowPieceMove = nowPiece.getMovement(board, nowPos);
@@ -78,17 +78,7 @@ public class Checker implements ConstDef {
 							}
 						}
 					}
-				}else {
-					if (nowPiece.getColor() == color || nowPiece.getColor() == (color+2) % 4) {
-						Position nowPos = new Position(X, Y);
-						ArrayList<Position> nowPieceMove = nowPiece.getMovement(board, nowPos);
-						for (int i = 0; i < nowPieceMove.size(); i++) {
-							if (!board.isIllegalMove(nowPos, nowPieceMove.get(i))) {
-								return false;
-							}
-						}
-					}
-				}
+					
 			}
 		}
 		return true;
