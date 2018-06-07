@@ -20,6 +20,7 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 	GameFrame_1vs1 gFrame;
 	GameFrame_2vs2 gFrame2;
 	ImagePanel[][] CorpsePanel = new ImagePanel[4][16];
+	static boolean endGame = false;
 	
 	Color intToColor(int colorType){
 		switch(colorType){
@@ -43,6 +44,8 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		if(endGame)	return;
+		
 		if (gFrame != null) {
 			JPanel curSquare = (JPanel) e.getSource();
 			int curX = (int) curSquare.getClientProperty("column");
@@ -79,10 +82,12 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 							if (checker.isCheckMate(board.getTurn())) {
 								gFrame.addMovelog(gFrame.logTextScreen, " CheckMate!");
 								gFrame.showPopUp("Player " + board.getStringTurn(board.getTurn())+" CheckMate");
+								endGame = true;
 							}
 						} else if (checker.isStaleMate(board.getTurn())) {
 							gFrame.addMovelog(gFrame.logTextScreen, "StaleMate!");
 							gFrame.showPopUp("StaleMate");
+							endGame = true;
 						}
 					}
 				} else if (board.getPiece(curPos).getColor() == board.getTurn()
@@ -153,6 +158,7 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 									} else {
 										gFrame2.addMovelog(gFrame2.logTextScreen, "Player " + board.getStringTurn(board.getTurn())+" Checkmate!");
 										gFrame2.showPopUp("Team2 WIN!!");
+										endGame = true;
 									}
 									break;
 
@@ -173,6 +179,7 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 									} else {
 										gFrame2.addMovelog(gFrame2.logTextScreen, "Player " + board.getStringTurn(board.getTurn())+" Checkmate!");
 										gFrame2.showPopUp("Team1 WIN!!");
+										endGame = true;
 									}
 									break;
 								}
@@ -182,6 +189,7 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 						} else if (checker.isStaleMate(board.getTurn())) {
 							gFrame2.addMovelog(gFrame2.logTextScreen, "StaleMate!");
 							gFrame2.showPopUp("Draw!!");
+							endGame = true;
 						}
 						if (checker.isChecked(board.getTeamTurn())) {
 							gFrame2.addMovelog(gFrame2.logTextScreen, board.getStringTurn(board.getTeamTurn()) + " King Checked!");
@@ -205,6 +213,7 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 									} else {
 										gFrame2.addMovelog(gFrame2.logTextScreen,"Player " +  board.getStringTurn(board.getTurn())+" Checkmate!");
 										gFrame2.showPopUp("Team2 WIN!!");
+										endGame = true;
 									}
 									break;
 
@@ -225,6 +234,7 @@ public class MouseEventHandler implements MouseListener, ConstDef {
 									} else {
 										gFrame2.addMovelog(gFrame2.logTextScreen, "Player " + board.getStringTurn(board.getTurn())+" Checkmate!");
 										gFrame2.showPopUp("Team1 WIN!!");
+										endGame = true;
 									}
 									break;
 								}
